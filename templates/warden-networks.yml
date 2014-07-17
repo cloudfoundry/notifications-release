@@ -2,33 +2,15 @@ networks:
 - name: default
   type: manual
   subnets:
-  - range: 10.244.4.0/30
+  - range: 10.244.5.0/30
     reserved:
-     - 10.244.4.1
+     - 10.244.5.1
     static: []
     cloud_properties:
       name: random
-  - range: 10.244.4.4/30
+  - range: 10.244.5.4/30
     reserved:
-     - 10.244.4.5
-    static: []
-    cloud_properties:
-      name: random
-  - range: 10.244.4.8/30
-    reserved:
-     - 10.244.4.9
-    static: []
-    cloud_properties:
-      name: random
-  - range: 10.244.4.12/30
-    reserved:
-     - 10.244.4.13
-    static: []
-    cloud_properties:
-      name: random
-  - range: 10.244.4.16/30
-    reserved:
-     - 10.244.4.17
+     - 10.244.5.5
     static: []
     cloud_properties:
       name: random
