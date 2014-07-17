@@ -1,0 +1,17 @@
+#*
+*#
+*.swp
+*~
+.DS_Store
+.blobs
+.dev_builds
+.final_builds/jobs/**/*.tgz
+.final_builds/packages/**/*.tgz
+.idea
+blobs
+bosh-lite/manifests/*
+bosh-lite/tmp/*
+config/dev.yml
+config/private.yml
+dev_releases
+releases/*.tgz

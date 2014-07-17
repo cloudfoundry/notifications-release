@@ -1,0 +1,15 @@
+#! /bin/bash
+
+templates=$(dirname $0)/templates
+
+infrastructure=$1
+
+shift
+
+spiff merge \
+  $templates/notifications-template.yml \
+  $templates/$infrastructure-resource-pools.yml \
+  $templates/notifications-jobs.yml \
+  $templates/$infrastructure-networks.yml \
+  $*
+

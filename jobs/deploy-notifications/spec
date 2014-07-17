@@ -1,0 +1,7 @@
+---
+name: deploy-notifications
+templates:
+  deploy.sh.erb: bin/run
+packages:
+- notifications
+- cf_cli

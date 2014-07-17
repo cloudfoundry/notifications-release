@@ -1,0 +1,5 @@
+---
+name: notifications
+
+files:
+  - notifications/**/*

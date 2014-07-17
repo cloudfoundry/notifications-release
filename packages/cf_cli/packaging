@@ -1,0 +1,6 @@
+#! /bin/bash
+set -e
+
+mkdir -p ${BOSH_INSTALL_TARGET}/bin
+tar zxvf cf_cli/cf-linux-amd64.tgz
+cp cf ${BOSH_INSTALL_TARGET}/bin/

@@ -1,0 +1,12 @@
+networks: (( merge ))
+jobs: (( merge ))
+
+resource_pools:
+- name: default
+  network: default
+  size: (( auto ))
+  stemcell:
+    name: bosh-warden-boshlite-ubuntu-lucid-go_agent
+    version: latest
+  cloud_properties:
+    name: random

@@ -1,0 +1,55 @@
+#!/bin/bash
+set -e -x
+
+export PATH="/var/vcap/packages/cf_cli/bin:$PATH"
+
+export SCHEME=https
+export DOMAIN=<%= properties.domain %>
+export ADMIN_USER=<%= properties.notifications.cf.admin_user %>
+export ADMIN_PASSWORD=<%= properties.notifications.cf.admin_password %>
+export API_ENDPOINT=$SCHEME://api.$DOMAIN
+export ORG=notifications-service
+export SPACE=notifications-service
+export QUOTA=notifications-service
+export APP_NAME=notifications
+export APP_DOMAIN=<%= properties.notifications.app_domain %>
+
+export CF_HOME=`pwd`/home/cf
+mkdir -p $CF_HOME
+
+function authenticate_and_target() {
+  cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
+  cf auth $ADMIN_USER $ADMIN_PASSWORD
+  cf create-org $ORG
+  cf target -o $ORG
+  cf create-space $SPACE
+  cf target -s $SPACE
+}
+
+function create_quota() {
+  cf create-quota $QUOTA -m 1G -r 10 -s 10
+  cf update-quota $QUOTA -m 1G -r 10 -s 10 --disallow-paid-service-plans
+  cf set-quota $ORG $QUOTA
+}
+
+function add_env_vars() {
+}
+
+function push_app() {
+  pushd /var/vcap/packages/notifications
+    mkdir -p /var/vcap/data/tmp
+    export TMPDIR=/var/vcap/data/tmp
+    cf push $APP_NAME --no-start -n $APP_DOMAIN
+  popd
+}
+
+function boot_app() {
+  cf restart $APP_NAME
+}
+
+cf -v
+authenticate_and_target
+create_quota
+push_app
+add_env_vars
+boot_app

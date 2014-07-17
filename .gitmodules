@@ -1,0 +1,3 @@
+[submodule "src/notifications"]
+	path = src/notifications
+	url = git@github.com:cloudfoundry-incubator/notifications.git

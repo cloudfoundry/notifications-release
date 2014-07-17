@@ -1,0 +1,6 @@
+---
+director_uuid: PLACEHOLDER-DIRECTOR-UUID
+
+properties:
+  notifications:
+    network: default

@@ -1,0 +1,4 @@
+#! bin/bash
+set -e -x
+
+rsync -a notifications/ ${BOSH_INSTALL_TARGET}
