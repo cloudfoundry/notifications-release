@@ -1,1 +1,5 @@
---- {}
+---
+cf_cli/cf-linux-amd64.tgz:
+  object_id: 0c147360-8e43-4b83-bc07-bcef0fc811a9
+  sha: 5a808de17a85c0deaa467bfde663ea8c20f51e61
+  size: 4222222
