@@ -14,5 +14,25 @@ properties:
     description: 'Password of the CF admin user'
   notifications.app_domain:
     description: 'Domain used to host application'
+  notifications.network:
+    description: 'Network used to host application'
+  notifications.smtp.host:
+    description: 'SMTP Host name'
+  notifications.smtp.pass:
+    description: 'Password of the SMTP user'
+  notifications.smtp.port:
+    description: 'SMTP port number'
+  notifications.smtp.user:
+    description: 'Username for the SMTP host'
+  notifications.smtp.tls:
+    description: 'Uses SMTP TLS'
+  notifications.sender:
+    description: 'Sender of the notification'
+  domain:
+    description: 'Domain of the sender'
+  uaa.client_id:
+    description: 'Client id of the UAA'
+  uaa.client_secret:
+    description: 'Client secret of the UAA'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making web requests'

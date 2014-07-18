@@ -10,7 +10,7 @@
 .idea
 blobs
 bosh-lite/manifests/*
-bosh-lite/tmp/*
+bosh-lite/notifications-smtp-stub.yml
 config/dev.yml
 config/private.yml
 dev_releases

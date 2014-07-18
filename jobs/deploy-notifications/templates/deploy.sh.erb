@@ -33,7 +33,19 @@ function create_quota() {
 }
 
 function add_env_vars() {
-  cf env $APP_NAME
+  cf set-env $APP_NAME SMTP_HOST <%= properties.notifications.smtp.host %>
+  cf set-env $APP_NAME SMTP_PASS <%= properties.notifications.smtp.pass %>
+  cf set-env $APP_NAME SMTP_PORT <%= properties.notifications.smtp.port %>
+  cf set-env $APP_NAME SMTP_USER <%= properties.notifications.smtp.user %>
+  cf set-env $APP_NAME SMTP_TLS <%= properties.notifications.smtp.tls %>
+  cf set-env $APP_NAME SENDER <%= properties.notifications.sender %>
+  cf set-env $APP_NAME DOMAIN <%= properties.domain %>
+  cf set-env $APP_NAME SSL_SKIP_CERT_VERIFY <%= properties.ssl.skip_cert_verify %>
+  cf set-env $APP_NAME UAA_CLIENT_ID <%= properties.uaa.client_id %>
+  cf set-env $APP_NAME UAA_CLIENT_SECRET <%= properties.uaa.client_secret %>
+
+  cf set-env $APP_NAME UAA_HOST $SCHEME://uaa.$DOMAIN
+  cf set-env $APP_NAME CC_HOST $SCHEME://api.$DOMAIN
 }
 
 function push_app() {

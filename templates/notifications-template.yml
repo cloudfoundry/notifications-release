@@ -28,6 +28,20 @@ properties:
     cf:
       admin_user: (( merge ))
       admin_password: (( merge ))
+    smtp:
+      host: (( merge ))
+      pass: (( merge ))
+      port: (( merge ))
+      user: (( merge ))
+      tls: (( merge ))
+    sender: (( merge ))
   domain: (( merge ))
+  uaa:
+    client_id: notifications
+    client_secret: (( properties.uaa.clients.notifications.secret ))
   ssl:
     skip_cert_verify: (( merge ))
+  uaa:
+    clients:
+      notifications:
+        secret: (( merge ))
