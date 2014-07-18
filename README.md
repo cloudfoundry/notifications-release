@@ -16,29 +16,29 @@ authorities: scim.read,cloud_controller.admin
 # Bosh-lite
 
 1. Add SMTP properties to `./bosh-lite/notifications-smtp-stub.yml` file as follows:
-```yaml
-properties:
-  notifications:
-    smtp:
-      host: stmp.example.com
-      port: 587
-      user: my-user-name
-      pass: my-password
-```
+  ```yaml
+  properties:
+    notifications:
+      smtp:
+        host: stmp.example.com
+        port: 587
+        user: my-user-name
+        pass: my-password
+  ```
 
 2. Generate manifest:
-```bash
-./bosh-lite/make_manifest
-```
+  ```bash
+  ./bosh-lite/make_manifest
+  ```
 
 3. Create and upload release:
-```bash
-bosh create release
-bosh upload release
-```
+  ```bash
+  bosh create release
+  bosh upload release
+  ```
 
 4. Deploy
-```bash
-bosh deploy
-bosh run errand deploy-notifications
-```
+  ```bash
+  bosh deploy
+  bosh run errand deploy-notifications
+  ```
