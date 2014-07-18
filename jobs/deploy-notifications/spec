@@ -28,8 +28,6 @@ properties:
     description: 'Uses SMTP TLS'
   notifications.sender:
     description: 'Sender of the notification'
-  domain:
-    description: 'Domain of the sender'
   uaa.client_id:
     description: 'Client id of the UAA'
   uaa.client_secret:
