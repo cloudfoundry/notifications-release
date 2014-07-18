@@ -40,7 +40,7 @@ function push_app() {
   pushd /var/vcap/packages/notifications
     mkdir -p /var/vcap/data/tmp
     export TMPDIR=/var/vcap/data/tmp
-    cf push $APP_NAME --no-start -n $APP_DOMAIN
+    cf push $APP_NAME --no-start -d $APP_DOMAIN
   popd
 }
 
