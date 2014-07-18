@@ -40,9 +40,9 @@ function add_env_vars() {
   cf set-env $APP_NAME SMTP_TLS <%= properties.notifications.smtp.tls %>
   cf set-env $APP_NAME SENDER <%= properties.notifications.sender %>
   cf set-env $APP_NAME DOMAIN <%= properties.domain %>
-  cf set-env $APP_NAME SSL_SKIP_CERT_VERIFY <%= properties.ssl.skip_cert_verify %>
-  cf set-env $APP_NAME UAA_CLIENT_ID <%= properties.uaa.client_id %>
-  cf set-env $APP_NAME UAA_CLIENT_SECRET <%= properties.uaa.client_secret %>
+  cf set-env $APP_NAME UAA_CLIENT_ID <%= properties.notifications.uaa.client_id %>
+  cf set-env $APP_NAME UAA_CLIENT_SECRET <%= properties.notifications.uaa.client_secret %>
+  cf set-env $APP_NAME VERIFY_SSL <%= !properties.ssl.skip_cert_verify %>
 
   cf set-env $APP_NAME UAA_HOST $SCHEME://uaa.$DOMAIN
   cf set-env $APP_NAME CC_HOST $SCHEME://api.$DOMAIN

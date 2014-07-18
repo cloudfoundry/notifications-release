@@ -28,9 +28,9 @@ properties:
     description: 'Uses SMTP TLS'
   notifications.sender:
     description: 'Sender of the notification'
-  uaa.client_id:
+  notifications.uaa.client_id:
     description: 'Client id of the UAA'
-  uaa.client_secret:
+  notifications.uaa.client_secret:
     description: 'Client secret of the UAA'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making web requests'
