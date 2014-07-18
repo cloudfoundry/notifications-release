@@ -23,4 +23,11 @@ update:
 
 properties:
   notifications:
+    app_domain: (( merge ))
     network: (( merge ))
+    cf:
+      admin_user: (( merge ))
+      admin_password: (( merge ))
+  domain: (( merge ))
+  ssl:
+    skip_cert_verify: (( merge ))

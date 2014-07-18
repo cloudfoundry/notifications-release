@@ -3,4 +3,11 @@ director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
 properties:
   notifications:
+    app_domain: 10.244.0.34.xip.io
     network: default
+    cf:
+      admin_user: admin
+      admin_password: admin
+  domain: 10.244.0.34.xip.io
+  ssl:
+    skip_cert_verify: true

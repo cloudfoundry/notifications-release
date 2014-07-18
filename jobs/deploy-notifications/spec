@@ -8,7 +8,7 @@ packages:
 properties:
   domain:
     description: 'Cloud Foundry System Domain'
-  notifications.cf.admin:
+  notifications.cf.admin_user:
     description: 'Username of the CF admin user'
   notifications.cf.admin_password:
     description: 'Password of the CF admin user'

@@ -33,6 +33,7 @@ function create_quota() {
 }
 
 function add_env_vars() {
+  cf env $APP_NAME
 }
 
 function push_app() {
