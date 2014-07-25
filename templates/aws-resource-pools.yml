@@ -1,0 +1,15 @@
+networks: (( merge ))
+jobs: (( merge ))
+properties: (( merge ))
+
+resource_pools:
+- name: default
+  network: (( properties.notifications.network ))
+  size: (( auto ))
+  stemcell:
+    name: bosh-aws-xen-ubuntu
+    version: latest
+  cloud_properties:
+    instance_type: m1.small
+    availability_zone: (( properties.template_only.aws.availability_zone ))
+
