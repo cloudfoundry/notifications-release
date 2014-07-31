@@ -43,6 +43,7 @@ function add_env_vars() {
   cf set-env $APP_NAME UAA_CLIENT_ID <%= properties.notifications.uaa.client_id %>
   cf set-env $APP_NAME UAA_CLIENT_SECRET <%= properties.notifications.uaa.client_secret %>
   cf set-env $APP_NAME VERIFY_SSL <%= !properties.ssl.skip_cert_verify %>
+  cf set-env $APP_NAME ROOT_PATH "\$HOME"
 
   cf set-env $APP_NAME UAA_HOST $SCHEME://uaa.$DOMAIN
   cf set-env $APP_NAME CC_HOST $SCHEME://api.$DOMAIN
