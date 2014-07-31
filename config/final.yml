@@ -1,6 +1,6 @@
 ---
 blobstore:
-  provider: local
+  provider: s3
   options:
-    blobstore_path: /tmp/blobs
-final_name: notifications_blobstore
+    bucket_name: notifications-blobs
+final_name: notifications
