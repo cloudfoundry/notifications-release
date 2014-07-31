@@ -27,9 +27,11 @@ function authenticate_and_target() {
 }
 
 function delete() {
-  cf delete-quota $QUOTA -f
   cf delete $APP_NAME -f
   cf delete-route $APP_DOMAIN -n $APP_NAME -f
+  cf delete-space $SPACE -f
+  cf delete-org $ORG -f
+  cf delete-quota $QUOTA -f
 }
 
 cf -v
