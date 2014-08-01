@@ -3,7 +3,7 @@ director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
 properties:
   notifications:
-    app_domain: stevenson-lite.cf-app.com
+    app_domain: 10.244.0.34.xip.io
     network: default
     cf:
       admin_user: admin
@@ -15,10 +15,10 @@ properties:
       user: (( merge ))
       tls: true
     sender: no-reply@10.244.0.34.xip.io
-  domain: stevenson-lite.cf-app.com 
+  domain: 10.244.0.34.xip.io
   ssl:
     skip_cert_verify: true
   uaa:
     clients:
       notifications:
-        secret: notification-secret
+        secret: secret
