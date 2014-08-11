@@ -11,6 +11,7 @@
 /blobs
 /bosh-lite/manifests/*
 /bosh-lite/notifications-smtp-stub.yml
+/bosh-lite/notifications-db-stub.yml
 /config/dev.yml
 /config/private.yml
 /dev_releases
