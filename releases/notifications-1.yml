@@ -1,0 +1,25 @@
+---
+packages:
+- name: cf_cli
+  version: 1
+  sha1: 51b7e9d343e7580202c8c77864201dacb1156851
+  fingerprint: 5f51f8ee83f08817fb8fcb20af79b741ab7ae594
+  dependencies: []
+- name: notifications
+  version: 1
+  sha1: 3ff21cd630eedaae35d214c041284f071c9b5cf2
+  fingerprint: 83e972ac34fccb3dde12e1c7e1d21ab06a97fdaf
+  dependencies: []
+jobs:
+- name: deploy-notifications
+  version: 1
+  fingerprint: e7856fd4aecf7eea2e7c1a0cd7fda52c9033a8ed
+  sha1: 3fdd8da41d1f35c06c46d2286aaf0800dffa17ff
+- name: destroy-notifications
+  version: 1
+  fingerprint: b23de6465af1733e3779e48592381a58858390dd
+  sha1: 49ccf83142ab0f9fe60336926cf76edf94596c1b
+commit_hash: 450dc89c
+uncommitted_changes: true
+name: notifications
+version: 1
