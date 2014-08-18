@@ -26,18 +26,26 @@ authorities: scim.read,cloud_controller.admin
         pass: my-password
   ```
 
-2. Generate manifest:
+2. Add DB properties to `./bosh-lite/notifications-db-stub.yml` file as follows:
+  ```yaml
+  properties:
+    notifications:
+      database_url: tcp://user:password@example.com:3306/dbname
+  ```
+
+
+3. Generate manifest:
   ```bash
   ./bosh-lite/make_manifest
   ```
 
-3. Create and upload release:
+4. Create and upload release:
   ```bash
   bosh create release
   bosh upload release
   ```
 
-4. Deploy
+5. Deploy
   ```bash
   bosh deploy
   bosh run errand deploy-notifications
