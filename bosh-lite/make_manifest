@@ -21,8 +21,7 @@ echo $DIRECTOR_UUID
 $RELEASE_DIR/generate_deployment_manifest \
   warden \
   bosh-lite/notifications-stub.yml \
-  bosh-lite/notifications-smtp-stub.yml \
-  bosh-lite/notifications-db-stub.yml > bosh-lite/manifests/notifications-manifest.yml
+  bosh-lite/notifications-smtp-stub.yml > bosh-lite/manifests/notifications-manifest.yml
 
 perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" bosh-lite/manifests/notifications-manifest.yml
 

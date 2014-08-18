@@ -35,7 +35,6 @@ properties:
       user: (( merge ))
       tls: (( merge ))
     sender: (( merge ))
-    database_url: (( merge ))
     uaa:
       client_id: notifications
       client_secret: (( properties.uaa.clients.notifications.secret ))

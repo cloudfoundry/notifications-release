@@ -15,7 +15,6 @@ properties:
       user: (( merge ))
       tls: true
     sender: no-reply@10.244.0.34.xip.io
-    database_url: (( merge ))
   domain: 10.244.0.34.xip.io
   ssl:
     skip_cert_verify: true
