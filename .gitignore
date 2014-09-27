@@ -17,3 +17,9 @@
 /dev_releases
 /releases/*.tgz
 /src_alt
+/config/dev.yml
+/config/private.yml
+/releases/*.tgz
+/releases/**/*.tgz
+/dev_releases
+/blobs
