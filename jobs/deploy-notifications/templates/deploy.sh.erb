@@ -59,6 +59,9 @@ function push_app() {
     echo "here we are"
     whoami
     ls -al
+    ls -al .git
+    ls -al .git/refs
+    ls -al .git/refs/head
     cat .git/refs/head/master > git_sha
     cf push $APP_NAME --no-start -d $APP_DOMAIN
   popd
