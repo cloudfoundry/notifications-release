@@ -56,6 +56,7 @@ function push_app() {
   pushd /var/vcap/packages/notifications
     mkdir -p /var/vcap/data/tmp
     export TMPDIR=/var/vcap/data/tmp
+    ls -al
     cat .git/refs/head/master > git_sha
     cf push $APP_NAME --no-start -d $APP_DOMAIN
   popd
