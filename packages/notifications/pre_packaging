@@ -13,6 +13,8 @@ function tag_release() {
   ln -s src/notifications ./notifications
 
   git submodule status | awk '{ print $1 }' | sed "s/[-+]//g" > notifications/.gitsha
+
+  mv ./.git ./git
 }
 
 tag_release
