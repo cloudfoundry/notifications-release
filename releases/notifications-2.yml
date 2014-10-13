@@ -1,0 +1,37 @@
+---
+packages:
+- name: cf_cli
+  version: !binary |-
+    MTNkNWM0ZjU5NDIyNjc5NmNlMDEzY2UyMzJkZWJkNTg5NjQyYWJlYw==
+  sha1: !binary |-
+    NmU3ZGRmMGJiZDdjZmQ0ODJhMjlmZmVkNTFmNDFiOThlY2ZmZTBmOQ==
+  fingerprint: !binary |-
+    MTNkNWM0ZjU5NDIyNjc5NmNlMDEzY2UyMzJkZWJkNTg5NjQyYWJlYw==
+  dependencies: []
+- name: notifications
+  version: !binary |-
+    YzM4ZmY4NDM2YzM2OGRjMzE0ZWQ1ZDMzZDFhYmQ4ZDQyYTE0MTM2ZA==
+  sha1: !binary |-
+    MTE4NjkxM2YzYmViNTNkN2JlMzYwNmU2MDZkZGUyMGExMjIxOTY4Yw==
+  fingerprint: !binary |-
+    YzM4ZmY4NDM2YzM2OGRjMzE0ZWQ1ZDMzZDFhYmQ4ZDQyYTE0MTM2ZA==
+  dependencies: []
+jobs:
+- name: deploy-notifications
+  version: !binary |-
+    YTk4MjA0NzQxOWJlMzdjOGFhYjM0ODc1MDZkM2M0ODY3MmI2YmQzNg==
+  fingerprint: !binary |-
+    YTk4MjA0NzQxOWJlMzdjOGFhYjM0ODc1MDZkM2M0ODY3MmI2YmQzNg==
+  sha1: !binary |-
+    YjY0ZWY1M2JiZGViNDk5NWQ0MjNmMTk1NTY1YmQ5NjkyZTFkMDRmOQ==
+- name: destroy-notifications
+  version: !binary |-
+    MzE0YWUxN2FiMzQ1MjYyODllNTVmMmUwNDU3ZTU2MjVmNmNlYjNmMQ==
+  fingerprint: !binary |-
+    MzE0YWUxN2FiMzQ1MjYyODllNTVmMmUwNDU3ZTU2MjVmNmNlYjNmMQ==
+  sha1: !binary |-
+    MjI0ZjU4Y2Q1NTQ4M2I3MmVmMmYzMDM3MDRmYWVkMjQxNTAyYTkxZA==
+commit_hash: 7538bf7a
+uncommitted_changes: true
+name: notifications
+version: '2'
