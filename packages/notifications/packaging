@@ -2,5 +2,3 @@
 set -e -x
 
 rsync -a notifications/ ${BOSH_INSTALL_TARGET}
-
-cp ./git/modules/src/notifications/HEAD ${BOSH_INSTALL_TARGET}/.gitsha

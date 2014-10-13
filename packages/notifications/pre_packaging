@@ -1,0 +1,16 @@
+#! bin/bash
+set -e -x
+
+function tag_release() {
+  echo > .gitmodules
+  echo "[submodule \"src/notifications\"]" >> .gitmodules
+  echo "  path = src/notifications" >> .gitmodules
+  echo "  url = git@github.com:cloudfoundry-incubator/notifications.git" >> .gitmodules
+
+  mkdir src
+  ln -s src/notifications ./notifications
+
+  git submodule status | awk '{ print $1 }' | sed "s/[-+]//g" > notifications/.gitsha
+}
+
+tag_release

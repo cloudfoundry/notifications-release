@@ -3,4 +3,4 @@ name: notifications
 
 files:
   - notifications/**/*
-  - git/**/*
+  - .git/**/*
