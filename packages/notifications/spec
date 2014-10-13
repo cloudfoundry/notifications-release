@@ -3,4 +3,3 @@ name: notifications
 
 files:
   - notifications/**/*
-  - git/**/*
