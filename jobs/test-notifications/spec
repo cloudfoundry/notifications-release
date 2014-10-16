@@ -1,0 +1,24 @@
+---
+name: test-notifications
+templates:
+  test.sh.erb: bin/run
+packages:
+- notifications
+- cf_cli
+- ruby
+- go
+- acceptance
+- git
+properties:
+  domain:
+    description: 'Cloud Foundry System Domain'
+  notifications.cf.admin_user:
+    description: 'Username of the CF admin user'
+  notifications.cf.admin_password:
+    description: 'Password of the CF admin user'
+  notifications.app_domain:
+    description: 'Domain used to host application'
+  notifications.uaa.admin_client_id:
+    description: 'UAA Admin client ID'
+  notifications.uaa.admin_client_secret:
+    description: 'UAA Admin client secret'

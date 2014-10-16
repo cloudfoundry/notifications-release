@@ -1,0 +1,4 @@
+#! bin/bash
+set -e -x
+
+rsync -a acceptance/ ${BOSH_INSTALL_TARGET}

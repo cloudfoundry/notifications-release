@@ -24,13 +24,13 @@ var _ = Describe("SendEmailToUserAndSpace", func() {
             TestClientSenderAuthorities: "notifications.write",
             TestClientSenderGrantTypes:  "client_credentials",
 
-            UAACAdminClientID:       LoadOrPanic("UAAC_ADMIN_CLIENT_USERNAME"),
-            UAACAdminClientPassword: LoadOrPanic("UAAC_ADMIN_CLIENT_PASSWORD"),
-            CFAdminUsername:         LoadOrPanic("CF_ADMIN_USERNAME"),
-            CFAdminPassword:         LoadOrPanic("CF_ADMIN_PASSWORD"),
-            NotificationsDomain:     LoadOrPanic("NOTIFICATIONS_DOMAIN"),
-            UAADomain:               LoadOrPanic("UAA_DOMAIN"),
-            CCDomain:                LoadOrPanic("CC_DOMAIN"),
+            UAACAdminClientID:     LoadOrPanic("UAAC_ADMIN_CLIENT_ID"),
+            UAACAdminClientSecret: LoadOrPanic("UAAC_ADMIN_CLIENT_SECRET"),
+            CFAdminUsername:       LoadOrPanic("CF_ADMIN_USERNAME"),
+            CFAdminPassword:       LoadOrPanic("CF_ADMIN_PASSWORD"),
+            NotificationsDomain:   LoadOrPanic("NOTIFICATIONS_DOMAIN"),
+            UAADomain:             LoadOrPanic("UAA_DOMAIN"),
+            CCDomain:              LoadOrPanic("CC_DOMAIN"),
         }
 
         // LOGIN AS A CF USER
@@ -42,8 +42,8 @@ var _ = Describe("SendEmailToUserAndSpace", func() {
         Run("cf", "create-org", context.TestOrg)
         Run("cf", "create-space", context.TestSpace, "-o", context.TestOrg)
         Run("cf", "target", "-o", context.TestOrg, "-s", context.TestSpace)
-        Run("uaac", "target", context.UAADomain)
-        Run("uaac", "token", "client", "get", context.UAACAdminClientID, "-s", context.UAACAdminClientPassword)
+        Run("uaac", "target", context.UAADomain, "--skip-ssl-validation")
+        Run("uaac", "token", "client", "get", context.UAACAdminClientID, "-s", context.UAACAdminClientSecret)
 
         output := Run("uaac", "user", "get", context.TestUserName, "-a", "id")
         context.TestUserGUID = strings.TrimSpace(strings.Split(output, ":")[1])
@@ -59,7 +59,7 @@ var _ = Describe("SendEmailToUserAndSpace", func() {
         AlwaysRun("cf", "delete-user", context.TestUserName, "-f")
         AlwaysRun("cf", "delete-space", context.TestSpace, "-f")
         AlwaysRun("cf", "delete-org", context.TestOrg, "-f")
-        AlwaysRun("uaac", "token", "client", "get", context.UAACAdminClientID, "-s", context.UAACAdminClientPassword)
+        AlwaysRun("uaac", "token", "client", "get", context.UAACAdminClientID, "-s", context.UAACAdminClientSecret)
         AlwaysRun("uaac", "client", "delete", context.TestClientSenderID)
     })
 
@@ -67,7 +67,7 @@ var _ = Describe("SendEmailToUserAndSpace", func() {
         It("returns a 200", func() {
             // SEND A NOTIFICATION TO A USER
             notificationToUserURL := fmt.Sprintf("%s/users/%s", context.NotificationsDomain, context.TestUserGUID)
-            output := Run("uaac", "curl", notificationToUserURL, "-X", "POST", "--data", `{"kind_id":"test_notification", "text":"this is a test"}`)
+            output := Run("uaac", "curl", "--insecure", notificationToUserURL, "-X", "POST", "--data", `{"kind_id":"test_notification", "text":"this is a test"}`)
 
             // VERIFY 200 RESPONSE
             Expect(output).To(ContainSubstring("200 OK"))
@@ -82,19 +82,10 @@ var _ = Describe("SendEmailToUserAndSpace", func() {
             Run("cf", "login", "-u", context.TestUserName, "-p", context.TestUserPassword)
 
             // GRAB IDs FOR CURL REQUESTS
-            output := Run("cf", "curl", "/v2/organizations")
-
-            var orgGUIDResponse GUIDResponse
-            err := json.Unmarshal([]byte(output), &orgGUIDResponse)
-            if err != nil {
-                panic(err)
-            }
-            orgGUID := orgGUIDResponse.Resources[0].MetaData.GUID
-
-            output = Run("cf", "curl", fmt.Sprintf("/v2/organizations/%s/spaces", orgGUID))
+            output := Run("cf", "curl", fmt.Sprintf("/v2/spaces?q=name:%s", context.TestSpace))
 
             var spaceGUIDResponse GUIDResponse
-            err = json.Unmarshal([]byte(output), &spaceGUIDResponse)
+            err := json.Unmarshal([]byte(output), &spaceGUIDResponse)
             if err != nil {
                 panic(err)
             }
@@ -102,7 +93,7 @@ var _ = Describe("SendEmailToUserAndSpace", func() {
 
             // SEND A NOTIFICATION TO A SPACE
             notificationToSpaceURL := fmt.Sprintf("%s/spaces/%s", context.NotificationsDomain, spaceGUID)
-            output = Run("uaac", "curl", notificationToSpaceURL, "-X", "POST", "--data", `{"kind_id":"test_notification", "text":"this is a test"}`)
+            output = Run("uaac", "curl", "--insecure", notificationToSpaceURL, "-X", "POST", "--data", `{"kind_id":"test_notification", "text":"this is a test"}`)
 
             // VERIFY 200 RESPONSE
             Expect(output).To(ContainSubstring("200 OK"))

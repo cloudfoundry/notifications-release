@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e -x
+
+export PATH=$PATH:/var/vcap/packages/cf_cli/bin:/var/vcap/packages/ruby/bin:/var/vcap/packages/go/bin:/var/vcap/packages/git/bin
+export GOROOT=/var/vcap/packages/go
+export GOPATH=`pwd`/go
+export HOME=`pwd`/home
+export CF_HOME=$HOME/cf
+
+export SCHEME=https
+export DOMAIN=<%= properties.domain %>
+export CF_ADMIN_USERNAME=<%= properties.notifications.cf.admin_user %>
+export CF_ADMIN_PASSWORD=<%= properties.notifications.cf.admin_password %>
+export API_ENDPOINT=$SCHEME://api.$DOMAIN
+export APP_NAME=notifications
+export APP_DOMAIN=<%= properties.notifications.app_domain %>
+export UAAC_ADMIN_CLIENT_ID=<%= properties.notifications.uaa.admin_client_id %>
+export UAAC_ADMIN_CLIENT_SECRET=<%= properties.notifications.uaa.admin_client_secret %>
+export NOTIFICATIONS_DOMAIN=$SCHEME://notifications.$APP_DOMAIN
+export UAA_DOMAIN=$SCHEME://uaa.$DOMAIN
+export CC_DOMAIN=$SCHEME://api.$DOMAIN
+
+mkdir -p $GOPATH
+mkdir -p $HOME
+mkdir -p $CF_HOME
+
+cf -v
+uaac -v
+go version
+
+go get github.com/nu7hatch/gouuid
+go get github.com/onsi/ginkgo
+go get github.com/onsi/gomega
+
+pushd /var/vcap/packages/acceptance
+    go test -v .
+popd

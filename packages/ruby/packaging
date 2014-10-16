@@ -1,0 +1,31 @@
+#! bin/bash
+set -e -x
+
+PATH=$PATH:/var/vcap/packages/git/bin
+
+# build ruby from source
+pushd uaac/
+    tar xzvf ruby-1.9.3.tar.gz
+    pushd ruby-1.9.3-p448
+        ls -al
+        ./configure --prefix=$BOSH_INSTALL_TARGET --disable-install-doc --with-opt-dir=$BOSH_INSTALL_TARGET
+        make
+        make install
+    popd
+popd
+
+PATH=$BOSH_INSTALL_TARGET/bin:$PATH
+
+pushd uaac/bundler
+    export LANG="en_US.UTF-8"
+    export LC_ALL="en_US.UTF-8"
+    gem build bundler.gemspec
+    gem install bundler*.gem
+popd
+
+GEMFILE=`pwd`/Gemfile
+echo > $GEMFILE
+echo "source 'https://rubygems.org'" >> $GEMFILE
+echo "gem 'cf-uaac'" >> $GEMFILE
+
+bundle install --gemfile=$GEMFILE

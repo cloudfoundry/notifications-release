@@ -11,7 +11,7 @@ import (
 
 type TestSuiteContext struct {
     UAACAdminClientID           string
-    UAACAdminClientPassword     string
+    UAACAdminClientSecret       string
     CFAdminUsername             string
     CFAdminPassword             string
     TestUserGUID                string

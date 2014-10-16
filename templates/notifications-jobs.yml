@@ -16,3 +16,10 @@ jobs:
   resource_pool: default
   networks:
   - name: (( properties.notifications.network ))
+- name: test-notifications
+  lifecycle: errand
+  template: test-notifications
+  instances: 1
+  resource_pool: default
+  networks:
+  - name: (( properties.notifications.network ))
