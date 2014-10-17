@@ -6,4 +6,4 @@ dependencies:
 
 files:
   - uaac/ruby-1.9.3.tar.gz
-  - uaac/bundler/**/*
+  - uaac/bundler.tar.gz

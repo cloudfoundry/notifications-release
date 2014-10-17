@@ -3,3 +3,23 @@ cf_cli/cf-linux-amd64.tgz:
   object_id: 3c83b272-130c-420c-aa7b-f5952c3d52f5
   sha: 8f5f8d3dc293f85a462334dc19414dc719b3e342
   size: 4155835
+go/go1.3.3.linux-amd64.tar.gz:
+  object_id: aa80a78d-6515-46e1-b313-7f9719a459c1
+  sha: !binary |-
+    MTQwNjhmYmUzNDlkYjM0YjgzODg1M2E3ODc4NjIxYmJkMmIyNDY0Ng==
+  size: 53204098
+uaac/git-2.1.2.tar.gz:
+  object_id: 263bf69e-f445-446f-81d7-9966a7686c97
+  sha: !binary |-
+    MTM4NWVkYmM5YWE3N2I2ZTA5NzFmNTJmNzViYTRmMmZmMzVjMWFhMg==
+  size: 5086801
+uaac/ruby-1.9.3.tar.gz:
+  object_id: 225c46dd-df17-4cde-95e8-bcce7603a4be
+  sha: !binary |-
+    YzdmNzM2ZTNiYzFjYTFlNjYxOWE5MTIxODM3ZGQwODQwYWFkNzdjZQ==
+  size: 12559260
+uaac/bundler.tar.gz:
+  object_id: 2f97acb3-a3e8-44b2-98b8-a015fae67429
+  sha: !binary |-
+    MWFjNWQ5ODliZWU0N2E1YTkyZjMwNzgyYTQ3NjQzOWYzNzk1NWFmOQ==
+  size: 16946309

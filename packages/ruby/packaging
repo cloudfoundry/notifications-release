@@ -16,11 +16,14 @@ popd
 
 PATH=$BOSH_INSTALL_TARGET/bin:$PATH
 
-pushd uaac/bundler
-    export LANG="en_US.UTF-8"
-    export LC_ALL="en_US.UTF-8"
-    gem build bundler.gemspec
-    gem install bundler*.gem
+pushd uaac/
+    tar xzvf bundler.tar.gz
+    pushd bundler/
+      export LANG="en_US.UTF-8"
+      export LC_ALL="en_US.UTF-8"
+      gem build bundler.gemspec
+      gem install bundler*.gem
+    popd
 popd
 
 GEMFILE=`pwd`/Gemfile
