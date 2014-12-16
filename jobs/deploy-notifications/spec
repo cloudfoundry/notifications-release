@@ -16,6 +16,10 @@ properties:
     description: 'Domain used to host application'
   notifications.network:
     description: 'Network used to host application'
+  notifications.smtp.auth_mechanism:
+    description: 'SMTP Authentication mechanism, should be one of [none plain cram-md5]'
+  notifications.smtp.crammd5_secret:
+    description: 'Secret to use with CRAMMD5 auth mechanism'
   notifications.smtp.host:
     description: 'SMTP Host name'
   notifications.smtp.pass:

@@ -34,6 +34,8 @@ properties:
       port: (( merge ))
       user: (( merge ))
       tls: (( merge ))
+      auth_mechanism: (( merge || "none" ))
+      crammd5_secret: (( merge || "" ))
     sender: (( merge ))
     database_url: (( merge ))
     uaa:

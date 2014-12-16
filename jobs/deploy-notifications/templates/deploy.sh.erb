@@ -33,6 +33,8 @@ function create_quota() {
 }
 
 function add_env_vars() {
+  cf set-env $APP_NAME SMTP_AUTH_MECHANISM <%= properties.notifications.smtp.auth_mechanism %>
+  cf set-env $APP_NAME SMTP_CRAMMD5_SECRET "<%= properties.notifications.smtp.crammd5_secret %>"
   cf set-env $APP_NAME SMTP_HOST <%= properties.notifications.smtp.host %>
   cf set-env $APP_NAME SMTP_PASS <%= properties.notifications.smtp.pass %>
   cf set-env $APP_NAME SMTP_PORT <%= properties.notifications.smtp.port %>
