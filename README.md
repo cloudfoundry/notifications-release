@@ -1,7 +1,7 @@
 # Notifications Release
 This release deploys the [notification service](https://github.com/cloudfoundry-incubator/notifications) as an application onto the CloudFoundry platform.
 A running CF is required to deploy.
-The application will be deployed into the `notifications-service` org, and the `notifications-service` space.
+The application will be deployed into the `system` org, and the `notifications-service` space.
 The service registers itself at the address matching http://notifications.$CF_APP_DOMAIN.
 
 # UAA Client
