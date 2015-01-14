@@ -46,7 +46,6 @@ function add_env_vars() {
   cf set-env $APP_NAME UAA_CLIENT_SECRET <%= properties.notifications.uaa.client_secret %>
   cf set-env $APP_NAME VERIFY_SSL <%= !properties.ssl.skip_cert_verify %>
   cf set-env $APP_NAME ROOT_PATH "\$HOME"
-  cf set-env $APP_NAME MODEL_MIGRATIONS_DIRECTORY "models/migrations"
   cf set-env $APP_NAME DATABASE_URL <%= properties.notifications.database_url %>
   cf set-env $APP_NAME GOBBLE_MIGRATIONS_DIR "\$HOME/gobble/migrations"
   cf set-env $APP_NAME ENCRYPTION_KEY "moons_of_endor"
