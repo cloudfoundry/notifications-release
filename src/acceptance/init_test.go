@@ -35,18 +35,11 @@ var _ = BeforeSuite(func() {
 		NotificationsDomain:   LoadOrPanic("NOTIFICATIONS_DOMAIN"),
 		UAADomain:             LoadOrPanic("UAA_DOMAIN"),
 		CCDomain:              LoadOrPanic("CC_DOMAIN"),
-		LoggregatorDomain:     LoadOrPanic("LOGGREGATOR_DOMAIN"),
 	}
 
 	// LOGIN AS A CF USER
 	Run("cf", "api", context.CCDomain, "--skip-ssl-validation")
 	Run("cf", "login", "-u", context.CFAdminUsername, "-p", context.CFAdminPassword)
-
-	// PUT NOTIFICATIONS INTO A TESTABLE STATE
-	Run("cf", "target", "-o", context.NotificationsOrg, "-s", context.NotificationsSpace)
-	Run("cf", "set-env", "notifications", "SMTP_LOGGING_ENABLED", "true")
-	Run("cf", "restart", "notifications")
-	context.NotificationsAppGUID = Run("cf", "app", "notifications", "--guid")
 
 	// CREATE A USER AND GRAB ITS TOKEN
 	Run("cf", "create-user", context.TestUserName, context.TestUserPassword)

@@ -3,7 +3,6 @@ package acceptance
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -59,7 +58,7 @@ var _ = Describe("SendEmailToSpace", func() {
 					jsonBytes := ReturnOnlyBody(output)
 					json.Unmarshal(jsonBytes, &statusResponse)
 					return statusResponse.Status
-				}, 10*time.Second).Should(Equal("delivered"))
+				}, "10s").Should(Equal("delivered"))
 			})
 		})
 	})
