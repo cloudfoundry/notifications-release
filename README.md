@@ -4,6 +4,10 @@ A running CF is required to deploy.
 The application will be deployed into the `system` org, and the `notifications-service` space.
 The service registers itself at the address matching http://notifications.$CF_APP_DOMAIN.
 
+# Prerequisites
+1. Running UAA. This requirement is typically satisfied by having [CloudFoundry](https://github.com/cloudfoundry/cf-release) deployed.
+1. Running MySQL instance. One option is to deploy the ]CloudFoundry MySQL release](https://github.com/cloudfoundry/cf-mysql-release).
+
 # UAA Client
 Notifications requires a UAA client to boot. The client can be created with the following properties:
 ```yaml
@@ -26,7 +30,8 @@ authorities: scim.read,cloud_controller.admin
         pass: my-password
   ```
 
-2. Add DB properties to `./bosh-lite/notifications-db-stub.yml` file as follows:
+2. Add DB properties to `./bosh-lite/notifications-db-stub.yml` file for your running 
+   MySQL instance as follows:
   ```yaml
   properties:
     notifications:
