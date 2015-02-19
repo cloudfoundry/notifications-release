@@ -30,12 +30,13 @@ authorities: scim.read,cloud_controller.admin
         pass: my-password
   ```
 
-2. Add DB properties to `./bosh-lite/notifications-db-stub.yml` file for your running 
+2. Add DB properties to `./bosh-lite/notifications-db-stub.yml` file for your running
    MySQL instance as follows:
   ```yaml
   properties:
     notifications:
-      database_url: tcp://user:password@example.com:3306/dbname
+      database:
+        url: tcp://user:password@example.com:3306/dbname
   ```
 
 

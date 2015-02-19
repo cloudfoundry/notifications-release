@@ -37,7 +37,8 @@ properties:
       auth_mechanism: (( merge || "none" ))
       crammd5_secret: (( merge || "" ))
     sender: (( merge ))
-    database_url: (( merge ))
+    database:
+      url: (( merge ))
     uaa:
       client_id: notifications
       client_secret: (( properties.uaa.clients.notifications.secret ))

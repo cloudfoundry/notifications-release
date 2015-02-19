@@ -18,7 +18,8 @@ properties:
       admin_client_id: admin
       admin_client_secret: admin-secret
     sender: no-reply@10.244.0.34.xip.io
-    database_url: (( merge ))
+    database:
+      url: (( merge ))
   domain: 10.244.0.34.xip.io
   ssl:
     skip_cert_verify: true
