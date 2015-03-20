@@ -1,3 +1,6 @@
+# Notice: No longer maintained
+Pivotal is not actively maintaining this release.
+
 # Notifications Release
 This release deploys the [notification service](https://github.com/cloudfoundry-incubator/notifications) as an application onto the CloudFoundry platform.
 A running CF is required to deploy.
