@@ -5,6 +5,7 @@ properties:
   notifications:
     app_domain: 10.244.0.34.xip.io
     network: default
+    encryption_key: moons_of_endor
     cf:
       admin_user: admin
       admin_password: admin

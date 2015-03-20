@@ -25,6 +25,7 @@ properties:
   notifications:
     app_domain: (( merge ))
     network: (( merge ))
+    encryption_key: (( merge ))
     cf:
       admin_user: (( merge ))
       admin_password: (( merge ))

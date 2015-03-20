@@ -38,5 +38,7 @@ properties:
     description: 'Client secret of the UAA'
   notifications.database.url:
     description: 'URL pointing to database'
+  notifications.encryption_key:
+    description: 'key used to encrypt unsubscribe IDs'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making web requests'
