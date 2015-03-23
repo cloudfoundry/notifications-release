@@ -9,7 +9,7 @@ The service registers itself at the address matching http://notifications.$CF_AP
 
 # Prerequisites
 1. Running UAA. This requirement is typically satisfied by having [CloudFoundry](https://github.com/cloudfoundry/cf-release) deployed.
-1. Running MySQL instance. One option is to deploy the ]CloudFoundry MySQL release](https://github.com/cloudfoundry/cf-mysql-release).
+1. Running MySQL instance. One option is to deploy the [CloudFoundry MySQL release](https://github.com/cloudfoundry/cf-mysql-release).
 
 # UAA Client
 Notifications requires a UAA client to boot. The client can be created with the following properties:
