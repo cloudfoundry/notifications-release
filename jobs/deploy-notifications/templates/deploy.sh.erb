@@ -49,6 +49,7 @@ function add_env_vars() {
   cf set-env $APP_NAME DATABASE_URL "<%= properties.notifications.database.url %>"
   cf set-env $APP_NAME GOBBLE_MIGRATIONS_DIR "\$HOME/gobble/migrations"
   cf set-env $APP_NAME ENCRYPTION_KEY "<%= properties.notifications.encryption_key %>"
+  cf set-env $APP_NAME DB_MAX_OPEN_CONNS "<%= properties.notifications.database.max_open_connections %>"
   cf set-env $APP_NAME DIEGO_STAGE_BETA true
 
   cf set-env $APP_NAME UAA_HOST $SCHEME://uaa.$DOMAIN

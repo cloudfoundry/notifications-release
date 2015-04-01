@@ -38,6 +38,8 @@ properties:
     description: 'Client secret of the UAA'
   notifications.database.url:
     description: 'URL pointing to database'
+  notifications.database.max_open_connections:
+    description: 'Maximum number of open connections to the database'
   notifications.encryption_key:
     description: 'key used to encrypt unsubscribe IDs'
   ssl.skip_cert_verify:
