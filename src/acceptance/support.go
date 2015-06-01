@@ -2,15 +2,24 @@ package acceptance
 
 import (
 	"fmt"
+	"net"
 	"os"
 	"os/exec"
 	"regexp"
 	"strings"
 
+	"bitbucket.org/chrj/smtpd"
+
 	"github.com/nu7hatch/gouuid"
+	"github.com/onsi/ginkgo"
 )
 
+var trace = os.Getenv("TRACE") != ""
+
 type TestSuiteContext struct {
+	NotificationsAppGUID        string
+	NotificationsOrg            string
+	NotificationsSpace          string
 	UAACAdminClientID           string
 	UAACAdminClientSecret       string
 	CFAdminUsername             string
@@ -27,6 +36,8 @@ type TestSuiteContext struct {
 	NotificationsDomain         string
 	UAADomain                   string
 	CCDomain                    string
+	LogToken                    string
+	Deliveries                  []smtpd.Envelope
 }
 
 type GUIDResponse struct {
@@ -60,11 +71,17 @@ func AlwaysRun(command string, arguments ...string) {
 func Run(command string, arguments ...string) string {
 	parts := []string{"$", command}
 	parts = append(parts, arguments...)
-	fmt.Println(strings.Join(parts, " "))
+
+	if trace {
+		fmt.Println(strings.Join(parts, " "))
+	}
 
 	cmd := exec.Command(command, arguments...)
 	output, err := cmd.CombinedOutput()
-	fmt.Println(string(output))
+	if trace {
+		fmt.Println(string(output))
+	}
+
 	if err != nil {
 		panic(err)
 	}
@@ -92,4 +109,16 @@ func Randomized(prefix string) string {
 func ReturnOnlyBody(body string) []byte {
 	regex := regexp.MustCompile(`.*RESPONSE BODY:\n(.*)`)
 	return regex.FindSubmatch([]byte(body))[1]
+}
+
+func freePort() string {
+	listener, err := net.Listen("tcp", "127.0.0.1:0")
+	if err != nil {
+		ginkgo.Fail(err.Error(), 1)
+	}
+	defer listener.Close()
+
+	address := listener.Addr().String()
+	addressParts := strings.SplitN(address, ":", 2)
+	return addressParts[1]
 }

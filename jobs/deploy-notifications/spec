@@ -42,5 +42,7 @@ properties:
     description: 'Maximum number of open connections to the database'
   notifications.encryption_key:
     description: 'key used to encrypt unsubscribe IDs'
+  notifications.instance_count:
+    description: 'number of instances of service to run'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making web requests'

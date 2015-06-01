@@ -1,0 +1,52 @@
+{
+	"ImportPath": "github.com/cloudfoundry-incubator/notifications-release/src/acceptance",
+	"GoVersion": "go1.4.2",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "bitbucket.org/chrj/smtpd",
+			"Comment": "null-24",
+			"Rev": "10bcb042194e344946fc7d9a6dad3cd87c05ec04"
+		},
+		{
+			"ImportPath": "github.com/cloudfoundry/loggregator_consumer",
+			"Rev": "89d7fe237afae1e8222554359ec03b72c8466d10"
+		},
+		{
+			"ImportPath": "github.com/cloudfoundry/loggregatorlib/logmessage",
+			"Rev": "f150bda192180dff55b45d650974c25163c7fe17"
+		},
+		{
+			"ImportPath": "github.com/cloudfoundry/loggregatorlib/signature",
+			"Rev": "f150bda192180dff55b45d650974c25163c7fe17"
+		},
+		{
+			"ImportPath": "github.com/cloudfoundry/noaa/errors",
+			"Rev": "dfbc093c03178eaa6d4bf7fec8a30bea2b163f9c"
+		},
+		{
+			"ImportPath": "github.com/gogo/protobuf/proto",
+			"Rev": "b9e369e8ffb6773efc654ea13594566404314ee1"
+		},
+		{
+			"ImportPath": "github.com/gorilla/websocket",
+			"Rev": "1551221275a7bd42978745a376b2531f791d88f3"
+		},
+		{
+			"ImportPath": "github.com/nu7hatch/gouuid",
+			"Rev": "179d4d0c4d8d407a32af483c2354df1d2c91e6c3"
+		},
+		{
+			"ImportPath": "github.com/onsi/ginkgo",
+			"Comment": "v1.2.0-beta-9-gfbb6632",
+			"Rev": "fbb663242655b700c623e9629d7781db98957501"
+		},
+		{
+			"ImportPath": "github.com/onsi/gomega",
+			"Comment": "v1.0-48-g766f404",
+			"Rev": "766f4042b942146e90594d145c5071fa92c0aa9a"
+		}
+	]
+}

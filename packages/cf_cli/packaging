@@ -1,6 +1,8 @@
-#! /bin/bash
-set -e
+#! /bin/bash -e
 
 mkdir -p ${BOSH_INSTALL_TARGET}/bin
+mkdir -p ${BOSH_INSTALL_TARGET}/plugins
 tar zxvf cf_cli/cf-linux-amd64.tgz
+tar zxvf cf_cli/autopilot-plugin.tgz
 cp cf ${BOSH_INSTALL_TARGET}/bin/
+cp autopilot ${BOSH_INSTALL_TARGET}/plugins/

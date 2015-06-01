@@ -22,3 +22,7 @@ properties:
     description: 'UAA Admin client ID'
   notifications.uaa.admin_client_secret:
     description: 'UAA Admin client secret'
+  notifications.organization:
+    description: 'Organization that contains the app'
+  notifications.space:
+    description: 'Space that contains the app'

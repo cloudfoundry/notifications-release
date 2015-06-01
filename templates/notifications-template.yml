@@ -26,6 +26,9 @@ properties:
     app_domain: (( merge ))
     network: (( merge ))
     encryption_key: (( merge ))
+    instance_count: (( merge ))
+    organization: (( merge || "system" ))
+    space: (( merge || "notifications-service" ))
     cf:
       admin_user: (( merge ))
       admin_password: (( merge ))
@@ -40,7 +43,7 @@ properties:
     sender: (( merge ))
     database:
       url: (( merge ))
-      max_open_connections: (( merge || 0 ))
+      max_open_connections: (( merge ))
     uaa:
       client_id: notifications
       client_secret: (( properties.uaa.clients.notifications.secret ))
@@ -49,7 +52,3 @@ properties:
   domain: (( merge ))
   ssl:
     skip_cert_verify: (( merge ))
-  uaa:
-    clients:
-      notifications:
-        secret: (( merge ))

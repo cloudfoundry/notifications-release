@@ -19,6 +19,8 @@ export UAAC_ADMIN_CLIENT_SECRET=<%= properties.notifications.uaa.admin_client_se
 export NOTIFICATIONS_DOMAIN=$SCHEME://notifications.$APP_DOMAIN
 export UAA_DOMAIN=$SCHEME://uaa.$DOMAIN
 export CC_DOMAIN=$SCHEME://api.$DOMAIN
+export NOTIFICATIONS_ORG=<%= properties.notifications.organization %>
+export NOTIFICATIONS_SPACE=<%= properties.notifications.space %>
 
 mkdir -p $GOPATH
 mkdir -p $HOME
@@ -28,9 +30,7 @@ cf -v
 uaac -v
 go version
 
-go get github.com/nu7hatch/gouuid
-go get github.com/onsi/ginkgo
-go get github.com/onsi/gomega
+export GOPATH=$GOPATH:/var/vcap/packages/acceptance/Godeps/_workspace
 
 pushd /var/vcap/packages/acceptance
     go test -v .

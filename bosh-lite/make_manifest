@@ -1,29 +1,26 @@
-#! /bin/bash
+#!/bin/bash -ex
 
-set -e
-set -x
-
-BOSH_RELEASES_DIR=${BOSH_RELEASES_DIR:-~/workspace}
-RELEASE_DIR=${RELEASE_DIR:-$BOSH_RELEASES_DIR/notifications-release}
+RELEASE_DIR=${RELEASE_DIR:-$GOPATH/src/github.com/cloudfoundry-incubator/notifications-release}
 
 if [[ ! -d $RELEASE_DIR ]]; then
-  echo "Cannot find notifications-release at $RELEASE_DIR; override with \$RELEASE_DIR variable"
+  echo "Cannot find notifications-with-ui-release at $RELEASE_DIR; override with \$RELEASE_DIR variable"
   exit 1
 fi
 
 bosh target https://192.168.50.4:25555 lite
-cd $RELEASE_DIR
-mkdir -p bosh-lite/tmp
-mkdir -p bosh-lite/manifests
-DIRECTOR_UUID=$(bosh status | grep UUID | awk '{print $2}')
-echo $DIRECTOR_UUID
+pushd $RELEASE_DIR > /dev/null
+  mkdir -p bosh-lite/tmp
+  mkdir -p bosh-lite/manifests
+  DIRECTOR_UUID=$(bosh status | grep UUID | awk '{print $2}')
+  echo $DIRECTOR_UUID
 
-$RELEASE_DIR/generate_deployment_manifest \
-  warden \
-  bosh-lite/notifications-stub.yml \
-  bosh-lite/notifications-smtp-stub.yml \
-  bosh-lite/notifications-db-stub.yml > bosh-lite/manifests/notifications-manifest.yml
+  $RELEASE_DIR/generate_deployment_manifest \
+    warden \
+    bosh-lite/notifications-stub.yml \
+    bosh-lite/notifications-smtp-stub.yml \
+    bosh-lite/notifications-db-stub.yml > bosh-lite/manifests/notifications-manifest.yml
 
-perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" bosh-lite/manifests/notifications-manifest.yml
+  perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" bosh-lite/manifests/notifications-manifest.yml
 
-bosh deployment bosh-lite/manifests/notifications-manifest.yml
+  bosh deployment bosh-lite/manifests/notifications-manifest.yml
+popd > /dev/null

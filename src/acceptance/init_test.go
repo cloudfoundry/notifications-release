@@ -1,15 +1,22 @@
 package acceptance
 
 import (
+	"regexp"
 	"strings"
+	"testing"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-
-	"testing"
 )
 
-var context TestSuiteContext
+var (
+	context      TestSuiteContext
+	originalSMTP struct {
+		Host string
+		Port string
+		TLS  string
+	}
+)
 
 func TestAcceptance(t *testing.T) {
 	RegisterFailHandler(Fail)
@@ -25,7 +32,7 @@ var _ = BeforeSuite(func() {
 		TestSpace:                   Randomized("space"),
 		TestClientSenderID:          Randomized("client"),
 		TestClientSenderSecret:      Randomized("secret"),
-		TestClientSenderAuthorities: "notifications.write",
+		TestClientSenderAuthorities: "notifications.write,emails.write",
 		TestClientSenderGrantTypes:  "client_credentials",
 
 		UAACAdminClientID:     LoadOrPanic("UAAC_ADMIN_CLIENT_ID"),
@@ -35,11 +42,21 @@ var _ = BeforeSuite(func() {
 		NotificationsDomain:   LoadOrPanic("NOTIFICATIONS_DOMAIN"),
 		UAADomain:             LoadOrPanic("UAA_DOMAIN"),
 		CCDomain:              LoadOrPanic("CC_DOMAIN"),
+		NotificationsOrg:      LoadOrPanic("NOTIFICATIONS_ORG"),
+		NotificationsSpace:    LoadOrPanic("NOTIFICATIONS_SPACE"),
 	}
 
-	// LOGIN AS A CF USER
+	// LOGIN AS A CF ADMIN
+	Run("cf", "logout")
 	Run("cf", "api", context.CCDomain, "--skip-ssl-validation")
-	Run("cf", "login", "-u", context.CFAdminUsername, "-p", context.CFAdminPassword)
+	Run("cf", "auth", context.CFAdminUsername, context.CFAdminPassword)
+
+	// PUT NOTIFICATIONS INTO A TESTABLE STATE
+	Run("cf", "target", "-o", context.NotificationsOrg, "-s", context.NotificationsSpace)
+	Run("cf", "set-env", "notifications", "SMTP_LOGGING_ENABLED", "true")
+	Run("cf", "set-env", "notifications", "TRACE", "true")
+	Run("cf", "restart", "notifications")
+	context.NotificationsAppGUID = strings.TrimSpace(Run("cf", "app", "notifications", "--guid"))
 
 	// CREATE A USER AND GRAB ITS TOKEN
 	Run("cf", "create-user", context.TestUserName, context.TestUserPassword)
@@ -53,14 +70,32 @@ var _ = BeforeSuite(func() {
 	output := Run("uaac", "user", "get", context.TestUserName, "-a", "id")
 	context.TestUserGUID = strings.TrimSpace(strings.Split(output, ":")[1])
 
+	// SET USER AS SPACE DEVELOPER FOR NOTIFICATIONS SPACE
+	Run("cf", "set-space-role", context.TestUserName, context.NotificationsOrg, context.NotificationsSpace, "SpaceDeveloper")
+
+	// RETRIEVE THE TEST USER TOKEN
+	Run("uaac", "token", "get", context.TestUserName, context.TestUserPassword)
+	output = Run("uaac", "context")
+	matches := regexp.MustCompile(`access_token: (.*)\n`).FindStringSubmatch(output)
+	context.LogToken = matches[1]
+
 	// GET A CLIENT WITH THE RIGHT SCOPES
+	Run("uaac", "token", "client", "get", context.UAACAdminClientID, "-s", context.UAACAdminClientSecret)
 	Run("uaac", "client", "add", context.TestClientSenderID, "--authorities", context.TestClientSenderAuthorities, "-s", context.TestClientSenderSecret, "--authorized_grant_types", context.TestClientSenderGrantTypes)
-	Run("uaac", "token", "client", "get", context.TestClientSenderID, "-s", context.TestClientSenderSecret)
 })
 
 var _ = AfterSuite(func() {
-	AlwaysRun("cf", "login", "-u", context.CFAdminUsername, "-p", context.CFAdminPassword)
+	// LOGIN AS CF ADMIN
+	AlwaysRun("cf", "auth", context.CFAdminUsername, context.CFAdminPassword)
 	AlwaysRun("cf", "target", "-o", context.TestOrg, "-s", context.TestSpace)
+
+	// PUT NOTIFICATIONS BACK INTO NORMAL STATE
+	Run("cf", "target", "-o", context.NotificationsOrg, "-s", context.NotificationsSpace)
+	Run("cf", "unset-env", "notifications", "SMTP_LOGGING_ENABLED")
+	Run("cf", "unset-env", "notifications", "TRACE")
+	Run("cf", "restart", "notifications")
+
+	// CLEAN UP TEST OBJECTS
 	AlwaysRun("cf", "delete-user", context.TestUserName, "-f")
 	AlwaysRun("cf", "delete-space", context.TestSpace, "-f")
 	AlwaysRun("cf", "delete-org", context.TestOrg, "-f")
