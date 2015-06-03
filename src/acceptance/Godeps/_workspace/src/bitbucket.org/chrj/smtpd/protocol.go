@@ -26,10 +26,12 @@ func parseLine(line string) (cmd command) {
 
 	cmd.line = line
 	cmd.fields = strings.Fields(line)
-	cmd.action = strings.ToUpper(cmd.fields[0])
 
-	if len(cmd.fields) > 1 {
-		cmd.params = strings.Split(cmd.fields[1], ":")
+	if len(cmd.fields) > 0 {
+		cmd.action = strings.ToUpper(cmd.fields[0])
+		if len(cmd.fields) > 1 {
+			cmd.params = strings.Split(cmd.fields[1], ":")
+		}
 	}
 
 	return
@@ -146,6 +148,8 @@ func (session *session) handleEHLO(cmd command) {
 
 	session.peer.HeloName = cmd.fields[1]
 	session.peer.Protocol = ESMTP
+
+	fmt.Fprintf(session.writer, "250-%s\r\n", session.server.Hostname)
 
 	extensions := session.extensions()
 
@@ -271,6 +275,10 @@ func (session *session) handleSTARTTLS(cmd command) {
 	session.writer = bufio.NewWriter(tlsConn)
 	session.scanner = bufio.NewScanner(session.reader)
 	session.tls = true
+
+	// Save connection state on peer
+	state := tlsConn.ConnectionState()
+	session.peer.TLS = &state
 
 	// Flush the connection to set new timeout deadlines
 	session.flush()

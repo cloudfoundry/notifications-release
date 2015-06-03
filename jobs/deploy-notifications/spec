@@ -1,10 +1,13 @@
 ---
 name: deploy-notifications
+
 templates:
   deploy.sh.erb: bin/run
+
 packages:
-- notifications
-- cf_cli
+  - notifications
+  - cf_cli
+
 properties:
   domain:
     description: 'Cloud Foundry System Domain'

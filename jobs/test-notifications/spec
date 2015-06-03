@@ -1,14 +1,17 @@
 ---
 name: test-notifications
+
 templates:
   test.sh.erb: bin/run
+
 packages:
-- notifications
-- cf_cli
-- ruby
-- go
-- acceptance
-- git
+  - notifications
+  - cf_cli
+  - ruby
+  - go
+  - acceptance
+  - git
+
 properties:
   domain:
     description: 'Cloud Foundry System Domain'
@@ -26,3 +29,5 @@ properties:
     description: 'Organization that contains the app'
   notifications.space:
     description: 'Space that contains the app'
+  notifications.tests.performance:
+    description: 'Toggle for running the performance tests'

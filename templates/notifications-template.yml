@@ -22,6 +22,9 @@ update:
   max_in_flight: 1
 
 properties:
+  domain: (( merge ))
+  ssl:
+    skip_cert_verify: (( merge ))
   notifications:
     app_domain: (( merge ))
     network: (( merge ))
@@ -49,6 +52,5 @@ properties:
       client_secret: (( properties.uaa.clients.notifications.secret ))
       admin_client_id: (( merge ))
       admin_client_secret: (( merge ))
-  domain: (( merge ))
-  ssl:
-    skip_cert_verify: (( merge ))
+    tests:
+      performance: (( merge || false ))

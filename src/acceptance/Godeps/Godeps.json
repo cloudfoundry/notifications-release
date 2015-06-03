@@ -7,8 +7,8 @@
 	"Deps": [
 		{
 			"ImportPath": "bitbucket.org/chrj/smtpd",
-			"Comment": "null-24",
-			"Rev": "10bcb042194e344946fc7d9a6dad3cd87c05ec04"
+			"Comment": "null-33",
+			"Rev": "5f20925b9b440c14f2014dfe523f7a9e01068175"
 		},
 		{
 			"ImportPath": "github.com/cloudfoundry/loggregator_consumer",

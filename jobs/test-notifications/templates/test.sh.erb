@@ -21,6 +21,9 @@ export UAA_DOMAIN=$SCHEME://uaa.$DOMAIN
 export CC_DOMAIN=$SCHEME://api.$DOMAIN
 export NOTIFICATIONS_ORG=<%= properties.notifications.organization %>
 export NOTIFICATIONS_SPACE=<%= properties.notifications.space %>
+export SMTP_HOST=`ip route list scope link | awk '{print $7}'`
+export RUN_PERFORMANCE_TESTS=<%= properties.notifications.tests.performance %>
+export TRACE=true
 
 mkdir -p $GOPATH
 mkdir -p $HOME
@@ -33,5 +36,9 @@ go version
 export GOPATH=$GOPATH:/var/vcap/packages/acceptance/Godeps/_workspace
 
 pushd /var/vcap/packages/acceptance
-    go test -v .
+	if [[ "$RUN_PERFORMANCE_TESTS" = "true" ]]; then
+		go test -v -timeout 30m -tags=performance .
+	else
+		go test -v .
+	fi
 popd

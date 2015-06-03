@@ -2,9 +2,15 @@
 director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
 properties:
+  domain: 10.244.0.34.xip.io
+  ssl:
+    skip_cert_verify: true
   notifications:
     app_domain: 10.244.0.34.xip.io
     network: default
+    sender: no-reply@10.244.0.34.xip.io
+    encryption_key: moons_of_endor
+    instance_count: 4
     cf:
       admin_user: admin
       admin_password: admin
@@ -14,19 +20,13 @@ properties:
       port: (( merge ))
       user: (( merge ))
       tls: true
-    tests:
-      performance: false
     uaa:
       client_id: notifications
       client_secret: notification-secret
       admin_client_id: admin
       admin_client_secret: admin-secret
-    sender: no-reply@10.244.0.34.xip.io
-    encryption_key: moons_of_endor
     database:
       url: (( merge ))
       max_open_connections: (( merge || 10 ))
-    instance_count: 4
-  domain: 10.244.0.34.xip.io
-  ssl:
-    skip_cert_verify: true
+    tests:
+      performance: true

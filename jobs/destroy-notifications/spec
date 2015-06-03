@@ -1,9 +1,12 @@
 ---
 name: destroy-notifications
+
 templates:
   destroy.sh.erb: bin/run
+
 packages:
-- cf_cli
+  - cf_cli
+
 properties:
   domain:
     description: 'Cloud Foundry System Domain'
