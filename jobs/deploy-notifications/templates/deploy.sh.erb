@@ -1,6 +1,5 @@
 #!/bin/bash -exu
-
-export PATH="/var/vcap/packages/cf_cli/bin:$PATH"
+export PATH="/var/vcap/packages/cf_cli/bin:/var/vcap/packages/jq/bin:$PATH"
 
 SCHEME=https
 DOMAIN=<%= properties.domain %>
@@ -12,6 +11,9 @@ SPACE=notifications-service
 QUOTA=notifications-service
 APP_NAME=notifications
 APP_DOMAIN=<%= properties.notifications.app_domain %>
+DEFAULT_TEMPLATE=<%= properties.notifications.default_template.lines("\n").map(&:strip).join.inspect %>
+UAA_ADMIN_CLIENT=<%= properties.notifications.uaa.admin_client_id %>
+UAA_ADMIN_SECRET=<%= properties.notifications.uaa.admin_client_secret %>
 
 export CF_HOME=`pwd`/home/cf
 mkdir -p $CF_HOME
@@ -118,7 +120,49 @@ function scale_app_up() {
   cf scale $APP_NAME -i <%= properties.notifications.instance_count %>
 }
 
+function set_default_template() {
+  TEMP_CLIENT=template-setter-$RANDOM
+  TEMP_PASS=temp-secret-$RANDOM
+
+  admin_token=$(curl $SCHEME://$UAA_ADMIN_CLIENT:$UAA_ADMIN_SECRET@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" -kv | jq -r '.access_token')
+
+  curl -k -H "Authorization: Bearer $admin_token" -X DELETE $SCHEME://uaa.$DOMAIN/oauth/clients/$TEMP_CLIENT
+
+  touch curl.log
+
+  cat << EOF >tempfile
+{
+  "client_id" : "$TEMP_CLIENT",
+  "client_secret" : "$TEMP_PASS",
+  "scope" : ["openid"],
+  "resource_ids" : ["none"],
+  "authorities" : ["openid", "notification_templates.write"],
+  "authorized_grant_types" : ["client_credentials"],
+  "access_token_validity": 43200
+}
+EOF
+  status=$(curl -k -v -so ./curl.log -w '%{response_code}' -H 'Content-Type: application/json' -H "Authorization: Bearer $admin_token" -X POST $SCHEME://uaa.$DOMAIN/oauth/clients -d @tempfile)
+  if [[ "$status" != "201" ]]; then
+    echo "Could not create a temporary user for template setting: received $status"
+    cat curl.log
+    exit 187
+  fi
+
+  temp_client_token=$(curl $SCHEME://$TEMP_CLIENT:$TEMP_PASS@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" -kv | jq -r '.access_token')
+
+  status=$(curl -i -k -v -so ./curl.log -w '%{response_code}' -X PUT -H "Authorization: Bearer $temp_client_token" $SCHEME://$APP_NAME.$DOMAIN/default_template -d "$DEFAULT_TEMPLATE")
+
+  curl -k -H "Authorization: Bearer $admin_token" -X DELETE $SCHEME://uaa.$DOMAIN/oauth/clients/$TEMP_CLIENT
+
+  if [[ "$status" != "204" ]]; then
+    echo "The default template could not be set: received $status"
+    cat curl.log
+    exit 187
+  fi
+}
+
 cf -v
+
 validate_database_connection_count
 validate_smtp_config
 authenticate_and_target
@@ -126,3 +170,7 @@ create_manifest
 scale_app_down
 push_app
 scale_app_up
+
+if [[ -n "$DEFAULT_TEMPLATE" ]]; then
+  set_default_template
+fi

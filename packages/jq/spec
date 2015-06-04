@@ -1,0 +1,5 @@
+---
+name: jq
+
+files:
+  - jq/jq.tar.gz

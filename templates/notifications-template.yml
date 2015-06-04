@@ -32,6 +32,7 @@ properties:
     instance_count: (( merge ))
     organization: (( merge || "system" ))
     space: (( merge || "notifications-service" ))
+    default_template: (( merge || "" ))
     cf:
       admin_user: (( merge ))
       admin_password: (( merge ))

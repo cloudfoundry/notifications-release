@@ -7,6 +7,7 @@ templates:
 packages:
   - notifications
   - cf_cli
+  - jq
 
 properties:
   domain:
@@ -39,6 +40,10 @@ properties:
     description: 'Client id of the UAA'
   notifications.uaa.client_secret:
     description: 'Client secret of the UAA'
+  notifications.uaa.admin_client_id:
+    description: 'Admin client id of the UAA'
+  notifications.uaa.admin_client_secret:
+    description: 'Admin client secret of the UAA'
   notifications.database.url:
     description: 'URL pointing to database'
   notifications.database.max_open_connections:
@@ -47,5 +52,7 @@ properties:
     description: 'key used to encrypt unsubscribe IDs'
   notifications.instance_count:
     description: 'number of instances of service to run'
+  notifications.default_template:
+    description: 'default template to use for the service'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making web requests'
