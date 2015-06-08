@@ -3,7 +3,7 @@ jobs: (( merge ))
 
 resource_pools:
 - name: default
-  network: default
+  network: notifications
   size: (( auto ))
   stemcell:
     name: bosh-warden-boshlite-ubuntu-trusty-go_agent

@@ -1,5 +1,5 @@
 networks:
-- name: default
+- name: notifications
   type: manual
   subnets:
   - range: 10.244.5.0/30
