@@ -59,6 +59,8 @@ applications:
   - name: notifications
     command: bin/notifications
     memory: 64M
+    domain: "<%= properties.domain %>"
+    host: notifications
 env:
   DOMAIN: "<%= properties.domain %>"
   UAA_CLIENT_ID: "<%= properties.notifications.uaa.client_id %>"
