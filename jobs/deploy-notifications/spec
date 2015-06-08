@@ -18,6 +18,10 @@ properties:
     description: 'Password of the CF admin user'
   notifications.app_domain:
     description: 'Domain used to host application'
+  notifications.organization:
+    description: 'Organization that hosts the app'
+  notifications.space:
+    description: 'Space that hosts the app'
   notifications.network:
     description: 'Network used to host application'
   notifications.smtp.auth_mechanism:

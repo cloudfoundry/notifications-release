@@ -6,9 +6,8 @@ DOMAIN=<%= properties.domain %>
 ADMIN_USER=<%= properties.notifications.cf.admin_user %>
 ADMIN_PASSWORD=<%= properties.notifications.cf.admin_password %>
 API_ENDPOINT=$SCHEME://api.$DOMAIN
-ORG=system
-SPACE=notifications-service
-QUOTA=notifications-service
+ORG=<%= properties.notifications.organization %>
+SPACE=<%= properties.notifications.space %>
 APP_NAME=notifications
 APP_DOMAIN=<%= properties.notifications.app_domain %>
 DEFAULT_TEMPLATE=<%= properties.notifications.default_template.lines("\n").map(&:strip).join.inspect %>
