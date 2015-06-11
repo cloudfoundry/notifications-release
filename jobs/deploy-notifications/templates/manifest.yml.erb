@@ -1,0 +1,27 @@
+---
+applications:
+  - name: notifications
+    command: bin/notifications
+    memory: 64M
+    domain: "<%= properties.domain %>"
+    host: notifications
+env:
+  DOMAIN: "<%= properties.domain %>"
+  UAA_CLIENT_ID: "<%= properties.notifications.uaa.client_id %>"
+  UAA_CLIENT_SECRET: "<%= properties.notifications.uaa.client_secret %>"
+  VERIFY_SSL: "<%= !properties.ssl.skip_cert_verify %>"
+  ROOT_PATH: "$HOME"
+  ENCRYPTION_KEY: "<%= properties.notifications.encryption_key %>"
+  UAA_HOST: https://uaa.<%= properties.domain %>
+  CC_HOST: https://api.<%= properties.domain %>
+  SMTP_AUTH_MECHANISM: "<%= properties.notifications.smtp.auth_mechanism %>"
+  SMTP_CRAMMD5_SECRET: "<%= properties.notifications.smtp.crammd5_secret %>"
+  SMTP_HOST: "<%= properties.notifications.smtp.host %>"
+  SMTP_PASS: "<%= properties.notifications.smtp.pass %>"
+  SMTP_PORT: "<%= properties.notifications.smtp.port %>"
+  SMTP_USER: "<%= properties.notifications.smtp.user %>"
+  SMTP_TLS: "<%= properties.notifications.smtp.tls %>"
+  SENDER: "<%= properties.notifications.sender %>"
+  DATABASE_URL: "<%= properties.notifications.database.url %>"
+  GOBBLE_MIGRATIONS_DIR: "$HOME/gobble/migrations"
+  DB_MAX_OPEN_CONNS: "<%= properties.notifications.database.max_open_connections / properties.notifications.instance_count %>"

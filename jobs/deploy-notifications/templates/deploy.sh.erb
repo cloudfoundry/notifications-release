@@ -1,5 +1,7 @@
 #!/bin/bash -exu
+
 export PATH="/var/vcap/packages/cf_cli/bin:/var/vcap/packages/jq/bin:$PATH"
+export CF_HOME=`pwd`/home/cf
 
 SCHEME=https
 DOMAIN=<%= properties.domain %>
@@ -14,8 +16,8 @@ DEFAULT_TEMPLATE=<%= properties.notifications.default_template.lines("\n").map(&
 UAA_ADMIN_CLIENT=<%= properties.notifications.uaa.admin_client_id %>
 UAA_ADMIN_SECRET=<%= properties.notifications.uaa.admin_client_secret %>
 SYSLOG_URL="<%= properties.notifications.syslog_url %>"
+MANIFEST=/var/vcap/jobs/deploy-notifications/manifest.yml
 
-export CF_HOME=`pwd`/home/cf
 mkdir -p $CF_HOME
 
 function validate_database_connection_count() {
@@ -53,39 +55,8 @@ function authenticate_and_target() {
 }
 
 function create_manifest() {
-  pushd /var/vcap/packages/notifications
-    cat << EOF > manifest.yml
----
-applications:
-  - name: notifications
-    command: bin/notifications
-    memory: 64M
-    domain: "<%= properties.domain %>"
-    host: notifications
-env:
-  DOMAIN: "<%= properties.domain %>"
-  UAA_CLIENT_ID: "<%= properties.notifications.uaa.client_id %>"
-  UAA_CLIENT_SECRET: "<%= properties.notifications.uaa.client_secret %>"
-  VERIFY_SSL: "<%= !properties.ssl.skip_cert_verify %>"
-  ROOT_PATH: "\$HOME"
-  ENCRYPTION_KEY: "<%= properties.notifications.encryption_key %>"
-  UAA_HOST: $SCHEME://uaa.$DOMAIN
-  CC_HOST: $SCHEME://api.$DOMAIN
-  SMTP_AUTH_MECHANISM: "<%= properties.notifications.smtp.auth_mechanism %>"
-  SMTP_CRAMMD5_SECRET: "<%= properties.notifications.smtp.crammd5_secret %>"
-  SMTP_HOST: "<%= properties.notifications.smtp.host %>"
-  SMTP_PASS: "<%= properties.notifications.smtp.pass %>"
-  SMTP_PORT: "<%= properties.notifications.smtp.port %>"
-  SMTP_USER: "<%= properties.notifications.smtp.user %>"
-  SMTP_TLS: "<%= properties.notifications.smtp.tls %>"
-  SENDER: "<%= properties.notifications.sender %>"
-  DATABASE_URL: "<%= properties.notifications.database.url %>"
-  GOBBLE_MIGRATIONS_DIR: "\$HOME/gobble/migrations"
-  DB_MAX_OPEN_CONNS: "<%= properties.notifications.database.max_open_connections / properties.notifications.instance_count %>"
-EOF
-
-  cat manifest.yml
-  popd
+  cat $MANIFEST
+  cp $MANIFEST /var/vcap/packages/notifications/manifest.yml
 }
 
 function create_logging_service() {
