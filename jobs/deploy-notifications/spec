@@ -60,3 +60,5 @@ properties:
     description: 'default template to use for the service'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making web requests'
+  notifications.syslog_url:
+    description: 'External log service URL'

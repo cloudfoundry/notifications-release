@@ -30,6 +30,7 @@ properties:
     network: (( merge ))
     encryption_key: (( merge ))
     instance_count: (( merge ))
+    syslog_url: (( merge || "" ))
     organization: (( merge || "system" ))
     space: (( merge || "notifications-service" ))
     default_template: (( merge || "" ))

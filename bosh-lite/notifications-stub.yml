@@ -11,6 +11,7 @@ properties:
     sender: no-reply@10.244.0.34.xip.io
     encryption_key: moons_of_endor
     instance_count: 4
+    #syslog_url: syslog-tls://yoursyslogurl.example.com
     cf:
       admin_user: admin
       admin_password: admin
