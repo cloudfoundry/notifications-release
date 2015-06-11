@@ -1,20 +1,18 @@
-#!/bin/bash
-set -e -x
+#!/bin/bash -ex
 
 export PATH="/var/vcap/packages/cf_cli/bin:$PATH"
-
-export SCHEME=https
-export DOMAIN=<%= properties.domain %>
-export ADMIN_USER=<%= properties.notifications.cf.admin_user %>
-export ADMIN_PASSWORD=<%= properties.notifications.cf.admin_password %>
-export API_ENDPOINT=$SCHEME://api.$DOMAIN
-export ORG=system
-export SPACE=notifications-service
-export QUOTA=notifications-service
-export APP_NAME=notifications
-export APP_DOMAIN=<%= properties.notifications.app_domain %>
-
 export CF_HOME=`pwd`/home/cf
+
+SCHEME=https
+DOMAIN=<%= properties.domain %>
+ADMIN_USER=<%= properties.notifications.cf.admin_user %>
+ADMIN_PASSWORD=<%= properties.notifications.cf.admin_password %>
+API_ENDPOINT=$SCHEME://api.$DOMAIN
+ORG=<%= properties.notifications.organization %>
+SPACE=<%= properties.notifications.space %>
+APP_NAME=notifications
+APP_DOMAIN=<%= properties.notifications.app_domain %>
+
 mkdir -p $CF_HOME
 
 function authenticate_and_target() {
@@ -29,9 +27,6 @@ function authenticate_and_target() {
 function delete() {
   cf delete $APP_NAME -f
   cf delete-route $APP_DOMAIN -n $APP_NAME -f
-  cf delete-space $SPACE -f
-  cf delete-org $ORG -f
-  cf delete-quota $QUOTA -f
 }
 
 cf -v

@@ -16,5 +16,9 @@ properties:
     description: 'Password of the CF admin user'
   notifications.app_domain:
     description: 'Domain used to host application'
+  notifications.organization:
+    description: 'Organization where the app is deployed'
+  notifications.space:
+    description: 'Space where the app is deployed'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making web requests'
