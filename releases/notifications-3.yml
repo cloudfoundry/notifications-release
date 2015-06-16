@@ -1,0 +1,55 @@
+---
+packages:
+- name: notifications
+  version: 98ada80c8c0289ce67e63da06769bc75a1c93556
+  fingerprint: 98ada80c8c0289ce67e63da06769bc75a1c93556
+  sha1: 626b6dd10523dd8ebc8d4b8b963f92569052e32f
+  dependencies: []
+- name: cf_cli
+  version: 50ddba84a83dd864e5ade1bb4bb215a965e9fba8
+  fingerprint: 50ddba84a83dd864e5ade1bb4bb215a965e9fba8
+  sha1: ed1a5d7d8308f9f4bbc27eb3594b5eaf48fc45f1
+  dependencies: []
+- name: jq
+  version: b0831a924f18926b8f83d105a16d2718407fa03c
+  fingerprint: b0831a924f18926b8f83d105a16d2718407fa03c
+  sha1: 029fe65615863d2ba85fe871d3e8acda3491c90c
+  dependencies: []
+- name: ruby
+  version: 951909cba6dd08e5c436f516c7fcef73c852456b
+  fingerprint: 951909cba6dd08e5c436f516c7fcef73c852456b
+  sha1: a4bbccc284fd7a60defbe4dc8f98c5b7a193d725
+  dependencies:
+  - git
+- name: acceptance
+  version: c05468bc5460c442d7b03b9949bbd875825ce700
+  fingerprint: c05468bc5460c442d7b03b9949bbd875825ce700
+  sha1: a1131d35d642adab00c3abd5dc7a2c4cfb02c413
+  dependencies: []
+- name: go
+  version: 21dc69195c1440120b5a4a87400712c9cdf910e9
+  fingerprint: 21dc69195c1440120b5a4a87400712c9cdf910e9
+  sha1: 70d520eac66012e382075cd48634e3500e64892a
+  dependencies: []
+- name: git
+  version: fa5a39fef3b24900f8c2d49aae9bfa8b98abd1ec
+  fingerprint: fa5a39fef3b24900f8c2d49aae9bfa8b98abd1ec
+  sha1: be9a0c0d998be196b5f23ceb82091e06881008ca
+  dependencies: []
+jobs:
+- name: test-notifications
+  version: 6c0244e737bdb15f1e5f2f0fb1b3accc6e335e56
+  fingerprint: 6c0244e737bdb15f1e5f2f0fb1b3accc6e335e56
+  sha1: b3d9ebb07e43322779712bedd4dc3ea8b6987b9b
+- name: destroy-notifications
+  version: 848c900b95822d6dee84cea927130cb368afc496
+  fingerprint: 848c900b95822d6dee84cea927130cb368afc496
+  sha1: 88969d5486dd9b5058362c26a0f4ae33c763cb3b
+- name: deploy-notifications
+  version: e6df5efc68528309443f344ea270625b32d720e3
+  fingerprint: e6df5efc68528309443f344ea270625b32d720e3
+  sha1: cd50f8d95ae98c0111fa894a22db1aa529592069
+commit_hash: ef4179af
+uncommitted_changes: true
+name: notifications
+version: '3'
