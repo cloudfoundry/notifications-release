@@ -1,0 +1,55 @@
+---
+packages:
+- name: notifications
+  version: 98ada80c8c0289ce67e63da06769bc75a1c93556
+  fingerprint: 98ada80c8c0289ce67e63da06769bc75a1c93556
+  sha1: 1296af16f5aa1dc586b736055b21e86b0efdf61a
+  dependencies: []
+- name: cf_cli
+  version: 50ddba84a83dd864e5ade1bb4bb215a965e9fba8
+  fingerprint: 50ddba84a83dd864e5ade1bb4bb215a965e9fba8
+  sha1: bd8242aa14c92782705e3b8c5b4f9092f8836c39
+  dependencies: []
+- name: jq
+  version: b0831a924f18926b8f83d105a16d2718407fa03c
+  fingerprint: b0831a924f18926b8f83d105a16d2718407fa03c
+  sha1: 8c0baceb5ee4ec04cbc67bd1a975f3a9aaeb2e41
+  dependencies: []
+- name: ruby
+  version: 951909cba6dd08e5c436f516c7fcef73c852456b
+  fingerprint: 951909cba6dd08e5c436f516c7fcef73c852456b
+  sha1: 874782790fa4e3ca27aab2e71e024f024de43cf5
+  dependencies:
+  - git
+- name: acceptance
+  version: c05468bc5460c442d7b03b9949bbd875825ce700
+  fingerprint: c05468bc5460c442d7b03b9949bbd875825ce700
+  sha1: aaba8b7192adf02eb54a8cb24ce13115eb408930
+  dependencies: []
+- name: go
+  version: 21dc69195c1440120b5a4a87400712c9cdf910e9
+  fingerprint: 21dc69195c1440120b5a4a87400712c9cdf910e9
+  sha1: dcace44a6f2c143adff7529300ffd1f0bc12d232
+  dependencies: []
+- name: git
+  version: fa5a39fef3b24900f8c2d49aae9bfa8b98abd1ec
+  fingerprint: fa5a39fef3b24900f8c2d49aae9bfa8b98abd1ec
+  sha1: 1d7baabac8c6af94d08af240cd4932e759c7339f
+  dependencies: []
+jobs:
+- name: test-notifications
+  version: 6c0244e737bdb15f1e5f2f0fb1b3accc6e335e56
+  fingerprint: 6c0244e737bdb15f1e5f2f0fb1b3accc6e335e56
+  sha1: dfe0a436bf6bc6d0de36b426ef881185257c4b3e
+- name: destroy-notifications
+  version: 848c900b95822d6dee84cea927130cb368afc496
+  fingerprint: 848c900b95822d6dee84cea927130cb368afc496
+  sha1: 8266a817bde239aedf9c0419abe55ca3ae17cb23
+- name: deploy-notifications
+  version: e6df5efc68528309443f344ea270625b32d720e3
+  fingerprint: e6df5efc68528309443f344ea270625b32d720e3
+  sha1: 7a3daeaf2b273eb1583fbcb9c0290840571b97c3
+commit_hash: c13c381e
+uncommitted_changes: false
+name: notifications
+version: '7'
