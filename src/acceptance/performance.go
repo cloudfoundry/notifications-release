@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	userCount   = 250
+	userCount   = 500
 	workerCount = 10
 
 	// This is a huge hack and should be fixed at some point. The admin email
