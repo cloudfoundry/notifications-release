@@ -1,48 +1,56 @@
 package acceptance
 
 import (
-	"encoding/json"
-	"fmt"
+	"crypto/tls"
+	"net/http"
 	"time"
 
+	"github.com/cloudfoundry-incubator/notifications/acceptance/support"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.com/pivotal-cf-experimental/warrant"
 )
 
 var _ = Describe("SendEmailToUser", func() {
-	var messageID string
+	var clientToken string
 
 	BeforeEach(func() {
-		Run("uaac", "token", "client", "get", context.TestClientSenderID, "-s", context.TestClientSenderSecret)
+		var err error
+		config := warrant.Config{Host: context.UAADomain, SkipVerifySSL: true}
+		clientService := warrant.NewClientsService(config)
+		clientToken, err = clientService.GetToken(context.TestClientSenderID, context.TestClientSenderSecret)
+		Expect(err).NotTo(HaveOccurred())
 	})
 
 	It("sends a notification to the cf user", func() {
+		var (
+			messageID           string
+			notificationsClient *support.Client
+		)
+
 		By("sending the email to the user", func() {
-			// SEND A NOTIFICATION TO A USER
-			notificationToUserURL := fmt.Sprintf("%s/users/%s", context.NotificationsDomain, context.TestUserGUID)
-			output := Run("uaac", "curl", "--insecure", notificationToUserURL, "-X", "POST", "--data", `{"kind_id":"test_notification", "text":"this is a test", "html":"something"}`)
-
-			// VERIFY 200 RESPONSE
-			Expect(output).To(ContainSubstring("200 OK"))
-			Expect(output).To(ContainSubstring(`"recipient":"` + context.TestUserGUID + `"`))
-
-			// GRAB MESSAGE ID TO CHECK STATUS OF NOTIFICATION
-			var notificationResponse NotificationResponse
-			jsonBytes := ReturnOnlyBody(output)
-			json.Unmarshal(jsonBytes, &notificationResponse)
-			Expect(notificationResponse).To(HaveLen(1))
-			messageID = notificationResponse[0].ID
+			notificationsClient = support.NewClient(context.NotificationsDomain)
+			transport := &http.Transport{
+				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			}
+			notificationsClient.HTTPClient = &http.Client{Transport: transport}
+			notify := support.Notify{
+				KindID: "test_notification",
+				Text:   "this is a test",
+				HTML:   "something",
+			}
+			status, response, err := notificationsClient.Notify.User(clientToken, context.TestUserGUID, notify)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(status).To(Equal(200))
+			Expect(response[0].Recipient).To(Equal(context.TestUserGUID))
+			messageID = response[0].NotificationID
 		})
 
 		By("verifying the email was sent to the SMTP server", func() {
-			notificationToUserStatusURL := fmt.Sprintf("%s/messages/%s", context.NotificationsDomain, messageID)
-
 			Eventually(func() string {
-				var statusResponse StatusResponse
-				output := Run("uaac", "curl", "--insecure", notificationToUserStatusURL)
-				jsonBytes := ReturnOnlyBody(output)
-				json.Unmarshal(jsonBytes, &statusResponse)
-				return statusResponse.Status
+				_, message, err := notificationsClient.Messages.Get(clientToken, messageID)
+				Expect(err).NotTo(HaveOccurred())
+				return message.Status
 			}, 10*time.Second).Should(Equal("delivered"))
 		})
 	})

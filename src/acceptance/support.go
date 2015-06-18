@@ -31,8 +31,8 @@ type TestSuiteContext struct {
 	TestSpace                   string
 	TestClientSenderID          string
 	TestClientSenderSecret      string
-	TestClientSenderAuthorities string
-	TestClientSenderGrantTypes  string
+	TestClientSenderAuthorities []string
+	TestClientSenderGrantTypes  []string
 	NotificationsDomain         string
 	UAADomain                   string
 	CCDomain                    string
@@ -46,15 +46,6 @@ type GUIDResponse struct {
 			GUID string `json:"guid"`
 		} `json:"metadata"`
 	}
-}
-
-type NotificationResponse []struct {
-	ID        string `json:"notification_id"`
-	Recipient string `json:"recipient"`
-}
-
-type StatusResponse struct {
-	Status string `json:"status"`
 }
 
 func AlwaysRun(command string, arguments ...string) {

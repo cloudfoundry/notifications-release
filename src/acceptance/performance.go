@@ -17,6 +17,7 @@ import (
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.com/pivotal-cf-experimental/warrant"
 )
 
 const (
@@ -47,7 +48,13 @@ func (uc UserCreator) Run() {
 		Run("cf", "create-user", user.Name, "password")
 		Run("cf", "set-space-role", user.Name, uc.OrgName, "benchmark", "SpaceDeveloper")
 		Run("cf", "set-org-role", user.Name, uc.OrgName, user.OrgRole)
-		userGUID := regexp.MustCompile(`^\s\sid:\s(.+)\n`).FindStringSubmatch(Run("uaac", "user", "get", user.Name))[1]
+
+		config := warrant.Config{Host: context.UAADomain, SkipVerifySSL: true}
+		adminToken := fetchAdminToken(config)
+		userService := warrant.NewUsersService(config)
+		users, err := userService.Find(warrant.UsersQuery{Filter: fmt.Sprintf("username eq '%s'", user.Name)}, adminToken)
+		Expect(err).NotTo(HaveOccurred())
+		userGUID := users[0].ID
 
 		user.GUID = userGUID
 		uc.Out <- user
@@ -113,7 +120,6 @@ var _ = Describe("Performance", func() {
 		go smtpServer.ListenAndServe(fmt.Sprintf("%s:%s", smtpHost, smtpPort))
 
 		context.Deliveries = []smtpd.Envelope{}
-		Run("uaac", "token", "client", "get", context.UAACAdminClientID, "-s", context.UAACAdminClientSecret)
 		Run("cf", "auth", context.CFAdminUsername, context.CFAdminPassword)
 		Run("cf", "target", "-o", context.NotificationsOrg, "-s", context.NotificationsSpace)
 
@@ -170,9 +176,10 @@ var _ = Describe("Performance", func() {
 			users = append(users, user)
 		}
 
-		Run("uaac", "token", "client", "get", context.TestClientSenderID, "-s", context.TestClientSenderSecret)
-		output := Run("uaac", "context")
-		token = regexp.MustCompile(`access_token:\ (.*)`).FindStringSubmatch(output)[1]
+		clientService := warrant.NewClientsService(warrant.Config{Host: context.UAADomain, SkipVerifySSL: true})
+		var err error
+		token, err = clientService.GetToken(context.TestClientSenderID, context.TestClientSenderSecret)
+		Expect(err).NotTo(HaveOccurred())
 	})
 
 	AfterEach(func() {

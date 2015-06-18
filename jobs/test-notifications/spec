@@ -7,10 +7,8 @@ templates:
 packages:
   - notifications
   - cf_cli
-  - ruby
   - go
   - acceptance
-  - git
 
 properties:
   domain:

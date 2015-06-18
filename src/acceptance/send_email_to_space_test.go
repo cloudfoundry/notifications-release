@@ -1,22 +1,37 @@
 package acceptance
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"time"
+
+	"github.com/cloudfoundry-incubator/notifications/acceptance/support"
+	"github.com/pivotal-cf-experimental/warrant"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("SendEmailToSpace", func() {
-	var messageID string
+	var clientToken string
 
 	BeforeEach(func() {
-		Run("uaac", "token", "client", "get", context.TestClientSenderID, "-s", context.TestClientSenderSecret)
+		var err error
+
+		config := warrant.Config{Host: context.UAADomain, SkipVerifySSL: true}
+		clientService := warrant.NewClientsService(config)
+		clientToken, err = clientService.GetToken(context.TestClientSenderID, context.TestClientSenderSecret)
+		Expect(err).NotTo(HaveOccurred())
 	})
 
 	It("sends a notification a user within a particular space", func() {
+		var (
+			messageID           string
+			notificationsClient *support.Client
+		)
+
 		By("sending the notification to the space", func() {
 			// PUT A USER IN A SPACE
 			Run("cf", "auth", context.CFAdminUsername, context.CFAdminPassword)
@@ -33,36 +48,35 @@ var _ = Describe("SendEmailToSpace", func() {
 			}
 			spaceGUID := spaceGUIDResponse.Resources[0].MetaData.GUID
 
-			// SEND A NOTIFICATION TO A SPACE
-			notificationToSpaceURL := fmt.Sprintf("%s/spaces/%s", context.NotificationsDomain, spaceGUID)
-			output = Run("uaac", "curl", "--insecure", notificationToSpaceURL, "-X", "POST", "--data", `{"kind_id":"test_notification", "text":"this is a test"}`)
+			notificationsClient = support.NewClient(context.NotificationsDomain)
+			transport := &http.Transport{
+				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			}
+			notificationsClient.HTTPClient = &http.Client{Transport: transport}
+			notify := support.Notify{
+				KindID: "test_notification",
+				Text:   "this is a test",
+				HTML:   "something",
+			}
+			status, responses, err := notificationsClient.Notify.Space(clientToken, spaceGUID, notify)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(status).To(Equal(200))
+			Expect(responses).To(HaveLen(2))
 
-			// VERIFY 200 RESPONSE
-			Expect(output).To(ContainSubstring("200 OK"))
-			Expect(output).To(ContainSubstring(`"recipient":"` + context.TestUserGUID + `"`))
-
-			// GRAB MESSAGE ID TO CHECK STATUS OF NOTIFICATION
-			var notificationResponses NotificationResponse
-			jsonBytes := ReturnOnlyBody(output)
-			json.Unmarshal(jsonBytes, &notificationResponses)
-			Expect(notificationResponses).To(HaveLen(2))
-
-			for _, response := range notificationResponses {
+			for _, response := range responses {
 				if response.Recipient == context.TestUserGUID {
-					messageID = response.ID
+					messageID = response.NotificationID
 				}
 			}
+
+			Expect(messageID).NotTo(BeEmpty())
 		})
 
 		By("verifying the notification was sent to the space user", func() {
-			notificationToUserStatusURL := fmt.Sprintf("%s/messages/%s", context.NotificationsDomain, messageID)
-
 			Eventually(func() string {
-				var statusResponse StatusResponse
-				output := Run("uaac", "curl", "--insecure", notificationToUserStatusURL)
-				jsonBytes := ReturnOnlyBody(output)
-				json.Unmarshal(jsonBytes, &statusResponse)
-				return statusResponse.Status
+				_, message, err := notificationsClient.Messages.Get(clientToken, messageID)
+				Expect(err).NotTo(HaveOccurred())
+				return message.Status
 			}, 10*time.Second).Should(Equal("delivered"))
 		})
 	})

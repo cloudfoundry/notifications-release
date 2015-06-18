@@ -1,12 +1,13 @@
 package acceptance
 
 import (
-	"regexp"
+	"fmt"
 	"strings"
 	"testing"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.com/pivotal-cf-experimental/warrant"
 )
 
 var (
@@ -32,8 +33,8 @@ var _ = BeforeSuite(func() {
 		TestSpace:                   Randomized("space"),
 		TestClientSenderID:          Randomized("client"),
 		TestClientSenderSecret:      Randomized("secret"),
-		TestClientSenderAuthorities: "notifications.write,emails.write",
-		TestClientSenderGrantTypes:  "client_credentials",
+		TestClientSenderAuthorities: []string{"notifications.write", "emails.write"},
+		TestClientSenderGrantTypes:  []string{"client_credentials"},
 
 		UAACAdminClientID:     LoadOrPanic("UAAC_ADMIN_CLIENT_ID"),
 		UAACAdminClientSecret: LoadOrPanic("UAAC_ADMIN_CLIENT_SECRET"),
@@ -63,25 +64,11 @@ var _ = BeforeSuite(func() {
 	Run("cf", "create-org", context.TestOrg)
 	Run("cf", "create-space", context.TestSpace, "-o", context.TestOrg)
 	Run("cf", "target", "-o", context.TestOrg, "-s", context.TestSpace)
-	Run("uaac", "target", context.UAADomain, "--skip-ssl-validation")
-	Run("uaac", "token", "client", "get", context.UAACAdminClientID, "-s", context.UAACAdminClientSecret)
-	Run("uaac", "user", "update", context.TestUserName, "--emails", "this-is-an-example@example.com")
 
-	output := Run("uaac", "user", "get", context.TestUserName, "-a", "id")
-	context.TestUserGUID = strings.TrimSpace(strings.Split(output, ":")[1])
+	setupTestUser()
 
 	// SET USER AS SPACE DEVELOPER FOR NOTIFICATIONS SPACE
 	Run("cf", "set-space-role", context.TestUserName, context.NotificationsOrg, context.NotificationsSpace, "SpaceDeveloper")
-
-	// RETRIEVE THE TEST USER TOKEN
-	Run("uaac", "token", "get", context.TestUserName, context.TestUserPassword)
-	output = Run("uaac", "context")
-	matches := regexp.MustCompile(`access_token: (.*)\n`).FindStringSubmatch(output)
-	context.LogToken = matches[1]
-
-	// GET A CLIENT WITH THE RIGHT SCOPES
-	Run("uaac", "token", "client", "get", context.UAACAdminClientID, "-s", context.UAACAdminClientSecret)
-	Run("uaac", "client", "add", context.TestClientSenderID, "--authorities", context.TestClientSenderAuthorities, "-s", context.TestClientSenderSecret, "--authorized_grant_types", context.TestClientSenderGrantTypes)
 })
 
 var _ = AfterSuite(func() {
@@ -99,6 +86,49 @@ var _ = AfterSuite(func() {
 	AlwaysRun("cf", "delete-user", context.TestUserName, "-f")
 	AlwaysRun("cf", "delete-space", context.TestSpace, "-f")
 	AlwaysRun("cf", "delete-org", context.TestOrg, "-f")
-	AlwaysRun("uaac", "token", "client", "get", context.UAACAdminClientID, "-s", context.UAACAdminClientSecret)
-	AlwaysRun("uaac", "client", "delete", context.TestClientSenderID)
+
+	teardownTestUser()
 })
+
+func setupTestUser() {
+	config := warrant.Config{Host: context.UAADomain, SkipVerifySSL: true}
+	adminToken := fetchAdminToken(config)
+
+	userService := warrant.NewUsersService(config)
+	users, err := userService.Find(warrant.UsersQuery{Filter: fmt.Sprintf("username eq '%s'", context.TestUserName)}, adminToken)
+	Expect(err).NotTo(HaveOccurred())
+	testUser := users[0]
+
+	testUser.Emails = []string{"this-is-an-example@example.com"}
+
+	userService.Update(testUser, adminToken)
+	context.TestUserGUID = testUser.ID
+
+	context.LogToken, err = userService.GetToken(context.TestUserName, context.TestUserPassword)
+	Expect(err).NotTo(HaveOccurred())
+
+	clientService := warrant.NewClientsService(config)
+	client := warrant.Client{
+		ID:                   context.TestClientSenderID,
+		Authorities:          context.TestClientSenderAuthorities,
+		AuthorizedGrantTypes: context.TestClientSenderGrantTypes,
+	}
+	Expect(clientService.Create(client, context.TestClientSenderSecret, adminToken)).To(Succeed())
+}
+
+func teardownTestUser() {
+	config := warrant.Config{Host: context.UAADomain, SkipVerifySSL: true}
+	adminToken := fetchAdminToken(config)
+
+	clientService := warrant.NewClientsService(config)
+	Expect(clientService.Delete(context.TestClientSenderID, adminToken)).To(Succeed())
+}
+
+func fetchAdminToken(config warrant.Config) string {
+	clientService := warrant.NewClientsService(config)
+
+	adminToken, err := clientService.GetToken(context.UAACAdminClientID, context.UAACAdminClientSecret)
+	Expect(err).NotTo(HaveOccurred())
+
+	return adminToken
+}

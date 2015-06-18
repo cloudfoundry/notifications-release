@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -x
 
-export PATH=$PATH:/var/vcap/packages/cf_cli/bin:/var/vcap/packages/ruby/bin:/var/vcap/packages/go/bin:/var/vcap/packages/git/bin
+export PATH=$PATH:/var/vcap/packages/cf_cli/bin:/var/vcap/packages/go/bin
 export GOROOT=/var/vcap/packages/go
 export GOPATH=`pwd`/go
 export HOME=`pwd`/home
@@ -29,7 +29,6 @@ mkdir -p $HOME
 mkdir -p $CF_HOME
 
 cf -v
-uaac -v
 go version
 
 export GOPATH=$GOPATH:/var/vcap/packages/acceptance/Godeps/_workspace
