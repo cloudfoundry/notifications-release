@@ -60,6 +60,6 @@ properties:
   notifications.default_template:
     description: 'default template to use for the service'
   ssl.skip_cert_verify:
-    description: 'Whether to verify SSL certs when making web requests'
+    description: 'Whether to verify SSL certs when making HTTP and SMTP requests'
   notifications.syslog_url:
     description: 'External log service URL'

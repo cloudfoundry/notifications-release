@@ -21,4 +21,4 @@ properties:
   notifications.space:
     description: 'Space where the app is deployed'
   ssl.skip_cert_verify:
-    description: 'Whether to verify SSL certs when making web requests'
+    description: 'Whether to verify SSL certs when making HTTP and SMTP requests'
