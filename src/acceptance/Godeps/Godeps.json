@@ -12,8 +12,8 @@
 		},
 		{
 			"ImportPath": "github.com/cloudfoundry-incubator/notifications/acceptance/support",
-			"Comment": "v1.0-321-g4d087d0",
-			"Rev": "4d087d07a4d9e3b0df043f7d3bde314953f5c855"
+			"Comment": "v1.0-324-g37170ab",
+			"Rev": "37170ab51f9996ab3185a84babef0b6798ac22df"
 		},
 		{
 			"ImportPath": "github.com/dgrijalva/jwt-go",

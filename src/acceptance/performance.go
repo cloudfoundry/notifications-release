@@ -14,10 +14,10 @@ import (
 	"time"
 
 	"bitbucket.org/chrj/smtpd"
+	"github.com/pivotal-cf-experimental/warrant"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/pivotal-cf-experimental/warrant"
 )
 
 const (

@@ -1,18 +1,21 @@
 package acceptance
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 	"testing"
 
+	"github.com/pivotal-cf-experimental/warrant"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/pivotal-cf-experimental/warrant"
 )
 
 var (
-	context      TestSuiteContext
-	originalSMTP struct {
+	context              TestSuiteContext
+	environmentVariables map[string]string
+	originalSMTP         struct {
 		Host string
 		Port string
 		TLS  string
@@ -25,7 +28,6 @@ func TestAcceptance(t *testing.T) {
 }
 
 var _ = BeforeSuite(func() {
-	// LOAD ENVIRONMENT AND CONTEXT
 	context = TestSuiteContext{
 		TestUserName:                Randomized("user"),
 		TestUserPassword:            Randomized("password"),
@@ -51,9 +53,11 @@ var _ = BeforeSuite(func() {
 	Run("cf", "logout")
 	Run("cf", "api", context.CCDomain, "--skip-ssl-validation")
 	Run("cf", "auth", context.CFAdminUsername, context.CFAdminPassword)
+	Run("cf", "target", "-o", context.NotificationsOrg, "-s", context.NotificationsSpace)
+
+	saveNotificationsEnvironmentVariables()
 
 	// PUT NOTIFICATIONS INTO A TESTABLE STATE
-	Run("cf", "target", "-o", context.NotificationsOrg, "-s", context.NotificationsSpace)
 	Run("cf", "set-env", "notifications", "SMTP_LOGGING_ENABLED", "true")
 	Run("cf", "set-env", "notifications", "TRACE", "true")
 	Run("cf", "restart", "notifications")
@@ -80,6 +84,8 @@ var _ = AfterSuite(func() {
 	Run("cf", "target", "-o", context.NotificationsOrg, "-s", context.NotificationsSpace)
 	Run("cf", "unset-env", "notifications", "SMTP_LOGGING_ENABLED")
 	Run("cf", "unset-env", "notifications", "TRACE")
+
+	restoreNotificationsEnvironmentVariables()
 	Run("cf", "restart", "notifications")
 
 	// CLEAN UP TEST OBJECTS
@@ -89,6 +95,23 @@ var _ = AfterSuite(func() {
 
 	teardownTestUser()
 })
+
+func saveNotificationsEnvironmentVariables() {
+	guid := Run("cf", "app", "notifications", "--guid")
+	environmentJSON := Run("cf", "curl", fmt.Sprintf("/v2/apps/%s/env", guid))
+	var env struct {
+		EnvironmentJSON map[string]string `json:"environment_json"`
+	}
+	err := json.Unmarshal([]byte(environmentJSON), &env)
+	Expect(err).NotTo(HaveOccurred())
+	environmentVariables = env.EnvironmentJSON
+}
+
+func restoreNotificationsEnvironmentVariables() {
+	for name, value := range environmentVariables {
+		Run("cf", "set-env", "notifications", name, value)
+	}
+}
 
 func setupTestUser() {
 	config := warrant.Config{Host: context.UAADomain, SkipVerifySSL: true}
