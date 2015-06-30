@@ -7,3 +7,12 @@ type TokenResponse struct {
 	Scope       string `json:"scope"`
 	JTI         string `json:"jti"`
 }
+
+type TokenKeyResponse struct {
+	Alg   string `json:"alg"`
+	Value string `json:"value"`
+	Kty   string `json:"kty"`
+	Use   string `json:"use"`
+	N     string `json:"n"`
+	E     string `json:"e"`
+}

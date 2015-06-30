@@ -2,6 +2,7 @@ package fakes
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -32,9 +33,23 @@ func (s *UAAServer) FindUsers(w http.ResponseWriter, req *http.Request) {
 		panic(err)
 	}
 
-	matches := regexp.MustCompile(`id eq '(.*)'$`).FindStringSubmatch(query.Get("filter"))
-	id := matches[1]
-	user, _ := s.users.Get(id)
+	filter := query.Get("filter")
+	matches := regexp.MustCompile(`(.*) (.*) '(.*)'$`).FindStringSubmatch(filter)
+	parameter := matches[1]
+	operator := matches[2]
+	value := matches[3]
+
+	if !validParameter(parameter) {
+		s.Error(w, http.StatusBadRequest, fmt.Sprintf("Invalid filter expression: [%s]", filter), "scim")
+		return
+	}
+
+	if !validOperator(operator) {
+		s.Error(w, http.StatusBadRequest, fmt.Sprintf("Invalid filter expression: [%s]", filter), "scim")
+		return
+	}
+
+	user, _ := s.users.Get(value)
 
 	list := UsersList{user}
 
@@ -45,4 +60,24 @@ func (s *UAAServer) FindUsers(w http.ResponseWriter, req *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(response))
+}
+
+func validParameter(parameter string) bool {
+	for _, p := range []string{"id"} {
+		if parameter == p {
+			return true
+		}
+	}
+
+	return false
+}
+
+func validOperator(operator string) bool {
+	for _, o := range []string{"eq"} {
+		if operator == o {
+			return true
+		}
+	}
+
+	return false
 }

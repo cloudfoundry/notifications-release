@@ -5,6 +5,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"os/exec"
+	"strconv"
+	"strings"
 
 	"github.com/pivotal-cf-experimental/warrant/internal/network"
 
@@ -15,9 +18,11 @@ import (
 var unsupportedJSONType = func() {}
 
 var _ = Describe("Client", func() {
-	var token string
-	var fakeServer *httptest.Server
-	var client network.Client
+	var (
+		token      string
+		fakeServer *httptest.Server
+		client     network.Client
+	)
 
 	BeforeEach(func() {
 		token = "TOKEN"
@@ -80,6 +85,24 @@ var _ = Describe("Client", func() {
 					"User-Agent":      ["Go 1.1 package http"]
 				}
 			}`))
+		})
+
+		It("can make more requests than the `ulimit -n` limit", func() {
+			cmd := exec.Command("ulimit", "-n")
+			output, err := cmd.Output()
+			Expect(err).NotTo(HaveOccurred())
+
+			fdCount, err := strconv.ParseInt(strings.TrimSpace(string(output)), 10, 64)
+			Expect(err).NotTo(HaveOccurred())
+
+			for i := 0; i < int(fdCount)+10; i++ {
+				_, err := client.MakeRequest(network.Request{
+					Method: "GET",
+					Path:   "/path",
+					AcceptableStatusCodes: []int{http.StatusOK},
+				})
+				Expect(err).NotTo(HaveOccurred())
+			}
 		})
 
 		Context("Following redirects", func() {

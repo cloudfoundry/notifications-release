@@ -59,7 +59,7 @@ func (cs ClientsService) Get(id, token string) (Client, error) {
 	var document documents.ClientResponse
 	err = json.Unmarshal(resp.Body, &document)
 	if err != nil {
-		panic(err)
+		return Client{}, MalformedResponseError{err}
 	}
 
 	return newClientFromDocument(document), nil
@@ -97,7 +97,7 @@ func (cs ClientsService) GetToken(id, secret string) (string, error) {
 	var response documents.TokenResponse
 	err = json.Unmarshal(resp.Body, &response)
 	if err != nil {
-		panic(err)
+		return "", MalformedResponseError{err}
 	}
 
 	return response.AccessToken, nil

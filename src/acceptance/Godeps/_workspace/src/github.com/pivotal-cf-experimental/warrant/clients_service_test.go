@@ -1,6 +1,8 @@
 package warrant_test
 
 import (
+	"net/http"
+	"net/http/httptest"
 	"time"
 
 	"github.com/pivotal-cf-experimental/warrant"
@@ -52,12 +54,30 @@ var _ = Describe("ClientsService", func() {
 		It("responds with an error when the client cannot be created", func() {
 			client.AuthorizedGrantTypes = []string{"invalid-grant-type"}
 			err := service.Create(client, "client-secret", token)
-			Expect(err).To(BeAssignableToTypeOf(warrant.UnexpectedStatusError{}))
+			Expect(err).To(BeAssignableToTypeOf(warrant.BadRequestError{}))
+			Expect(err.Error()).To(Equal(`bad request: {"message":"invalid-grant-type is not an allowed grant type. Must be one of: [implicit refresh_token authorization_code client_credentials password]","error":"invalid_client"}`))
 		})
 
 		It("responds with an error when the client cannot be found", func() {
 			_, err := service.Get("unknown-client", token)
 			Expect(err).To(BeAssignableToTypeOf(warrant.NotFoundError{}))
+		})
+
+		Context("failure cases", func() {
+			It("returns an error if the json response is malformed", func() {
+				malformedJSONServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+					w.Write([]byte("this is not JSON"))
+				}))
+				service = warrant.NewClientsService(warrant.Config{
+					Host:          malformedJSONServer.URL,
+					SkipVerifySSL: true,
+					TraceWriter:   TraceWriter,
+				})
+
+				_, err := service.Get("some-client", "some-token")
+				Expect(err).To(BeAssignableToTypeOf(warrant.MalformedResponseError{}))
+				Expect(err).To(MatchError("malformed response: invalid character 'h' in literal true (expecting 'r')"))
+			})
 		})
 	})
 
@@ -90,6 +110,23 @@ var _ = Describe("ClientsService", func() {
 			decodedToken, err := tokensService.Decode(clientToken)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(decodedToken.ClientID).To(Equal(client.ID))
+		})
+
+		Context("failure cases", func() {
+			It("returns an error if the json response is malformed", func() {
+				malformedJSONServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+					w.Write([]byte("this is not JSON"))
+				}))
+				service = warrant.NewClientsService(warrant.Config{
+					Host:          malformedJSONServer.URL,
+					SkipVerifySSL: true,
+					TraceWriter:   TraceWriter,
+				})
+
+				_, err := service.GetToken("some-client", "some-secret")
+				Expect(err).To(BeAssignableToTypeOf(warrant.MalformedResponseError{}))
+				Expect(err).To(MatchError("malformed response: invalid character 'h' in literal true (expecting 'r')"))
+			})
 		})
 	})
 

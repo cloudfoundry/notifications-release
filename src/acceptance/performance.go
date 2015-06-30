@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	userCount   = 400
+	userCount   = 500
 	workerCount = 10
 
 	// This is a huge hack and should be fixed at some point. The admin email
@@ -196,7 +196,7 @@ var _ = Describe("Performance", func() {
 		Run("cf", "logout")
 	})
 
-	It("sending email to 500 users", func() {
+	It(fmt.Sprintf("sending email to %d users", userCount), func() {
 		var messages []Message
 
 		By("creating a notification for the space", func() {

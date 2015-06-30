@@ -2,9 +2,9 @@ package warrant_test
 
 import (
 	"fmt"
-	"time"
 	"net/http"
 	"net/http/httptest"
+	"time"
 
 	"github.com/pivotal-cf-experimental/warrant"
 
@@ -68,7 +68,26 @@ var _ = Describe("UsersService", func() {
 
 		It("requires an email address", func() {
 			_, err := service.Create("created-user", "", token)
-			Expect(err.Error()).To(Equal(`Warrant UnexpectedStatusError: 400 {"message":"[Assertion failed] - this String argument must have text; it must not be null, empty, or blank","error":"invalid_scim_resource"}`))
+			Expect(err).To(BeAssignableToTypeOf(warrant.BadRequestError{}))
+			Expect(err.Error()).To(Equal(`bad request: {"message":"[Assertion failed] - this String argument must have text; it must not be null, empty, or blank","error":"invalid_scim_resource"}`))
+		})
+
+		Context("failure cases", func() {
+			It("returns an error when the json response is malformed", func() {
+				malformedJSONServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+					w.WriteHeader(http.StatusCreated)
+					w.Write([]byte("this is not JSON"))
+				}))
+				service = warrant.NewUsersService(warrant.Config{
+					Host:          malformedJSONServer.URL,
+					SkipVerifySSL: true,
+					TraceWriter:   TraceWriter,
+				})
+
+				_, err := service.Create("some-user", "some-user@example.com", "some-token")
+				Expect(err).To(BeAssignableToTypeOf(warrant.MalformedResponseError{}))
+				Expect(err).To(MatchError("malformed response: invalid character 'h' in literal true (expecting 'r')"))
+			})
 		})
 	})
 
@@ -97,6 +116,23 @@ var _ = Describe("UsersService", func() {
 			token = fakeUAAServer.ClientTokenFor("admin", []string{"scim.read"}, []string{"banana"})
 			_, err := service.Get(createdUser.ID, token)
 			Expect(err).To(BeAssignableToTypeOf(warrant.UnauthorizedError{}))
+		})
+
+		Context("failure cases", func() {
+			It("returns an error when the json response is malformed", func() {
+				malformedJSONServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+					w.Write([]byte("this is not JSON"))
+				}))
+				service = warrant.NewUsersService(warrant.Config{
+					Host:          malformedJSONServer.URL,
+					SkipVerifySSL: true,
+					TraceWriter:   TraceWriter,
+				})
+
+				_, err := service.Get("some-user-id", "some-token")
+				Expect(err).To(BeAssignableToTypeOf(warrant.MalformedResponseError{}))
+				Expect(err).To(MatchError("malformed response: invalid character 'h' in literal true (expecting 'r')"))
+			})
 		})
 	})
 
@@ -189,13 +225,31 @@ var _ = Describe("UsersService", func() {
 		It("must match the 'If-Match' header value", func() {
 			user.Version = 24
 			_, err := service.Update(user, token)
-			Expect(err).To(MatchError(`Warrant UnexpectedStatusError: 400 {"message":"Missing If-Match for PUT","error":"scim"}`))
+			Expect(err).To(BeAssignableToTypeOf(warrant.BadRequestError{}))
+			Expect(err).To(MatchError(`bad request: {"message":"Missing If-Match for PUT","error":"scim"}`))
 		})
 
 		It("returns an error if the user does not exist", func() {
 			user.ID = "non-existant-guid"
 			_, err := service.Update(user, token)
 			Expect(err).To(BeAssignableToTypeOf(warrant.NotFoundError{}))
+		})
+
+		Context("failure cases", func() {
+			It("returns an error when the json response is malformed", func() {
+				malformedJSONServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+					w.Write([]byte("this is not JSON"))
+				}))
+				service = warrant.NewUsersService(warrant.Config{
+					Host:          malformedJSONServer.URL,
+					SkipVerifySSL: true,
+					TraceWriter:   TraceWriter,
+				})
+
+				_, err := service.Update(warrant.User{ID: "some-user-id"}, "some-token")
+				Expect(err).To(BeAssignableToTypeOf(warrant.MalformedResponseError{}))
+				Expect(err).To(MatchError("malformed response: invalid character 'h' in literal true (expecting 'r')"))
+			})
 		})
 	})
 
@@ -278,14 +332,6 @@ var _ = Describe("UsersService", func() {
 		})
 	})
 
-	Describe("ScorePassword", func() {
-		PIt("returns a score value for the given password", func() {
-			//score, requiredScore, err := service.ScorePassword("d9327654lhuf")
-			//Expect(err).NotTo(HaveOccurred())
-			//Expect(score).To(Equal(8))
-		})
-	})
-
 	Describe("GetToken", func() {
 		var user warrant.User
 
@@ -309,22 +355,25 @@ var _ = Describe("UsersService", func() {
 			Expect(decodedToken.UserID).To(Equal(user.ID))
 		})
 
-		It("returns an error when the request does not succeed", func() {
-			_, err := service.GetToken("unknown-user", "password")
-			Expect(err).To(BeAssignableToTypeOf(warrant.NotFoundError{}))
-		})
+		Context("failure cases", func() {
+			It("returns an error when the request does not succeed", func() {
+				_, err := service.GetToken("unknown-user", "password")
+				Expect(err).To(BeAssignableToTypeOf(warrant.NotFoundError{}))
+			})
 
-		It("returns an error when the response is not parsable", func() {
-			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-				w.Header().Set("Location", "%%%")
-				w.WriteHeader(http.StatusFound)
-			}))
+			It("returns an error when the response is not parsable", func() {
+				server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+					w.Header().Set("Location", "%%%")
+					w.WriteHeader(http.StatusFound)
+				}))
 
-			config.Host = server.URL
-			service =  warrant.NewUsersService(config)
+				config.Host = server.URL
+				service = warrant.NewUsersService(config)
 
-			_, err := service.GetToken("username", "password")
-			Expect(err).To(MatchError(`parse %%%: invalid URL escape "%%%"`))
+				_, err := service.GetToken("username", "password")
+				Expect(err).To(BeAssignableToTypeOf(warrant.MalformedResponseError{}))
+				Expect(err).To(MatchError(`malformed response: parse %%%: invalid URL escape "%%%"`))
+			})
 		})
 	})
 
@@ -345,6 +394,33 @@ var _ = Describe("UsersService", func() {
 
 			Expect(users).To(HaveLen(1))
 			Expect(users[0].ID).To(Equal(user.ID))
+		})
+
+		Context("failure cases", func() {
+			It("returns an error when the query is malformed", func() {
+				_, err := service.Find(warrant.UsersQuery{
+					Filter: fmt.Sprintf("invalid-parameter eq '%s'", user.ID),
+				}, token)
+				Expect(err).To(BeAssignableToTypeOf(warrant.BadRequestError{}))
+				Expect(err.Error()).To(Equal(`bad request: {"message":"Invalid filter expression: [invalid-parameter eq '` + user.ID + `']","error":"scim"}`))
+			})
+
+			It("returns an error when the JSON is malformed", func() {
+				malformedJSONServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+					w.Write([]byte("this is not JSON"))
+				}))
+				service = warrant.NewUsersService(warrant.Config{
+					Host:          malformedJSONServer.URL,
+					SkipVerifySSL: true,
+					TraceWriter:   TraceWriter,
+				})
+
+				_, err := service.Find(warrant.UsersQuery{
+					Filter: fmt.Sprintf("id eq '%s'", user.ID),
+				}, token)
+				Expect(err).To(BeAssignableToTypeOf(warrant.MalformedResponseError{}))
+				Expect(err).To(MatchError("malformed response: invalid character 'h' in literal true (expecting 'r')"))
+			})
 		})
 	})
 })

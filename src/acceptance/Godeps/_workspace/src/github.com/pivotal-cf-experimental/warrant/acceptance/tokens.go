@@ -1,6 +1,7 @@
 package acceptance
 
 import (
+	"encoding/pem"
 	"time"
 
 	"github.com/pivotal-cf-experimental/warrant"
@@ -94,6 +95,17 @@ var _ = Describe("Tokens", func() {
 				Expect(err).NotTo(HaveOccurred())
 				Expect(decodedToken.ClientID).To(Equal(client.ID))
 			})
+		})
+	})
+
+	Context("fetching the signing key", func() {
+		It("can fetch a valid signing key from the server", func() {
+			signingKey, err := warrantClient.Tokens.GetSigningKey()
+			Expect(err).NotTo(HaveOccurred())
+			Expect(signingKey.Algorithm).To(Equal("SHA256withRSA"))
+			block, _ := pem.Decode([]byte(signingKey.Value))
+			Expect(block).NotTo(BeNil())
+			Expect(block.Type).To(Equal("PUBLIC KEY"))
 		})
 	})
 })

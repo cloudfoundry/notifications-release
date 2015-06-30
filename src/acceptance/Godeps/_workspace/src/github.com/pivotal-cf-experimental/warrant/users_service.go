@@ -50,7 +50,7 @@ func (us UsersService) Create(username, email, token string) (User, error) {
 	var response documents.UserResponse
 	err = json.Unmarshal(resp.Body, &response)
 	if err != nil {
-		panic(err)
+		return User{}, MalformedResponseError{err}
 	}
 
 	return newUserFromResponse(us.config, response), nil
@@ -70,7 +70,7 @@ func (us UsersService) Get(id, token string) (User, error) {
 	var response documents.UserResponse
 	err = json.Unmarshal(resp.Body, &response)
 	if err != nil {
-		panic(err)
+		return User{}, MalformedResponseError{err}
 	}
 
 	return newUserFromResponse(us.config, response), nil
@@ -106,7 +106,7 @@ func (us UsersService) Update(user User, token string) (User, error) {
 	var response documents.UserResponse
 	err = json.Unmarshal(resp.Body, &response)
 	if err != nil {
-		panic(err)
+		return User{}, MalformedResponseError{err}
 	}
 
 	return newUserFromResponse(us.config, response), nil
@@ -177,12 +177,12 @@ func (us UsersService) GetToken(username, password string) (string, error) {
 
 	locationURL, err := url.Parse(resp.Headers.Get("Location"))
 	if err != nil {
-		return "", err
+		return "", MalformedResponseError{err}
 	}
 
 	locationQuery, err := url.ParseQuery(locationURL.Fragment)
 	if err != nil {
-		return "", err
+		return "", MalformedResponseError{err}
 	}
 
 	return locationQuery.Get("access_token"), nil
@@ -207,13 +207,13 @@ func (us UsersService) Find(query UsersQuery, token string) ([]User, error) {
 		AcceptableStatusCodes: []int{http.StatusOK},
 	})
 	if err != nil {
-		panic(err)
+		return []User{}, translateError(err)
 	}
 
 	var response documents.UserListResponse
 	err = json.Unmarshal(resp.Body, &response)
 	if err != nil {
-		panic(err)
+		return []User{}, MalformedResponseError{err}
 	}
 
 	var userList []User

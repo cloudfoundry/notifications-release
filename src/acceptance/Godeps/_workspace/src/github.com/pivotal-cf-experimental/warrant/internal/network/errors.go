@@ -51,19 +51,19 @@ func (e ResponseReadError) Error() string {
 }
 
 type UnexpectedStatusError struct {
-	status int
-	body   []byte
+	Status int
+	Body   []byte
 }
 
 func newUnexpectedStatusError(status int, body []byte) UnexpectedStatusError {
 	return UnexpectedStatusError{
-		status: status,
-		body:   body,
+		Status: status,
+		Body:   body,
 	}
 }
 
 func (e UnexpectedStatusError) Error() string {
-	return fmt.Sprintf("Warrant UnexpectedStatusError: %d %s", e.status, e.body)
+	return fmt.Sprintf("Warrant UnexpectedStatusError: %d %s", e.Status, e.Body)
 }
 
 type NotFoundError struct {

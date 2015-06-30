@@ -2,6 +2,6 @@ package network
 
 import "net/http"
 
-func GetTransport(skipVerifySSL bool) http.RoundTripper {
-	return _transports[skipVerifySSL]
+func BuildTransport(skipVerifySSL bool) http.RoundTripper {
+	return buildTransport(skipVerifySSL)
 }

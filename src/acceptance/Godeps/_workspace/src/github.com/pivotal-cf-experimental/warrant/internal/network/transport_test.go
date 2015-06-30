@@ -13,8 +13,8 @@ import (
 
 var _ = Describe("using a global HTTP client", func() {
 	It("retrieves the exact same client reference for a given value of config.SkipVerifySSL", func() {
-		transport1 := network.GetTransport(true)
-		transport2 := network.GetTransport(true)
+		transport1 := network.BuildTransport(true)
+		transport2 := network.BuildTransport(true)
 
 		transportPointer1 := reflect.ValueOf(transport1).Pointer()
 		transportPointer2 := reflect.ValueOf(transport2).Pointer()
@@ -22,8 +22,8 @@ var _ = Describe("using a global HTTP client", func() {
 	})
 
 	It("retrieves difference client references for different values of config.SkipVerifySSL", func() {
-		transport1 := network.GetTransport(true)
-		transport2 := network.GetTransport(false)
+		transport1 := network.BuildTransport(true)
+		transport2 := network.BuildTransport(false)
 
 		transportPointer1 := reflect.ValueOf(transport1).Pointer()
 		transportPointer2 := reflect.ValueOf(transport2).Pointer()
@@ -31,7 +31,7 @@ var _ = Describe("using a global HTTP client", func() {
 	})
 
 	It("builds a correctly configured transport", func() {
-		transport := network.GetTransport(true).(*http.Transport)
+		transport := network.BuildTransport(true).(*http.Transport)
 
 		Expect(transport.TLSClientConfig.InsecureSkipVerify).To(BeTrue())
 		Expect(reflect.ValueOf(transport.Proxy).Pointer()).To(Equal(reflect.ValueOf(http.ProxyFromEnvironment).Pointer()))

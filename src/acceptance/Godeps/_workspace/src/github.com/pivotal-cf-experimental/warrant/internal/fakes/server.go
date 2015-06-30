@@ -14,18 +14,24 @@ const (
 
 var Schemas = []string{Schema}
 
-type UAAServer struct {
-	server    *httptest.Server
-	defaultScopes []string
-	tokenizer Tokenizer
-	users     *Users
-	clients   *Clients
+type ServerConfig struct {
+	PublicKey string
 }
 
-func NewUAAServer() *UAAServer {
+type UAAServer struct {
+	server    *httptest.Server
+	users     *Users
+	clients   *Clients
+	tokenizer Tokenizer
+
+	defaultScopes []string
+	publicKey     string
+}
+
+func NewUAAServer(config ServerConfig) *UAAServer {
 	router := mux.NewRouter()
 	server := &UAAServer{
-		server:    httptest.NewUnstartedServer(router),
+		server: httptest.NewUnstartedServer(router),
 		defaultScopes: []string{
 			"scim.read",
 			"cloudcontroller.admin",
@@ -36,6 +42,7 @@ func NewUAAServer() *UAAServer {
 			"cloud_controller.read",
 			"doppler.firehose",
 		},
+		publicKey: config.PublicKey,
 		tokenizer: NewTokenizer("this is the encryption key"),
 		users:     NewUsers(),
 		clients:   NewClients(),
@@ -54,6 +61,8 @@ func NewUAAServer() *UAAServer {
 
 	router.HandleFunc("/oauth/token", server.OAuthToken).Methods("POST")
 	router.HandleFunc("/oauth/authorize", server.OAuthAuthorize).Methods("POST")
+
+	router.HandleFunc("/token_key", server.GetTokenKey).Methods("GET")
 
 	return server
 }

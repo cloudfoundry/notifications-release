@@ -64,7 +64,7 @@ var _ = Describe("User Lifecycle", func() {
 
 	It("does not allow a user to be created without an email address", func() {
 		_, err := client.Users.Create("warrant-invalid-email-user", "", UAAToken)
-		Expect(err).To(BeAssignableToTypeOf(warrant.UnexpectedStatusError{}))
+		Expect(err).To(BeAssignableToTypeOf(warrant.BadRequestError{}))
 	})
 
 	It("does not allow non-existant users to be updated", func() {

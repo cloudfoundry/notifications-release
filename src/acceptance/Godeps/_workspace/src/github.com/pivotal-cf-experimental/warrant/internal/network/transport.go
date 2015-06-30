@@ -11,12 +11,16 @@ var _transports map[bool]http.RoundTripper
 
 func init() {
 	_transports = map[bool]http.RoundTripper{
-		true:  buildTransport(true),
-		false: buildTransport(false),
+		true:  _buildTransport(true),
+		false: _buildTransport(false),
 	}
 }
 
 func buildTransport(skipVerifySSL bool) http.RoundTripper {
+	return _transports[skipVerifySSL]
+}
+
+func _buildTransport(skipVerifySSL bool) http.RoundTripper {
 	return &http.Transport{
 		TLSClientConfig: &tls.Config{
 			InsecureSkipVerify: skipVerifySSL,
