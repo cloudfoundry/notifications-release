@@ -56,3 +56,11 @@ authorities: scim.read,cloud_controller.admin
   bosh deploy
   bosh run errand deploy-notifications
   ```
+
+# AWS
+In addition to the stub file properties specified in the BOSH-Lite manifest, an AWS manifest stub file will require
+some extra infrastructure specific fields. Included below is an example:
+```yaml
+infrastructure_properties:
+  availability_zone: us-east-1a
+```

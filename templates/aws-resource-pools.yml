@@ -1,6 +1,7 @@
 networks: (( merge ))
 jobs: (( merge ))
 properties: (( merge ))
+infrastructure_properties: (( merge ))
 
 resource_pools:
 - name: default
@@ -11,5 +12,4 @@ resource_pools:
     version: latest
   cloud_properties:
     instance_type: m3.medium
-    availability_zone: (( properties.template_only.aws.availability_zone ))
-
+    availability_zone: (( infrastructure_properties.availability_zone ))
