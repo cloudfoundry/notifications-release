@@ -11,5 +11,5 @@ resource_pools:
     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
     version: latest
   cloud_properties:
-    instance_type: t2.medium
+    instance_type: m3.medium
     availability_zone: (( infrastructure_properties.availability_zone ))
