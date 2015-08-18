@@ -26,3 +26,15 @@ networks:
     static: []
     cloud_properties:
       name: random
+  - range: 10.244.5.16/30
+    reserved:
+     - 10.244.5.17
+    static: []
+    cloud_properties:
+      name: random
+  - range: 10.244.5.20/30
+    reserved:
+     - 10.244.5.21
+    static: []
+    cloud_properties:
+      name: random

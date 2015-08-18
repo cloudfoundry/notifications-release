@@ -5,6 +5,7 @@ applications:
     memory: 64M
     domain: "<%= properties.domain %>"
     host: notifications
+    diego: <%= properties.notifications.enable_diego %>
 env:
   CC_HOST: https://api.<%= properties.domain %>
   DATABASE_URL: "<%= properties.notifications.database.url %>"

@@ -29,6 +29,7 @@ properties:
     app_domain: (( merge ))
     network: (( merge ))
     encryption_key: (( merge ))
+    enable_diego: (( merge || false ))
     instance_count: (( merge ))
     syslog_url: (( merge || "" ))
     organization: (( merge || "system" ))

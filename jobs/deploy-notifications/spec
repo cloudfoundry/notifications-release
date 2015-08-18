@@ -19,6 +19,8 @@ properties:
     description: 'Password of the CF admin user'
   notifications.app_domain:
     description: 'Domain used to host application'
+  notifications.enable_diego:
+    description: 'Enable deployment to diego'
   notifications.organization:
     description: 'Organization that hosts the app'
   notifications.space:
