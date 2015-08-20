@@ -45,13 +45,18 @@ authorities: scim.read,cloud_controller.admin
   ./bosh-lite/make_manifest
   ```
 
-4. Create and upload release:
+4. Update the sub-modules of the release
+  ```bash
+  ./update
+  ```
+
+5. Create and upload release:
   ```bash
   bosh create release
   bosh upload release
   ```
 
-5. Deploy
+6. Deploy
   ```bash
   bosh deploy
   bosh run errand deploy-notifications
