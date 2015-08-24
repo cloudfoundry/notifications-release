@@ -19,6 +19,11 @@ authorities: scim.read,cloud_controller.admin
 
 # Bosh-lite
 
+## Tips
+- Use the latest notifications final release available, it generally contains bug-fixes.
+- Do not cut a release yourself unless you are very familiar wth bosh.
+
+## Steps
 1. Add SMTP properties to `./bosh-lite/notifications-smtp-stub.yml` file as follows:
   ```yaml
   properties:
@@ -28,6 +33,7 @@ authorities: scim.read,cloud_controller.admin
         port: 587
         user: my-user-name
         pass: my-password
+        auth_mechanism: plain
   ```
 
 2. Add DB properties to `./bosh-lite/notifications-db-stub.yml` file for your running
@@ -50,10 +56,9 @@ authorities: scim.read,cloud_controller.admin
   ./update
   ```
 
-5. Create and upload release:
+5. Upload latest final release from the /releases dir:
   ```bash
-  bosh create release
-  bosh upload release
+  bosh upload release releases/notifications/notifications-X.yml
   ```
 
 6. Deploy
