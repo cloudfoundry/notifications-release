@@ -35,6 +35,7 @@ properties:
     organization: (( merge || "system" ))
     space: (( merge || "notifications-service" ))
     default_template: (( merge || "" ))
+    error_on_misconfiguration: (( merge || true ))
     cf:
       admin_user: (( merge ))
       admin_password: (( merge ))

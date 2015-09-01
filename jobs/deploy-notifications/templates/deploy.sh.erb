@@ -20,15 +20,17 @@ MANIFEST=/var/vcap/jobs/deploy-notifications/manifest.yml
 
 mkdir -p $CF_HOME
 
+ERROR_EXIT_CODE=<%= properties.notifications.error_on_misconfiguration ? 1 : 0 %>
+
 function validate_database_connection_count() {
   if [[ "<%= properties.notifications.database.max_open_connections %>" -eq "0" ]]; then
     echo "The database max_open_connections value cannot be unlimited"
-    exit 1
+    exit $ERROR_EXIT_CODE
   fi
 
   if (( "<%= properties.notifications.database.max_open_connections %>" < "<%= properties.notifications.instance_count %>" )); then
     echo "The database max_open_connections value must be greater than instance_count value"
-    exit 1
+    exit $ERROR_EXIT_CODE
   fi
 }
 
@@ -36,12 +38,12 @@ function validate_smtp_config() {
   warning_message="The notifications service was not deployed because SMTP host or port is missing"
   if [[ -z "<%= properties.notifications.smtp.host %>" ]]; then
     echo $warning_message
-    exit 1
+    exit $ERROR_EXIT_CODE
   fi
 
   if [[ -z "<%= properties.notifications.smtp.port %>" ]]; then
     echo $warning_message
-    exit 1
+    exit $ERROR_EXIT_CODE
   fi
 }
 
@@ -150,7 +152,7 @@ EOF
   if [[ "$status" != "201" ]]; then
     echo "Could not create a temporary user for template setting: received $status"
     cat curl.log
-    exit 187
+    exit 1
   fi
 
   temp_client_token=$(curl $SCHEME://$TEMP_CLIENT:$TEMP_PASS@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" -kv | jq -r '.access_token')
@@ -162,7 +164,7 @@ EOF
   if [[ "$status" != "204" ]]; then
     echo "The default template could not be set: received $status"
     cat curl.log
-    exit 187
+    exit 1
   fi
 }
 

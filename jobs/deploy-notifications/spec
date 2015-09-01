@@ -65,3 +65,6 @@ properties:
     description: 'Whether to verify SSL certs when making HTTP and SMTP requests'
   notifications.syslog_url:
     description: 'External log service URL'
+  notifications.error_on_misconfiguration:
+    description: 'Throw error on service misconfiguration during deployment'
+    default: true
