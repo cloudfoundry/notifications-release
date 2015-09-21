@@ -6,7 +6,6 @@ infrastructure_properties: (( merge ))
 resource_pools:
 - name: default
   network: (( properties.notifications.network ))
-  size: (( auto ))
   stemcell:
     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
     version: latest
