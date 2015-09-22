@@ -20,7 +20,7 @@ authorities: scim.read,cloud_controller.admin
 # Bosh-lite
 
 ## Tips
-- Use the latest notifications final release available, it generally contains bug-fixes.
+- Use the latest [notifications final release](https://github.com/cloudfoundry-incubator/notifications-release/releases) available, it generally contains bug-fixes.
 - Do not cut a release yourself unless you are very familiar wth bosh.
 
 ## Steps
