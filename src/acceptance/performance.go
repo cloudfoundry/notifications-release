@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	userCount   = 500
+	userCount   = 250
 	workerCount = 10
 
 	// This is a huge hack and should be fixed at some point. The admin email
@@ -309,7 +309,7 @@ var _ = Describe("Performance", func() {
 					}
 				} else {
 					body, _ := ioutil.ReadAll(message.Response.Body)
-					Fail(fmt.Sprintf("Received bad response (%d) %s", message.Response.StatusCode, body))
+					Fail(fmt.Sprintf("Received bad response \nURL: %s\nRESPONSE: %v\nBODY: %s\n", message.URL, message.Response, body))
 				}
 			}
 		})
