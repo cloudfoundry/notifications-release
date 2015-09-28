@@ -2,39 +2,5 @@ networks:
 - name: notifications
   type: manual
   subnets:
-  - range: 10.244.5.0/30
-    reserved:
-     - 10.244.5.1
-    static: []
-    cloud_properties:
-      name: random
-  - range: 10.244.5.4/30
-    reserved:
-     - 10.244.5.5
-    static: []
-    cloud_properties:
-      name: random
-  - range: 10.244.5.8/30
-    reserved:
-     - 10.244.5.9
-    static: []
-    cloud_properties:
-      name: random
-  - range: 10.244.5.12/30
-    reserved:
-     - 10.244.5.13
-    static: []
-    cloud_properties:
-      name: random
-  - range: 10.244.5.16/30
-    reserved:
-     - 10.244.5.17
-    static: []
-    cloud_properties:
-      name: random
-  - range: 10.244.5.20/30
-    reserved:
-     - 10.244.5.21
-    static: []
-    cloud_properties:
-      name: random
+  - range: 10.244.46.0/24
+    gateway: 10.244.46.1
