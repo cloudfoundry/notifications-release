@@ -21,6 +21,7 @@ MANIFEST=/var/vcap/jobs/deploy-notifications/manifest.yml
 mkdir -p $CF_HOME
 
 ERROR_EXIT_CODE=<%= properties.notifications.error_on_misconfiguration ? 1 : 0 %>
+DEPLOYMENT_STATUS=0
 
 function validate_database_connection_count() {
   if [[ "<%= properties.notifications.database.max_open_connections %>" -eq "0" ]]; then
@@ -102,9 +103,32 @@ function push_app() {
       cf push -i 1
     else
       cf install-plugin /var/vcap/packages/cf_cli/plugins/autopilot
-      cf zero-downtime-push $APP_NAME -f manifest.yml -p .
+      set +e
+        cf zero-downtime-push $APP_NAME -f manifest.yml -p .
+        exit_code=$?
+      set -e
+      if [[ $exit_code -ne 0 ]]; then
+        handle_failed_blue_green_deploy
+      fi
     fi
   popd > /dev/null
+}
+
+function handle_failed_blue_green_deploy() {
+    DEPLOYMENT_STATUS=1
+    local notifications_state=$(cf curl /v2/apps/$(cf app $APP_NAME --guid)/stats | jq -r '.["0"].state')
+    local venerable_state=$(cf curl /v2/apps/$(cf app $APP_NAME-venerable --guid)/stats | jq -r '.["0"].state')
+
+    # if venerable is up, and new app is down
+    if [[ $notifications_state = "DOWN" && $venerable_state != "DOWN" ]]; then
+      cf delete $APP_NAME -f
+      cf rename $APP_NAME-venerable $APP_NAME
+    fi
+
+    # if venerable is up, and new app is up
+    if [[ $notifications_state != "DOWN" && $venerable_state != "DOWN" ]]; then
+      cf delete $APP_NAME-venerable -f
+    fi
 }
 
 function scale_app_down() {
@@ -168,6 +192,15 @@ EOF
   fi
 }
 
+function print_deployment_status() {
+  if [[ $DEPLOYMENT_STATUS != 0 ]]; then
+    echo "Deployment failed!"
+    exit 1
+  fi
+
+  echo "Deployment succeeded!"
+}
+
 cf -v
 
 validate_database_connection_count
@@ -179,3 +212,4 @@ push_app
 create_logging_service
 scale_app_up
 set_default_template
+print_deployment_status
