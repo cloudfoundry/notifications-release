@@ -3,7 +3,7 @@ applications:
   - name: notifications
     command: bin/notifications
     memory: 64M
-    domain: "<%= properties.domain %>"
+    domain: "<%= properties.notifications.app_domain %>"
     host: notifications
     diego: <%= properties.notifications.enable_diego %>
 env:
