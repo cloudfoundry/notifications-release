@@ -19,6 +19,8 @@ properties:
     description: 'Password of the CF admin user'
   notifications.app_domain:
     description: 'Domain used to host application'
+  notifications.buildpack_url:
+    description: 'Optional parameter that specifies the url of the buildpack to use.  Helpful if your environment does not have the latest Go buildpack.'
   notifications.enable_diego:
     description: 'Enable deployment to diego'
   notifications.organization:

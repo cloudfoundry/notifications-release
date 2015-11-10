@@ -6,6 +6,7 @@ applications:
     domain: "<%= properties.notifications.app_domain %>"
     host: notifications
     diego: <%= properties.notifications.enable_diego %>
+    <%= properties.notifications.buildpack_url ? "buildpack: " + properties.notifications.buildpack_url : "" %>
 env:
   CC_HOST: https://api.<%= properties.domain %>
   DATABASE_URL: "<%= properties.notifications.database.url %>"
