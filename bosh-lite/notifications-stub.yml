@@ -2,13 +2,13 @@
 director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
 properties:
-  domain: 10.244.0.34.xip.io
+  domain: bosh-lite.com
   ssl:
     skip_cert_verify: true
   notifications:
-    app_domain: 10.244.0.34.xip.io
+    app_domain: bosh-lite.com
     network: notifications
-    sender: no-reply@10.244.0.34.xip.io
+    sender: no-reply@bosh-lite.com
     encryption_key: moons_of_endor
     instance_count: 4
     #syslog_url: syslog-tls://yoursyslogurl.example.com
