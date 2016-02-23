@@ -3,7 +3,7 @@
 RELEASE_DIR=${RELEASE_DIR:-$GOPATH/src/github.com/cloudfoundry-incubator/notifications-release}
 
 if [[ ! -d $RELEASE_DIR ]]; then
-  echo "Cannot find notifications-with-ui-release at $RELEASE_DIR; override with \$RELEASE_DIR variable"
+  echo "Cannot find notifications-release at $RELEASE_DIR; override with \$RELEASE_DIR variable"
   exit 1
 fi
 
