@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/cloudfoundry-incubator/notifications-release/src/acceptance",
-	"GoVersion": "go1.4.2",
+	"GoVersion": "go1.6",
 	"GodepVersion": "v74",
 	"Packages": [
 		"./..."
@@ -9,7 +9,7 @@
 		{
 			"ImportPath": "bitbucket.org/chrj/smtpd",
 			"Comment": "null-33",
-			"Rev": "5f20925b9b440c14f2014dfe523f7a9e01068175"
+			"Rev": "'5f20925b9b440c14f2014dfe523f7a9e01068175'"
 		},
 		{
 			"ImportPath": "github.com/cloudfoundry-incubator/notifications/acceptance/support",
@@ -157,15 +157,15 @@
 		},
 		{
 			"ImportPath": "github.com/pivotal-cf-experimental/warrant",
-			"Rev": "9d46564af53bb3b2235c76bc14668aa4fd95616f"
+			"Rev": "64a7b25c837cb0054936646094d88781cf32242f"
 		},
 		{
 			"ImportPath": "github.com/pivotal-cf-experimental/warrant/internal/documents",
-			"Rev": "9d46564af53bb3b2235c76bc14668aa4fd95616f"
+			"Rev": "64a7b25c837cb0054936646094d88781cf32242f"
 		},
 		{
 			"ImportPath": "github.com/pivotal-cf-experimental/warrant/internal/network",
-			"Rev": "9d46564af53bb3b2235c76bc14668aa4fd95616f"
+			"Rev": "64a7b25c837cb0054936646094d88781cf32242f"
 		}
 	]
 }
