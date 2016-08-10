@@ -118,7 +118,7 @@ func setupTestUser() {
 	adminToken := fetchAdminToken(config)
 
 	userService := warrant.NewUsersService(config)
-	users, err := userService.Find(warrant.UsersQuery{Filter: fmt.Sprintf("username eq '%s'", context.TestUserName)}, adminToken)
+	users, err := userService.List(warrant.Query{Filter: fmt.Sprintf("username eq '%s'", context.TestUserName)}, adminToken)
 	Expect(err).NotTo(HaveOccurred())
 	testUser := users[0]
 
@@ -127,7 +127,23 @@ func setupTestUser() {
 	userService.Update(testUser, adminToken)
 	context.TestUserGUID = testUser.ID
 
-	context.LogToken, err = userService.GetToken(context.TestUserName, context.TestUserPassword)
+	context.LogToken, err = userService.GetToken(context.TestUserName, context.TestUserPassword, warrant.Client{
+		ID: "cf",
+		Scope: []string{
+			"cloud_controller.read",
+			"cloud_controller.write",
+			"openid",
+			"password.write",
+			"cloud_controller.admin",
+			"cloud_controller.admin_read_only",
+			"scim.read",
+			"scim.write",
+			"doppler.firehose",
+			"uaa.user",
+			"routing.router_groups.read",
+			"routing.router_groups.write",
+		},
+	})
 	Expect(err).NotTo(HaveOccurred())
 
 	clientService := warrant.NewClientsService(config)
