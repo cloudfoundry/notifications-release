@@ -157,15 +157,15 @@
 		},
 		{
 			"ImportPath": "github.com/pivotal-cf-experimental/warrant",
-			"Rev": "64a7b25c837cb0054936646094d88781cf32242f"
+			"Rev": "e60c40d3f5e7ec2643fbeb097ef238d8cb8056a8"
 		},
 		{
 			"ImportPath": "github.com/pivotal-cf-experimental/warrant/internal/documents",
-			"Rev": "64a7b25c837cb0054936646094d88781cf32242f"
+			"Rev": "e60c40d3f5e7ec2643fbeb097ef238d8cb8056a8"
 		},
 		{
 			"ImportPath": "github.com/pivotal-cf-experimental/warrant/internal/network",
-			"Rev": "64a7b25c837cb0054936646094d88781cf32242f"
+			"Rev": "e60c40d3f5e7ec2643fbeb097ef238d8cb8056a8"
 		}
 	]
 }

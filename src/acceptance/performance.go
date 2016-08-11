@@ -27,7 +27,9 @@ const (
 	// This is a huge hack and should be fixed at some point. The admin email
 	// account does not have a valid email address and so will not produce a
 	// deliverable email.
-	undeliverableEmailCount = 2
+	// The count is three because the admin will receive an email for
+	// belongs to the Space, Org and is an OrgManager
+	undeliverableEmailCount = 3
 )
 
 type User struct {
@@ -52,7 +54,7 @@ func (uc UserCreator) Run() {
 		config := warrant.Config{Host: context.UAADomain, SkipVerifySSL: true}
 		adminToken := fetchAdminToken(config)
 		userService := warrant.NewUsersService(config)
-		users, err := userService.Find(warrant.UsersQuery{Filter: fmt.Sprintf("username eq '%s'", user.Name)}, adminToken)
+		users, err := userService.List(warrant.Query{Filter: fmt.Sprintf("username eq '%s'", user.Name)}, adminToken)
 		Expect(err).NotTo(HaveOccurred())
 		userGUID := users[0].ID
 

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/pivotal-cf-experimental/warrant"
 
@@ -151,6 +152,7 @@ func setupTestUser() {
 		ID:                   context.TestClientSenderID,
 		Authorities:          context.TestClientSenderAuthorities,
 		AuthorizedGrantTypes: context.TestClientSenderGrantTypes,
+		AccessTokenValidity:  time.Duration(6000 * time.Second),
 	}
 	Expect(clientService.Create(client, context.TestClientSenderSecret, adminToken)).To(Succeed())
 }

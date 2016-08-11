@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
-	"strings"
 
 	"github.com/pivotal-cf-experimental/warrant/internal/documents"
 	"github.com/pivotal-cf-experimental/warrant/internal/network"
@@ -170,30 +169,17 @@ func (us UsersService) ChangePassword(id, oldPassword, password, token string) e
 // GetToken will make a request to UAA to retrieve the token for the user matching the given username.
 // The user's password is required.
 func (us UsersService) GetToken(username, password string, client Client) (string, error) {
-	query := url.Values{
-		"client_id":     []string{client.ID},
-		"scope":         []string{strings.Join(client.Scope, " ")},
-		"response_type": []string{"token"},
-	}
-
-	if len(client.RedirectURI) > 0 {
-		query["redirect_uri"] = client.RedirectURI
-	}
-
-	requestPath := url.URL{
-		Path:     "/oauth/authorize",
-		RawQuery: query.Encode(),
-	}
 	req := network.Request{
-		Method: "POST",
-		Path:   requestPath.String(),
+		Method:        "POST",
+		Path:          "/oauth/token",
+		Authorization: network.NewBasicAuthorization(client.ID, ""),
 		Body: network.NewFormRequestBody(url.Values{
-			"username": []string{username},
-			"password": []string{password},
-			"source":   []string{"credentials"},
+			"username":      []string{username},
+			"password":      []string{password},
+			"grant_type":    []string{"password"},
+			"response_type": []string{"token"},
 		}),
-		AcceptableStatusCodes: []int{http.StatusFound},
-		DoNotFollowRedirects:  true,
+		AcceptableStatusCodes: []int{http.StatusOK},
 	}
 
 	resp, err := newNetworkClient(us.config).MakeRequest(req)
@@ -201,17 +187,15 @@ func (us UsersService) GetToken(username, password string, client Client) (strin
 		return "", translateError(err)
 	}
 
-	locationURL, err := url.Parse(resp.Headers.Get("Location"))
+	var responseBody struct {
+		AccessToken string `json:"access_token"`
+	}
+	err = json.Unmarshal(resp.Body, &responseBody)
 	if err != nil {
 		return "", MalformedResponseError{err}
 	}
 
-	locationQuery, err := url.ParseQuery(locationURL.Fragment)
-	if err != nil {
-		return "", MalformedResponseError{err}
-	}
-
-	return locationQuery.Get("access_token"), nil
+	return responseBody.AccessToken, nil
 }
 
 // List will make a request to UAA to retrieve all user resources matching the given query.
