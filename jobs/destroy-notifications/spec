@@ -14,6 +14,9 @@ properties:
     description: 'Username of the CF admin user'
   notifications.cf.admin_password:
     description: 'Password of the CF admin user'
+  notifications.cf.dial_timeout:
+    description: 'CF CLI connection dial timeout'
+    default: 5
   notifications.app_domain:
     description: 'Domain used to host application'
   notifications.organization:
