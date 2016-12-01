@@ -1,0 +1,44 @@
+---
+packages:
+- name: acceptance
+  version: 0f1a9ab97595e6685fbd02292d058cd07ad82cac
+  fingerprint: 0f1a9ab97595e6685fbd02292d058cd07ad82cac
+  sha1: 28c1800f1608fc45fae3d067769592242ce1d010
+  dependencies: []
+- name: cf_cli
+  version: ca0704ac31937b48228994692e8291965c8f1944
+  fingerprint: ca0704ac31937b48228994692e8291965c8f1944
+  sha1: 63fffa981cfbf813878b3a40885ef0140ff6113c
+  dependencies: []
+- name: go
+  version: 78ce80f2fed16a654de77fe43ee85fe1978a382b
+  fingerprint: 78ce80f2fed16a654de77fe43ee85fe1978a382b
+  sha1: 58db84d7ecec3e75ba4e99f363ed5157089c0812
+  dependencies: []
+- name: jq
+  version: b0831a924f18926b8f83d105a16d2718407fa03c
+  fingerprint: b0831a924f18926b8f83d105a16d2718407fa03c
+  sha1: 8c0baceb5ee4ec04cbc67bd1a975f3a9aaeb2e41
+  dependencies: []
+- name: notifications
+  version: 559871226bc6f7da3b4dac0e029f692b9cd1322d
+  fingerprint: 559871226bc6f7da3b4dac0e029f692b9cd1322d
+  sha1: 7e72ab7d65883c24aeec1264482fd9f0b777ae84
+  dependencies: []
+jobs:
+- name: deploy-notifications
+  version: d56be0508559d897ff849c9054a10eb06bbc2ece
+  fingerprint: d56be0508559d897ff849c9054a10eb06bbc2ece
+  sha1: 7b0527e4f06397fb1326229ee67d2c4c988c7aba
+- name: destroy-notifications
+  version: c1827c49c6c933519db0d383b159300e50fb400e
+  fingerprint: c1827c49c6c933519db0d383b159300e50fb400e
+  sha1: fc428d9a470c659623d0c61db01b65599b043e9a
+- name: test-notifications
+  version: fc2742a096d4dae75ca446a30151888e5bf29f02
+  fingerprint: fc2742a096d4dae75ca446a30151888e5bf29f02
+  sha1: ec384d394942039e719ff86cbeadc04ca062e53c
+commit_hash: 7be9c083
+uncommitted_changes: true
+name: notifications
+version: '31'
