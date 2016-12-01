@@ -193,7 +193,7 @@ EOF
 
   temp_client_token=$(curl $SCHEME://$TEMP_CLIENT:$TEMP_PASS@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" -kv | jq -r '.access_token')
 
-  status=$(curl -i -k -v -so ./curl.log -w '%{response_code}' -X PUT -H "Authorization: Bearer $temp_client_token" $SCHEME://$APP_NAME.$DOMAIN/default_template -d "$DEFAULT_TEMPLATE")
+  status=$(curl -i -k -v -so ./curl.log -w '%{response_code}' -X PUT -H "Expect:" -H "Authorization: Bearer $temp_client_token" $SCHEME://$APP_NAME.$DOMAIN/default_template -d "$DEFAULT_TEMPLATE")
 
   curl -k -H "Authorization: Bearer $admin_token" -X DELETE $SCHEME://uaa.$DOMAIN/oauth/clients/$TEMP_CLIENT
 
