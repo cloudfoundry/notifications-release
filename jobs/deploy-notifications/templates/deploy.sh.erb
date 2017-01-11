@@ -158,20 +158,30 @@ function scale_app_up() {
   cf scale $APP_NAME -i <%= properties.notifications.instance_count %>
 }
 
+function do_curl() {
+  curl -v \
+    <% if properties.ssl.skip_cert_verify %>-k<% end %> \
+    $@ 2>> curl.verbose.log
+}
+
 function set_default_template() {
   if [[ -z "$DEFAULT_TEMPLATE" ]]; then
     echo "Default template is not set."
     return
   fi
 
+  set +x
+
+  rm -rf curl.verbose.log
+  touch curl.verbose.log
+  touch curl.log
+
   TEMP_CLIENT=template-setter-$RANDOM
   TEMP_PASS=temp-secret-$RANDOM
 
-  admin_token=$(curl $SCHEME://$UAA_ADMIN_CLIENT:$UAA_ADMIN_SECRET@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" -kv | jq -r '.access_token')
+  admin_token=$(do_curl $SCHEME://$UAA_ADMIN_CLIENT:$UAA_ADMIN_SECRET@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" | jq -r '.access_token')
 
-  curl -k -H "Authorization: Bearer $admin_token" -X DELETE $SCHEME://uaa.$DOMAIN/oauth/clients/$TEMP_CLIENT
-
-  touch curl.log
+  do_curl -H "Authorization: Bearer $admin_token" -X DELETE $SCHEME://uaa.$DOMAIN/oauth/clients/$TEMP_CLIENT
 
   cat << EOF >tempfile
 {
@@ -184,24 +194,27 @@ function set_default_template() {
   "access_token_validity": 43200
 }
 EOF
-  status=$(curl -k -v -so ./curl.log -w '%{response_code}' -H 'Content-Type: application/json' -H "Authorization: Bearer $admin_token" -X POST $SCHEME://uaa.$DOMAIN/oauth/clients -d @tempfile)
+  status=$(do_curl -so ./curl.log -w '%{response_code}' -H 'Content-Type: application/json' -H "Authorization: Bearer $admin_token" -X POST $SCHEME://uaa.$DOMAIN/oauth/clients -d @tempfile)
   if [[ "$status" != "201" ]]; then
     echo "Could not create a temporary user for template setting: received $status"
+    echo "Verbose output exists at $PWD/curl.verbose.log"
     cat curl.log
     exit 1
   fi
 
-  temp_client_token=$(curl $SCHEME://$TEMP_CLIENT:$TEMP_PASS@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" -kv | jq -r '.access_token')
+  temp_client_token=$(do_curl $SCHEME://$TEMP_CLIENT:$TEMP_PASS@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" | jq -r '.access_token')
 
-  status=$(curl -i -k -v -so ./curl.log -w '%{response_code}' -X PUT -H "Expect:" -H "Authorization: Bearer $temp_client_token" $SCHEME://$APP_NAME.$DOMAIN/default_template -d "$DEFAULT_TEMPLATE")
+  status=$(do_curl -i -so ./curl.log -w '%{response_code}' -X PUT -H "Expect:" -H "Authorization: Bearer $temp_client_token" $SCHEME://$APP_NAME.$DOMAIN/default_template -d "$DEFAULT_TEMPLATE")
 
-  curl -k -H "Authorization: Bearer $admin_token" -X DELETE $SCHEME://uaa.$DOMAIN/oauth/clients/$TEMP_CLIENT
+  do_curl -H "Authorization: Bearer $admin_token" -X DELETE $SCHEME://uaa.$DOMAIN/oauth/clients/$TEMP_CLIENT
 
   if [[ "$status" != "204" ]]; then
     echo "The default template could not be set: received $status"
+    echo "Verbose output exists at $PWD/curl.verbose.log"
     cat curl.log
     exit 1
   fi
+  set -x
 }
 
 function print_deployment_status() {
