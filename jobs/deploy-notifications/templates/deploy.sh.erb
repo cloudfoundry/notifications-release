@@ -161,7 +161,7 @@ function scale_app_up() {
 function do_curl() {
   curl -v \
     <% if properties.ssl.skip_cert_verify %>-k<% end %> \
-    $@ 2>> curl.verbose.log
+    "$@" 2>> curl.verbose.log
 }
 
 function set_default_template() {
