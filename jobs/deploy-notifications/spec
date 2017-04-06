@@ -56,8 +56,20 @@ properties:
     description: 'Admin client id of the UAA'
   notifications.uaa.admin_client_secret:
     description: 'Admin client secret of the UAA'
+  notifications.database.adapter:
+    description: 'Adapter (e.g. mysql or postgres) for the database connection'
+  notifications.database.username:
+    description: 'Username for the database connection'
+  notifications.database.password:
+    description: 'Password for the database connection'
+  notifications.database.host:
+    description: 'Host (IP or domain) for the database connection'
+  notifications.database.port:
+    description: 'Port for the database connection'
+  notifications.database.database:
+    description: 'Database name for the database connection'
   notifications.database.url:
-    description: 'URL pointing to database'
+    description: 'URL pointing to database. When present, overrides database adapter, username, password, host, port, and database properties.'
   notifications.database.max_open_connections:
     description: 'Maximum number of open connections to the database'
   notifications.encryption_key:
