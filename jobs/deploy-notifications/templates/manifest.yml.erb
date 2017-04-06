@@ -1,4 +1,19 @@
 ---
+<%
+  database_url = nil
+  if_p("notifications.database.url") do |url|
+    database_url = url
+  end.else do
+    adapter = p("notifications.database.adapter")
+    username = p("notifications.database.username")
+    password = p("notifications.database.password")
+    host = p("notifications.database.host")
+    port = p("notifications.database.port")
+    database = p("notifications.database.database")
+
+    database_url = "#{adapter}://#{username}:#{password}@#{host}:#{port}/#{database}"
+  end
+%>
 applications:
   - name: notifications
     command: bin/notifications
@@ -9,7 +24,7 @@ applications:
     <%= properties.notifications.buildpack_url ? "buildpack: " + properties.notifications.buildpack_url : "" %>
 env:
   CC_HOST: https://api.<%= properties.domain %>
-  DATABASE_URL: "<%= properties.notifications.database.url %>"
+  DATABASE_URL: "<%= database_url %>"
   DB_MAX_OPEN_CONNS: "<%= properties.notifications.database.max_open_connections / properties.notifications.instance_count %>"
   DEFAULT_UAA_SCOPES: "cloud_controller.read,cloud_controller.write,openid,approvals.me,cloud_controller_service_permissions.read,scim.me,uaa.user,password.write,scim.userids,oauth.approvals"
   DOMAIN: "<%= properties.domain %>"
