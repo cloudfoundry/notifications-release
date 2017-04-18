@@ -4,7 +4,6 @@
   if_p("notifications.database.url") do |url|
     database_url = url
   end.else do
-    adapter = p("notifications.database.adapter")
     username = p("notifications.database.username")
     password = p("notifications.database.password")
     port = p("notifications.database.port")
@@ -17,7 +16,7 @@
       host = link("database").instances[0].address
     end
 
-    database_url = "#{adapter}://#{username}:#{password}@#{host}:#{port}/#{database}"
+    database_url = "mysql://#{username}:#{password}@#{host}:#{port}/#{database}"
   end
 %>
 applications:
