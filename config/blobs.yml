@@ -1,17 +1,16 @@
----
-cf_cli/cf-linux-amd64.tgz:
-  object_id: d1c9bb53-06ea-4294-bf89-e65bd9004ae9
-  sha: 72f398b59bc041826a7658e318794a84bd428729
-  size: 6497363
 cf_cli/autopilot-plugin.tgz:
+  size: 2917330
   object_id: dd253607-0ec7-4596-810a-30c83e167930
   sha: e4951a36cd0325dd722229516879997a11c7188a
-  size: 2917330
+cf_cli/cf-linux-amd64.tgz:
+  size: 6497363
+  object_id: d1c9bb53-06ea-4294-bf89-e65bd9004ae9
+  sha: 72f398b59bc041826a7658e318794a84bd428729
+go/go1.8.3.linux-amd64.tar.gz:
+  size: 90029041
+  object_id: db453b39-6c5f-49af-5fdd-3c04468d03f8
+  sha: 838c415896ef5ecd395dfabde5e7e6f8ac943c8e
 jq/jq.tar.gz:
+  size: 164331
   object_id: d8d2dc10-4f6c-4614-ad81-784fe9c9311d
   sha: 9a3baf993a8e912abf755dd77df9458d8431eedc
-  size: 164331
-go/go1.7.3.linux-amd64.tar.gz:
-  object_id: 99ce030d-86b0-4f2f-b906-3d3821aac3ef
-  sha: ead40e884ad4d6512bcf7b3c7420dd7fa4a96140
-  size: 82565628
