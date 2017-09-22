@@ -2,10 +2,10 @@ cf_cli/autopilot-plugin.tgz:
   size: 2917330
   object_id: dd253607-0ec7-4596-810a-30c83e167930
   sha: e4951a36cd0325dd722229516879997a11c7188a
-cf_cli/cf-6.29.0-linux-amd64.tgz:
-  size: 5771368
-  object_id: 40e2bfa4-b868-4a37-6332-c6434b5169b4
-  sha: ff1c6286f9a67b4e0f50eb5ed511c69526a3fa7d
+cf_cli/cf-cli_6.31.0_linux_x86-64.tgz:
+  size: 6045122
+  object_id: 317f2cfc-a48d-4d83-44ec-6f93508754b3
+  sha: a8c3621b6d34c765e918efdce60e1cbf17ab9f37
 go/go1.8.3.linux-amd64.tar.gz:
   size: 90029041
   object_id: db453b39-6c5f-49af-5fdd-3c04468d03f8
