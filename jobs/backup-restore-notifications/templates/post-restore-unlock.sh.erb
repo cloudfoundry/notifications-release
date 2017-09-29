@@ -1,0 +1,14 @@
+#!/bin/bash -exu
+
+JOB_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
+source ${JOB_PATH}/bin/common
+
+echo "==================="
+echo "post-restore-unlock"
+echo "==================="
+
+echo "Restoring route for $APP_NAME.$APP_DOMAIN"
+
+cf map-route $APP_NAME --hostname $APP_NAME $APP_DOMAIN
+
+echo "DONE Restoring route for $APP_NAME.$APP_DOMAIN"

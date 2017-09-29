@@ -1,0 +1,32 @@
+#!/bin/bash -exu
+
+export PATH="/var/vcap/packages/cf_cli/bin:$PATH"
+
+export SCHEME="https"
+export DOMAIN="<%= properties.domain %>"
+
+export API_ENDPOINT="$SCHEME://api.$DOMAIN"
+
+export APP_NAME="notifications"
+export APP_DOMAIN="<%= properties.notifications.app_domain %>"
+
+export ADMIN_USER="<%= properties.notifications.cf.admin_user %>"
+export ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
+
+export ORG="<%= properties.notifications.organization %>"
+export SPACE="<%= properties.notifications.space %>"
+
+export BBR_SDK_PATH="/var/vcap/jobs/database-backup-restorer"
+
+# The BBR CLI is responsible for setting the BBR_ARTIFACT_DIRECTORY
+export BBR_ARTIFACT_FILE_PATH="${BBR_ARTIFACT_DIRECTORY}/cf-notifications-database-backup.sql"
+
+export CONFIG_JSON_PATH="${JOB_PATH}/config/backup-restore-notifications-db-config.json"
+
+function cf_auth_and_target() {
+	echo "Authenticate and target..."
+	cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
+	cf auth $ADMIN_USER "$ADMIN_PASSWORD"
+	echo -e  "********************\n"
+	cf target -o $ORG -s $SPACE
+}

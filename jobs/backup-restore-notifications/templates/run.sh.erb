@@ -1,0 +1,13 @@
+#!/bin/bash -exu
+
+JOB_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
+JOB_NAME="backup-restore-notifications"
+
+source ${JOB_PATH}/${JOB_NAME}/bin/common
+
+cf_auth_and_target
+
+${JOB_PATH}/${JOB_NAME}/bin/bbr/backup
+${JOB_PATH}/${JOB_NAME}/bin/bbr/pre-restore-lock
+${JOB_PATH}/${JOB_NAME}/bin/bbr/restore
+${JOB_PATH}/${JOB_NAME}/bin/bbr/post-restore-unlock

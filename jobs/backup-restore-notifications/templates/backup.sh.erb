@@ -1,0 +1,14 @@
+#!/bin/bash -exu
+
+JOB_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
+source ${JOB_PATH}/bin/common
+
+echo "======"
+echo "backup"
+echo "======"
+
+echo "Backing up database for $APP_NAME.$APP_DOMAIN"
+
+echo "Running backup..."
+"${BBR_SDK_PATH}/bin/backup" --config "${CONFIG_JSON_PATH}" --artifact-file "${BBR_ARTIFACT_FILE_PATH}"
+

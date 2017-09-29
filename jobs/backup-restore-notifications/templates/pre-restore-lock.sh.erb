@@ -1,0 +1,14 @@
+#!/bin/bash -exu
+
+JOB_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
+source ${JOB_PATH}/bin/common
+
+echo "================"
+echo "pre-restore-lock"
+echo "================"
+
+echo "Unmapping route for $APP_NAME.$APP_DOMAIN"
+
+cf unmap-route $APP_NAME --hostname $APP_NAME $APP_DOMAIN
+
+echo "DONE Unmapping route for $APP_NAME.$APP_DOMAIN"
