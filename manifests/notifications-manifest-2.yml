@@ -1,0 +1,117 @@
+name: notifications
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: '3445.7'
+
+releases:
+- name: notifications
+  version: latest
+- name: backup-and-restore-sdk
+  version: latest
+
+instance_groups:
+- name: backup-restore-notifications
+  azs:
+    - z1
+  instances: 1
+  vm_type: minimal
+  stemcell: default
+  networks:
+  - name: default
+  jobs:
+  - name: backup-restore-notifications
+    release: notifications
+  - name: database-backup-restorer
+    release: backup-and-restore-sdk
+
+- name: deploy-notifications
+  azs:
+    - z1
+  instances: 1
+  vm_type: minimal
+  stemcell: default
+  lifecycle: errand
+  networks:
+  - name: default
+  jobs:
+  - name: deploy-notifications
+    release: notifications
+
+- name: destroy-notifications
+  azs:
+    - z1
+  instances: 1
+  vm_type: minimal
+  stemcell: default
+  lifecycle: errand
+  networks:
+  - name: default
+  jobs:
+  - name: destroy-notifications
+    release: notifications
+
+- name: test-notifications
+  azs:
+    - z1
+  instances: 1
+  vm_type: minimal
+  stemcell: default
+  lifecycle: errand
+  networks:
+  - name: default
+  jobs:
+  - name: test-notifications
+    release: notifications
+
+properties:
+  domain: "((domain))"
+  notifications:
+    app_domain: "((domain))"
+    cf:
+      admin_password: "((cf.admin_password))"
+      admin_user: admin
+    database:
+      database: notifications
+      host: "((database.host))"
+      max_open_connections: 10
+      password: "((database.password))"
+      port: 3306
+      url: "((database.url))"
+      username: admin
+    default_template: ""
+    enable_diego: true
+    encryption_key: moons_of_endor
+    error_on_misconfiguration: true
+    instance_count: 4
+    network: notifications
+    organization: system
+    sender: no-reply@bosh-lite.com
+    smtp:
+      auth_mechanism: plain
+      crammd5_secret: ""
+      host: "((smtp.host))"
+      pass: "((smtp.pass))"
+      port: "((smtp.port))"
+      tls: true
+      user: "((smtp.user))"
+    space: notifications-service
+    syslog_url: ""
+    tests:
+      performance: true
+    uaa:
+      admin_client_id: admin
+      admin_client_secret: "((uaa.admin_client_secret))"
+      client_id: notifications
+      client_secret: "((uaa.client_secret))"
+  ssl:
+    skip_cert_verify: true
+
+
+update:
+  canaries: 0
+  canary_watch_time: 30000-240000
+  max_in_flight: 3
+  update_watch_time: 30000-600000
+
