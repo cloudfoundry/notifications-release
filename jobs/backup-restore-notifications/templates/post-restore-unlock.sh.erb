@@ -7,6 +7,8 @@ echo "==================="
 echo "post-restore-unlock"
 echo "==================="
 
+cf_auth_and_target
+
 echo "Restoring route for $APP_NAME.$APP_DOMAIN"
 
 cf map-route $APP_NAME --hostname $APP_NAME $APP_DOMAIN

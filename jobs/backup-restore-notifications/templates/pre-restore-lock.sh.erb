@@ -7,6 +7,8 @@ echo "================"
 echo "pre-restore-lock"
 echo "================"
 
+cf_auth_and_target
+
 echo "Unmapping route for $APP_NAME.$APP_DOMAIN"
 
 cf unmap-route $APP_NAME --hostname $APP_NAME $APP_DOMAIN
