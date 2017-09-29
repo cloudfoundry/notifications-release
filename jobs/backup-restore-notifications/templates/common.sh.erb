@@ -18,9 +18,6 @@ export SPACE="<%= properties.notifications.space %>"
 
 export BBR_SDK_PATH="/var/vcap/jobs/database-backup-restorer"
 
-# The BBR CLI is responsible for setting the BBR_ARTIFACT_DIRECTORY
-export BBR_ARTIFACT_FILE_PATH="${BBR_ARTIFACT_DIRECTORY}/cf-notifications-database-backup.sql"
-
 export CONFIG_JSON_PATH="${JOB_PATH}/config/backup-restore-notifications-db-config.json"
 
 function cf_auth_and_target() {

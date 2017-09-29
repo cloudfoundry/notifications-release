@@ -3,6 +3,9 @@
 JOB_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
 source ${JOB_PATH}/bin/common
 
+# The BBR CLI is responsible for setting the BBR_ARTIFACT_DIRECTORY
+export BBR_ARTIFACT_FILE_PATH="${BBR_ARTIFACT_DIRECTORY}/cf-notifications-database-backup.sql"
+
 echo "======"
 echo "backup"
 echo "======"
