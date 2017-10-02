@@ -1,4 +1,6 @@
-#!/bin/bash -exu
+#!/usr/bin/env bash
+<% if p('release_level_backup') %>
+set -ex
 
 JOB_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
 source ${JOB_PATH}/bin/common
@@ -6,12 +8,11 @@ source ${JOB_PATH}/bin/common
 # The BBR CLI is responsible for setting the BBR_ARTIFACT_DIRECTORY
 export BBR_ARTIFACT_FILE_PATH="${BBR_ARTIFACT_DIRECTORY}/cf-notifications-database-backup.sql"
 
-echo "======"
-echo "backup"
-echo "======"
-
 echo "Backing up database for $APP_NAME.$APP_DOMAIN"
 
 echo "Running backup..."
 "${BBR_SDK_PATH}/bin/backup" --config "${CONFIG_JSON_PATH}" --artifact-file "${BBR_ARTIFACT_FILE_PATH}"
 
+<% else %>
+echo "script deactivated due to release_level_backup being set to FALSE\n"
+<% end %>

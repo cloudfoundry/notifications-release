@@ -1,24 +1,25 @@
-#!/bin/bash -exu
+#!/usr/bin/env bash
+set -ex
 
-export PATH="/var/vcap/packages/cf_cli/bin:$PATH"
+PATH="/var/vcap/packages/cf_cli/bin:$PATH"
 
-export SCHEME="https"
-export DOMAIN="<%= properties.domain %>"
+SCHEME="https"
+DOMAIN="<%= properties.domain %>"
 
-export API_ENDPOINT="$SCHEME://api.$DOMAIN"
+API_ENDPOINT="$SCHEME://api.$DOMAIN"
 
-export APP_NAME="notifications"
-export APP_DOMAIN="<%= properties.notifications.app_domain %>"
+APP_NAME="notifications"
+APP_DOMAIN="<%= properties.notifications.app_domain %>"
 
-export ADMIN_USER="<%= properties.notifications.cf.admin_user %>"
-export ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
+ADMIN_USER="<%= properties.notifications.cf.admin_user %>"
+ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
 
-export ORG="<%= properties.notifications.organization %>"
-export SPACE="<%= properties.notifications.space %>"
+ORG="<%= properties.notifications.organization %>"
+SPACE="<%= properties.notifications.space %>"
 
-export BBR_SDK_PATH="/var/vcap/jobs/database-backup-restorer"
+BBR_SDK_PATH="/var/vcap/jobs/database-backup-restorer"
 
-export CONFIG_JSON_PATH="${JOB_PATH}/config/backup-restore-notifications-db-config.json"
+CONFIG_JSON_PATH="${JOB_PATH}/config/backup-restore-notifications-db-config.json"
 
 function cf_auth_and_target() {
 	echo "Authenticate and target..."
