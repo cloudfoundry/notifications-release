@@ -3,7 +3,7 @@ name: notifications
 stemcells:
 - alias: default
   os: ubuntu-trusty
-  version: '3445.7'
+  version: latest
 
 releases:
 - name: notifications
@@ -71,47 +71,45 @@ properties:
     app_domain: "((domain))"
     cf:
       admin_password: "((cf.admin_password))"
-      admin_user: admin
+      admin_user: "((cf.admin_user))"
     database:
-      database: notifications
-      host: "((database.host))"
-      max_open_connections: 10
-      password: "((database.password))"
-      port: 3306
       url: "((database.url))"
-      username: admin
-    default_template: ""
+      host: "((database.host))"
+      port: ((database.port))
+      username: "((database.username))"
+      password: "((database.password))"
+      database: "((database.database))"
+      max_open_connections: 10
+    default_template: "" # VARS FILE
     enable_diego: true
-    encryption_key: moons_of_endor
+    encryption_key: "((encryption_key))" # VARS FILE
     error_on_misconfiguration: true
-    instance_count: 4
-    network: notifications
-    organization: system
-    sender: no-reply@bosh-lite.com
+    instance_count: "((instance_count))" # VARS FILE
+    network: notifications # Not being used. Only in deploy_notifications spec
+    organization: system # VARS FILE
+    sender: no-reply@bosh-lite.com # VARS FILE
     smtp:
-      auth_mechanism: plain
-      crammd5_secret: ""
       host: "((smtp.host))"
-      pass: "((smtp.pass))"
-      port: "((smtp.port))"
-      tls: true
+      port: ((smtp.port))
       user: "((smtp.user))"
-    space: notifications-service
+      pass: "((smtp.pass))"
+      tls: ((smtp.tls))
+      auth_mechanism: "((smtp.auth_mechanism))"
+      crammd5_secret: "((smtp.crammd5_secret))"
+    space: "notifications-service"
     syslog_url: ""
     tests:
-      performance: true
+      performance: false
     uaa:
-      admin_client_id: admin
+      admin_client_id: "((uaa.admin_client_id))"
       admin_client_secret: "((uaa.admin_client_secret))"
       client_id: notifications
       client_secret: "((uaa.client_secret))"
   ssl:
-    skip_cert_verify: true
-
+    skip_cert_verify: false
 
 update:
   canaries: 0
   canary_watch_time: 30000-240000
   max_in_flight: 3
   update_watch_time: 30000-600000
-
