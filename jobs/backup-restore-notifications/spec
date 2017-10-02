@@ -2,7 +2,6 @@
 name: backup-restore-notifications
 
 templates:
-  run.sh.erb: bin/run
   common.sh.erb: bin/common
   config.json.erb: config/backup-restore-notifications-db-config.json
   backup.sh.erb: bin/bbr/backup
