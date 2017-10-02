@@ -80,14 +80,14 @@ properties:
       password: "((database.password))"
       database: "((database.database))"
       max_open_connections: 10
-    default_template: "" # VARS FILE
+    default_template: ""
     enable_diego: true
-    encryption_key: "((encryption_key))" # VARS FILE
+    encryption_key: "((encryption_key))"
     error_on_misconfiguration: true
-    instance_count: "((instance_count))" # VARS FILE
-    network: notifications # Not being used. Only in deploy_notifications spec
-    organization: system # VARS FILE
-    sender: no-reply@bosh-lite.com # VARS FILE
+    instance_count: "((instance_count))"
+    network: notifications
+    organization: "((organization))"
+    sender: "((sender))"
     smtp:
       host: "((smtp.host))"
       port: ((smtp.port))
