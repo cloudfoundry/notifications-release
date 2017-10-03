@@ -2,17 +2,6 @@ networks: (( merge ))
 properties: (( merge ))
 
 jobs:
-- name: backup-restore-notifications
-  lifecycle: errand
-  templates: 
-  - name: backup-restore-notifications
-    release: notifications
-  - name: database-backup-restorer
-    release: backup-and-restore-sdk
-  instances: 1
-  resource_pool: default
-  networks:
-  - name: (( properties.notifications.network ))
 - name: deploy-notifications
   lifecycle: errand
   templates:
