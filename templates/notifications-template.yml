@@ -50,11 +50,6 @@ properties:
     sender: (( merge ))
     database:
       url: (( merge ))
-      username: (( merge ))
-      password: (( merge ))
-      host: (( merge ))
-      port: (( merge ))
-      database: (( merge ))
       max_open_connections: (( merge ))
     uaa:
       client_id: notifications
