@@ -8,8 +8,6 @@ jobs: (( merge ))
 releases:
 - name: notifications
   version: latest
-- name: backup-and-restore-sdk
-  version: latest
 
 compilation:
   workers: 3

@@ -4,27 +4,21 @@ properties: (( merge ))
 jobs:
 - name: deploy-notifications
   lifecycle: errand
-  templates:
-  - name: deploy-notifications
-    release: notifications
+  template: deploy-notifications
   instances: 1
   resource_pool: default
   networks:
   - name: (( properties.notifications.network ))
 - name: destroy-notifications
   lifecycle: errand
-  templates:
-  - name: destroy-notifications
-    release: notifications
+  template: destroy-notifications
   instances: 1
   resource_pool: default
   networks:
   - name: (( properties.notifications.network ))
 - name: test-notifications
   lifecycle: errand
-  templates:
-  - name: test-notifications
-    release: notifications
+  template: test-notifications
   instances: 1
   resource_pool: default
   networks:
