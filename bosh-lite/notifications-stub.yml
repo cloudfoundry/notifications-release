@@ -28,6 +28,11 @@ properties:
       admin_client_secret: admin-secret
     database:
       url: (( merge ))
+      username: (( merge ))
+      password: (( merge ))
+      host: (( merge ))
+      port: (( merge ))
+      database: (( merge ))
       max_open_connections: (( merge || 10 ))
     tests:
       performance: true

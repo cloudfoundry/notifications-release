@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+<% if p('release_level_backup') %>
+set -ex
+
+JOB_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
+source ${JOB_PATH}/bin/common
+
+cf_auth_and_target
+
+echo "Unmapping route for $APP_NAME.$APP_DOMAIN"
+
+cf unmap-route $APP_NAME --hostname $APP_NAME $APP_DOMAIN
+
+echo "DONE Unmapping route for $APP_NAME.$APP_DOMAIN"
+
+<% else %>
+echo "script deactivated due to release_level_backup being set to FALSE\n"
+<% end %>

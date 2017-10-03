@@ -8,6 +8,8 @@ jobs: (( merge ))
 releases:
 - name: notifications
   version: latest
+- name: backup-and-restore-sdk
+  version: latest
 
 compilation:
   workers: 3
@@ -50,6 +52,11 @@ properties:
     sender: (( merge ))
     database:
       url: (( merge ))
+      username: (( merge ))
+      password: (( merge ))
+      host: (( merge ))
+      port: (( merge ))
+      database: (( merge ))
       max_open_connections: (( merge ))
     uaa:
       client_id: notifications

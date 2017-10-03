@@ -1,0 +1,28 @@
+domain: cf.domain.com
+cf:
+  admin_user: cf-admin
+  admin_password: cf-admin-password
+database:
+  host: database.hostname.com
+  port: 3306
+  username: database-username
+  password: database-password
+  database: notifications
+  url: mysql://database-username:database-password@database.hostname.com:3306/notifications
+  max_open_connections: 10
+smtp:
+  host: smtp.hostname.com
+  port: 587
+  user: smtp-username
+  pass: smtp-password
+  auth_mechanism: plain
+  crammd5_secret: ''
+  tls: true
+uaa:
+  admin_client_id: admin
+  admin_client_secret: admin-client-secret
+  client_secret: notification-secret
+instance_count: 4
+encryption_key: moons_of_endor
+organization: system
+sender: no-reply@bosh-lite.com

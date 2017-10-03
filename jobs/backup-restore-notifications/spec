@@ -1,0 +1,44 @@
+---
+name: backup-restore-notifications
+
+templates:
+  common.sh.erb: bin/common
+  config.json.erb: config/backup-restore-notifications-db-config.json
+  backup.sh.erb: bin/bbr/backup
+  restore.sh.erb: bin/bbr/restore
+  pre-restore-lock.sh.erb: bin/bbr/pre-restore-lock
+  post-restore-unlock.sh.erb: bin/bbr/post-restore-unlock
+
+packages:
+  - cf_cli
+
+properties:
+  domain:
+    description: 'Cloud Foundry System Domain'
+  notifications.cf.admin_user:
+    description: 'Username of the CF admin user'
+  notifications.cf.admin_password:
+    description: 'Password of the CF admin user'
+  notifications.organization:
+    description: 'Organization that hosts the app'
+  notifications.space:
+    description: 'Space that hosts the app'
+  notifications.app_domain:
+    description: 'Domain used to host application'
+  notifications.database.username:
+    description: 'Username for the database connection'
+  notifications.database.password:
+    description: 'Password for the database connection'
+  notifications.database.host:
+    description: 'Host (IP or domain) for the database connection'
+  notifications.database.port:
+    description: 'Port for the database connection'
+  notifications.database.database:
+    description: 'Database name for the database connection'
+  notifications.database.url:
+    description: 'URL pointing to database. When present, overrides database adapter, username, password, host, port, and database properties.'
+  ssl.skip_cert_verify:
+    description: 'Whether to verify SSL certs when making HTTP and SMTP requests'
+  release_level_backup:
+    default: false
+    description: "Use newer bbr scripts which are split by release"

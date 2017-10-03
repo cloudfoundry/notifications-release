@@ -1,0 +1,115 @@
+name: notifications
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+
+releases:
+- name: notifications
+  version: latest
+- name: backup-and-restore-sdk
+  version: latest
+
+instance_groups:
+- name: backup-restore-notifications
+  azs:
+    - z1
+  instances: 1
+  vm_type: minimal
+  stemcell: default
+  networks:
+  - name: default
+  jobs:
+  - name: backup-restore-notifications
+    release: notifications
+  - name: database-backup-restorer
+    release: backup-and-restore-sdk
+
+- name: deploy-notifications
+  azs:
+    - z1
+  instances: 1
+  vm_type: minimal
+  stemcell: default
+  lifecycle: errand
+  networks:
+  - name: default
+  jobs:
+  - name: deploy-notifications
+    release: notifications
+
+- name: destroy-notifications
+  azs:
+    - z1
+  instances: 1
+  vm_type: minimal
+  stemcell: default
+  lifecycle: errand
+  networks:
+  - name: default
+  jobs:
+  - name: destroy-notifications
+    release: notifications
+
+- name: test-notifications
+  azs:
+    - z1
+  instances: 1
+  vm_type: minimal
+  stemcell: default
+  lifecycle: errand
+  networks:
+  - name: default
+  jobs:
+  - name: test-notifications
+    release: notifications
+
+properties:
+  domain: "((domain))"
+  notifications:
+    app_domain: "((domain))"
+    cf:
+      admin_password: "((cf.admin_password))"
+      admin_user: "((cf.admin_user))"
+    database:
+      url: "((database.url))"
+      host: "((database.host))"
+      port: ((database.port))
+      username: "((database.username))"
+      password: "((database.password))"
+      database: "((database.database))"
+      max_open_connections: 10
+    default_template: ""
+    enable_diego: true
+    encryption_key: "((encryption_key))"
+    error_on_misconfiguration: true
+    instance_count: "((instance_count))"
+    network: notifications
+    organization: "((organization))"
+    sender: "((sender))"
+    smtp:
+      host: "((smtp.host))"
+      port: ((smtp.port))
+      user: "((smtp.user))"
+      pass: "((smtp.pass))"
+      tls: ((smtp.tls))
+      auth_mechanism: "((smtp.auth_mechanism))"
+      crammd5_secret: "((smtp.crammd5_secret))"
+    space: "notifications-service"
+    syslog_url: ""
+    tests:
+      performance: false
+    uaa:
+      admin_client_id: "((uaa.admin_client_id))"
+      admin_client_secret: "((uaa.admin_client_secret))"
+      client_id: notifications
+      client_secret: "((uaa.client_secret))"
+  ssl:
+    skip_cert_verify: false
+
+update:
+  canaries: 0
+  canary_watch_time: 30000-240000
+  max_in_flight: 3
+  update_watch_time: 30000-600000
