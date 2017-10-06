@@ -66,6 +66,7 @@ instance_groups:
     release: notifications
 
 properties:
+  release_level_backup: true
   domain: "((domain))"
   notifications:
     app_domain: "((domain))"
