@@ -8,6 +8,7 @@ templates:
   restore.sh.erb: bin/bbr/restore
   pre-restore-lock.sh.erb: bin/bbr/pre-restore-lock
   post-restore-unlock.sh.erb: bin/bbr/post-restore-unlock
+  metadata.sh: bin/bbr/metadata
 
 packages:
   - cf_cli
