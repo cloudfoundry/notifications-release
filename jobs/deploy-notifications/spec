@@ -8,7 +8,7 @@ templates:
 packages:
   - notifications
   - notifications-cf-cli
-  - jq
+  - notifications-jq
 
 consumes:
 - name: database

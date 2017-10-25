@@ -1,5 +1,5 @@
 ---
-name: jq
+name: notifications-jq
 
 files:
   - jq/jq.tar.gz
