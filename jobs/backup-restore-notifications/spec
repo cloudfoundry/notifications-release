@@ -11,7 +11,7 @@ templates:
   metadata.sh: bin/bbr/metadata
 
 packages:
-  - cf_cli
+  - notifications-cf-cli
 
 properties:
   domain:

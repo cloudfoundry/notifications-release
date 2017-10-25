@@ -1,6 +1,6 @@
 #!/bin/bash -exu
 
-export PATH="/var/vcap/packages/cf_cli/bin:/var/vcap/packages/jq/bin:$PATH"
+export PATH="/var/vcap/packages/notifications-cf-cli/bin:/var/vcap/packages/jq/bin:$PATH"
 export CF_HOME=`pwd`/home/cf
 export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 
@@ -114,7 +114,7 @@ function push_app() {
       fi
 
     else
-      cf install-plugin /var/vcap/packages/cf_cli/plugins/autopilot -f
+      cf install-plugin /var/vcap/packages/notifications-cf-cli/plugins/autopilot -f
       set +e
         cf zero-downtime-push "${APP_NAME}" -f manifest.yml -p "${PWD}"
         exit_code=$?

@@ -7,7 +7,7 @@ templates:
 
 packages:
   - notifications
-  - cf_cli
+  - notifications-cf-cli
   - jq
 
 consumes:
