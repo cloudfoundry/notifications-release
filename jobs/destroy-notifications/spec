@@ -5,7 +5,7 @@ templates:
   destroy.sh.erb: bin/run
 
 packages:
-  - cf_cli
+  - notifications-cf-cli
 
 properties:
   domain:

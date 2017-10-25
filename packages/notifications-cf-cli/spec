@@ -1,5 +1,5 @@
 ---
-name: cf_cli
+name: notifications-cf-cli
 
 files:
   - cf_cli/*.tgz
