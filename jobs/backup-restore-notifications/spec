@@ -14,8 +14,8 @@ packages:
   - notifications-cf-cli
 
 consumes:
-- name: notifications_db
-  type: notifications_db
+- name: notifications_bbr
+  type: notifications_bbr
 
 properties:
   release_level_backup:

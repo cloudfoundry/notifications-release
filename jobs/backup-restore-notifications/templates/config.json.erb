@@ -1,6 +1,6 @@
 <%=
     require 'json'
-    db = link('notifications_db').p('notifications.database')
+    db = link('notifications_bbr').p('notifications.database')
     JSON.pretty_generate(
       'username' => db['username'],
       'password' => db['password'],
