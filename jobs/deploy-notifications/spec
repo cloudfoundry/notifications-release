@@ -10,6 +10,18 @@ packages:
   - notifications-cf-cli
   - notifications-jq
 
+provides:
+- name: notifications_db
+  type: notifications_db
+  properties:
+  - domain
+  - notifications.cf
+  - notifications.organization
+  - notifications.space
+  - notifications.app_domain
+  - notifications.database
+  - ssl
+
 consumes:
 - name: database
   type: database
