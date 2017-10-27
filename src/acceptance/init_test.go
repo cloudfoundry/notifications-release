@@ -98,7 +98,7 @@ var _ = AfterSuite(func() {
 })
 
 func saveNotificationsEnvironmentVariables() {
-	guid := Run("cf", "app", "notifications", "--guid")
+	guid := strings.TrimSpace(Run("cf", "app", "notifications", "--guid"))
 	environmentJSON := Run("cf", "curl", fmt.Sprintf("/v2/apps/%s/env", guid))
 	var env struct {
 		EnvironmentJSON map[string]string `json:"environment_json"`
