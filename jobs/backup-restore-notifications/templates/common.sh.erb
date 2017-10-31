@@ -4,18 +4,18 @@ set -ex
 PATH="/var/vcap/packages/notifications-cf-cli/bin:$PATH"
 
 SCHEME="https"
-DOMAIN="<%= link("notifications_bbr").p("domain") %>"
+DOMAIN="<%= link("notifications_db").p("domain") %>"
 
 API_ENDPOINT="$SCHEME://api.$DOMAIN"
 
 APP_NAME="notifications"
-APP_DOMAIN="<%= link("notifications_bbr").p("notifications.app_domain") %>"
+APP_DOMAIN="<%= link("notifications_db").p("notifications.app_domain") %>"
 
-ADMIN_USER="<%= link("notifications_bbr").p("notifications.cf.admin_user") %>"
-ADMIN_PASSWORD="<%= link("notifications_bbr").p("notifications.cf.admin_password") %>"
+ADMIN_USER="<%= link("notifications_db").p("notifications.cf.admin_user") %>"
+ADMIN_PASSWORD="<%= link("notifications_db").p("notifications.cf.admin_password") %>"
 
-ORG="<%= link("notifications_bbr").p("notifications.organization") %>"
-SPACE="<%= link("notifications_bbr").p("notifications.space") %>"
+ORG="<%= link("notifications_db").p("notifications.organization") %>"
+SPACE="<%= link("notifications_db").p("notifications.space") %>"
 
 BBR_SDK_PATH="/var/vcap/jobs/database-backup-restorer"
 
@@ -23,7 +23,7 @@ CONFIG_JSON_PATH="${JOB_PATH}/config/backup-restore-notifications-db-config.json
 
 function cf_auth_and_target() {
 	echo "Authenticate and target..."
-	cf api $API_ENDPOINT <% if link("notifications_bbr").p("ssl.skip_cert_verify") %>--skip-ssl-validation<% end %>
+	cf api $API_ENDPOINT <% if link("notifications_db").p("ssl.skip_cert_verify") %>--skip-ssl-validation<% end %>
 	cf auth $ADMIN_USER "$ADMIN_PASSWORD"
 	echo -e  "********************\n"
 	cf target -o $ORG -s $SPACE

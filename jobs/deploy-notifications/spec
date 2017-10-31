@@ -11,8 +11,8 @@ packages:
   - notifications-jq
 
 provides:
-- name: notifications_bbr
-  type: notifications_bbr
+- name: notifications_db
+  type: notifications_db
   properties:
   - domain
   - notifications.cf
