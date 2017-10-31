@@ -13,6 +13,11 @@ templates:
 packages:
   - notifications-cf-cli
 
+consumes:
+- name: database
+  type: database
+  optional: true
+
 properties:
   domain:
     description: 'Cloud Foundry System Domain'
