@@ -13,11 +13,6 @@ templates:
 packages:
   - notifications-cf-cli
 
-consumes:
-- name: database
-  type: database
-  optional: true
-
 properties:
   domain:
     description: 'Cloud Foundry System Domain'
@@ -41,6 +36,8 @@ properties:
     description: 'Port for the database connection'
   notifications.database.database:
     description: 'Database name for the database connection'
+  notifications.database.url:
+    description: 'URL pointing to database. When present, overrides database adapter, username, password, host, port, and database properties.'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making HTTP and SMTP requests'
   release_level_backup:
