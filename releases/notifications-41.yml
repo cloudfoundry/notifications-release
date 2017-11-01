@@ -1,0 +1,52 @@
+---
+packages:
+- name: go
+  version: deda163751ec1f64741b9a1e3f019e9e131b12ab
+  fingerprint: deda163751ec1f64741b9a1e3f019e9e131b12ab
+  sha1: 17eed3e13274973dbfbaa06b59d139b0a26de31a
+  dependencies: []
+- name: notifications-jq
+  version: b0831a924f18926b8f83d105a16d2718407fa03c
+  fingerprint: b0831a924f18926b8f83d105a16d2718407fa03c
+  sha1: 101088f96a253ffe6e4ecdbe268de417ab6f4cbe
+  dependencies: []
+- name: notifications-cf-cli
+  version: 5e934e210ba9c5b2d5bd190b07e7b3d6f4050ba2
+  fingerprint: 5e934e210ba9c5b2d5bd190b07e7b3d6f4050ba2
+  sha1: f46a0be7913bc5561d6d9f61e396c00920b4cc44
+  dependencies: []
+- name: acceptance
+  version: 93a813157f1abf5060a334116a01ba62cc97d876
+  fingerprint: 93a813157f1abf5060a334116a01ba62cc97d876
+  sha1: 7afef972110cc095fd11a0709c961b48ec14a37c
+  dependencies: []
+- name: notifications
+  version: a43b232f3a5d58f60ab1e65206b456afdda11413
+  fingerprint: a43b232f3a5d58f60ab1e65206b456afdda11413
+  sha1: 8f61297cf2d7a2d9dd95dabd659370b4069b8a7d
+  dependencies: []
+jobs:
+- name: destroy-notifications
+  version: ba49ef56965996b968b909c33b7490c461a21f29
+  fingerprint: ba49ef56965996b968b909c33b7490c461a21f29
+  sha1: 05ac16ab1de1d0a6451969701829a06c85ae4965
+- name: backup-restore-notifications
+  version: 55394d6fd5c650cb2a87cd9d025a669168f3372c
+  fingerprint: 55394d6fd5c650cb2a87cd9d025a669168f3372c
+  sha1: 0c71cb6014bfed5e6fec4ca99d17489e5853b0b3
+- name: test-notifications
+  version: 01a615a5a32aa0c7d0b6ba26fc2a8c68d973cce3
+  fingerprint: 01a615a5a32aa0c7d0b6ba26fc2a8c68d973cce3
+  sha1: e743bb90d5614f778fb7199be167777a39a36535
+- name: deploy-notifications
+  version: f6704d30477b0ed870942548bd4d05e74d6ccd30
+  fingerprint: f6704d30477b0ed870942548bd4d05e74d6ccd30
+  sha1: aff220d2a7c92c06245e2cac7c35cdabcb80d8a3
+license:
+  version: 04dad516d00cafcc54a2652be4307bd41ec51d7a
+  fingerprint: 04dad516d00cafcc54a2652be4307bd41ec51d7a
+  sha1: 74b8acaa952f339b917e424c166ea61e08c0d72c
+commit_hash: 0e6bbc36
+uncommitted_changes: true
+name: notifications
+version: '41'
