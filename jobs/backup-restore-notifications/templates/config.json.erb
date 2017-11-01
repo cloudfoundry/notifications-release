@@ -1,8 +1,19 @@
-{
-  "username":"<%= p('notifications.database.username') %>",
-  "password":"<%= p('notifications.database.password') %>",
-  "host":"<%= p('notifications.database.host') %>",
-  "port":<%= p('notifications.database.port') %>,
-  "database":"<%= p('notifications.database.database') %>",
-  "adapter":"mysql"
-}
+<%=
+    require 'json'
+
+    host = nil
+    if_p("notifications.database.host") do |host_property|
+      host = host_property
+    end.else do
+      host = link("database").instances[0].address
+    end
+
+    JSON.pretty_generate(
+      'username' => p("notifications.database.username"),
+      'password' => p("notifications.database.password"),
+      'host' => host,
+      'port' => p("notifications.database.port"),
+      'database' => p("notifications.database.database"),
+      "adapter":"mysql",
+    )
+%>
