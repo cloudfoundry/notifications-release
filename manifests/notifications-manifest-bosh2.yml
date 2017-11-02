@@ -107,7 +107,7 @@ properties:
       client_id: notifications
       client_secret: "((uaa.client_secret))"
   ssl:
-    skip_cert_verify: false
+    skip_cert_verify: ((ssl.skip_cert_verify))
 
 update:
   canaries: 0
