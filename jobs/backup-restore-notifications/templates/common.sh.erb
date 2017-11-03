@@ -11,8 +11,11 @@ API_ENDPOINT="$SCHEME://api.$DOMAIN"
 APP_NAME="notifications"
 APP_DOMAIN="<%= properties.notifications.app_domain %>"
 
+# Don't print out password
+set +e
 ADMIN_USER="<%= properties.notifications.cf.admin_user %>"
 ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
+set -e
 
 ORG="<%= properties.notifications.organization %>"
 SPACE="<%= properties.notifications.space %>"
@@ -24,7 +27,10 @@ CONFIG_JSON_PATH="${JOB_PATH}/config/backup-restore-notifications-db-config.json
 function cf_auth_and_target() {
 	echo "Authenticate and target..."
 	cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
+  # Don't print out password
+	set +e
 	cf auth $ADMIN_USER "$ADMIN_PASSWORD"
+	set -e
 	echo -e  "********************\n"
 	cf target -o $ORG -s $SPACE
 }
