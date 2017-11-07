@@ -81,7 +81,7 @@ properties:
       password: "((database.password))"
       database: "((database.database))"
       max_open_connections: 10
-    default_template: ""
+    default_template: "((default_template))"
     enable_diego: true
     encryption_key: "((encryption_key))"
     error_on_misconfiguration: true
