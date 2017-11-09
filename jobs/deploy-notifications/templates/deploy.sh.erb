@@ -1,7 +1,7 @@
 #!/bin/bash -exu
 
 export PATH="/var/vcap/packages/notifications-cf-cli/bin:/var/vcap/packages/notifications-jq/bin:$PATH"
-export CF_HOME=`pwd`/home/cf
+export CF_HOME=`mktemp -d 2>/dev/null || mktemp -d -t 'notifications-cf-cli'`
 export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 
 SCHEME=https
