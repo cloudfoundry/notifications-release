@@ -226,6 +226,12 @@ function print_deployment_status() {
   echo "Deployment succeeded!"
 }
 
+function cleanup_cf_home() {
+  if [[ -d "${CF_HOME}" ]]; then
+    rm -rf "${CF_HOME}"
+  fi
+}
+
 cf -v
 
 validate_database_connection_count
@@ -238,3 +244,4 @@ create_logging_service
 scale_app_up
 set_default_template
 print_deployment_status
+cleanup_cf_home
