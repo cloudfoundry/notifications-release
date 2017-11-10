@@ -1,7 +1,7 @@
 #!/bin/bash -exu
 
 export PATH="/var/vcap/packages/notifications-cf-cli/bin:/var/vcap/packages/notifications-jq/bin:$PATH"
-export CF_HOME=`pwd`/home/cf
+export CF_HOME=`mktemp -d 2>/dev/null || mktemp -d -t 'notifications-cf-cli'`
 export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 
 SCHEME=https
@@ -226,6 +226,12 @@ function print_deployment_status() {
   echo "Deployment succeeded!"
 }
 
+function cleanup_cf_home() {
+  if [[ -d "${CF_HOME}" ]]; then
+    rm -rf "${CF_HOME}"
+  fi
+}
+
 cf -v
 
 validate_database_connection_count
@@ -238,3 +244,4 @@ create_logging_service
 scale_app_up
 set_default_template
 print_deployment_status
+cleanup_cf_home
