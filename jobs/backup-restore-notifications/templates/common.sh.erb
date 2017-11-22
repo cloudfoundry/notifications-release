@@ -32,5 +32,9 @@ function cf_auth_and_target() {
 	cf auth $ADMIN_USER "$ADMIN_PASSWORD"
 	set -e
 	echo -e  "********************\n"
-	cf target -o $ORG -s $SPACE
+
+	if ! cf target -o $ORG -s $SPACE ; then
+		echo "Notifications org/space not found; exiting"
+		exit 0
+	fi
 }
