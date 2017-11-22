@@ -1,0 +1,51 @@
+name: notifications
+version: "44"
+commit_hash: 8653cf1
+uncommitted_changes: false
+jobs:
+- name: backup-restore-notifications
+  version: fa9c467828e6e0879ada2fca39cca8dc985d97a5f1bbddf1f786fc71ba72ad0b
+  fingerprint: fa9c467828e6e0879ada2fca39cca8dc985d97a5f1bbddf1f786fc71ba72ad0b
+  sha1: sha256:ab3ad065845c5621187a8c9eb20f4c86c3857c4f3e6abd230978a970a1a70f5a
+- name: deploy-notifications
+  version: 00ced655785c194ec251af2984332da80a66c2369ee8961413dcf41591777363
+  fingerprint: 00ced655785c194ec251af2984332da80a66c2369ee8961413dcf41591777363
+  sha1: sha256:90355ac8d81055c46e9458ec439eee8779c11d2f42c53ca1a89a9cc136e7815d
+- name: destroy-notifications
+  version: 9896b8e41f9673e81d25f838e4d323d8cd1548100071cabbd4b2aaf10529be45
+  fingerprint: 9896b8e41f9673e81d25f838e4d323d8cd1548100071cabbd4b2aaf10529be45
+  sha1: sha256:65ed9924ce1a000c24d4381d6bc88a68f5d6622bc82bd986edce095d959a830e
+- name: test-notifications
+  version: e4e5460fb0f472f4bbc05c662bd3928fe5768a781974aeca6f92963b72195b95
+  fingerprint: e4e5460fb0f472f4bbc05c662bd3928fe5768a781974aeca6f92963b72195b95
+  sha1: sha256:62e7641073bc58dff22bb6ea643a5e173e8c8fab5c352144b9abca11f4dc2541
+packages:
+- name: acceptance
+  version: b267f7ae1f77111f4e584a7d7f36d1e618979165dc2d2706b1f5b9bee4f408fa
+  fingerprint: b267f7ae1f77111f4e584a7d7f36d1e618979165dc2d2706b1f5b9bee4f408fa
+  sha1: sha256:868a16269928a682b966c8bdb76a82bc7a503cd306996d559d8a8a9de2498715
+  dependencies: []
+- name: go
+  version: b4bc415ad5fb82305c3bc2bc013b4501ecdcc260cc73a040d9632125a4d6ef88
+  fingerprint: b4bc415ad5fb82305c3bc2bc013b4501ecdcc260cc73a040d9632125a4d6ef88
+  sha1: sha256:0aad3f37d87b102308f1ac29a04201218ea3e261b6424c7fcedce5063a143398
+  dependencies: []
+- name: notifications
+  version: d0006d56bbad94c0c2b4de50752d4619062fb294eaa59dc684d2f9a9a27c98b9
+  fingerprint: d0006d56bbad94c0c2b4de50752d4619062fb294eaa59dc684d2f9a9a27c98b9
+  sha1: sha256:ca6e65bf2918bd50d604fdd7c0541e2841c378344bcd35944bc5f35c17d17e88
+  dependencies: []
+- name: notifications-cf-cli
+  version: 1c8e40c97eace4fd454bd50b00a79157a9d9f2d2f7792514618212cf510ba8db
+  fingerprint: 1c8e40c97eace4fd454bd50b00a79157a9d9f2d2f7792514618212cf510ba8db
+  sha1: sha256:d4fa23329e9fd71a57147160c0e38dad99e54de29268928047b1efa351ba1470
+  dependencies: []
+- name: notifications-jq
+  version: 98280d71869e60e90d94ee547ae75611e53c753bf58b3f6f1b31a1c3b09d798e
+  fingerprint: 98280d71869e60e90d94ee547ae75611e53c753bf58b3f6f1b31a1c3b09d798e
+  sha1: sha256:efdfed94e2c0439786de5891f2cc6977ec6b30dd69caa364ace4a3c7232e3d50
+  dependencies: []
+license:
+  version: eef8d193ad801911af2a2a1926745c866578edc7836a16ab975b97a6e839bcd3
+  fingerprint: eef8d193ad801911af2a2a1926745c866578edc7836a16ab975b97a6e839bcd3
+  sha1: sha256:256bb5a8d37910806a2c4da8bec8abbc7400a410685b5c9e52a0140ad2a6e8db
