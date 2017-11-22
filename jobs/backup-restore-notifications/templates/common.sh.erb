@@ -37,4 +37,9 @@ function cf_auth_and_target() {
 		echo "Notifications org/space not found; exiting"
 		exit 0
 	fi
+
+	if ! cf app $APP_NAME ; then
+		echo "Notifications app not deployed; exiting"
+		exit 0
+	fi
 }
