@@ -75,6 +75,7 @@ properties:
     description: 'URL pointing to database. When present, overrides database adapter, username, password, host, port, and database properties.'
   notifications.database.max_open_connections:
     description: 'Maximum number of open connections to the database'
+    default: 10
   notifications.encryption_key:
     description: 'key used to encrypt unsubscribe IDs'
   notifications.instance_count:
