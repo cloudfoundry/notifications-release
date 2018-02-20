@@ -1,19 +1,23 @@
 <%=
     require 'json'
 
-    host = nil
-    if_p("notifications.database.host") do |host_property|
-      host = host_property
+    if_link("database") do |db_link|
+        JSON.pretty_generate(
+          'username' => db_link.p("username"),
+          'password' => db_link.p("password"),
+          'host' => db_link.instances.first.address,
+          'port' => db_link.p("port"),
+          'database' => db_link.p("name"),
+          "adapter":"mysql",
+        )
     end.else do
-      host = link("database").instances[0].address
+        JSON.pretty_generate(
+          'username' => p("notifications.database.username"),
+          'password' => p("notifications.database.password"),
+          'host' => p("notifications.database.host"),
+          'port' => p("notifications.database.port"),
+          'database' => p("notifications.database.database"),
+          "adapter":"mysql",
+        )
     end
-
-    JSON.pretty_generate(
-      'username' => p("notifications.database.username"),
-      'password' => p("notifications.database.password"),
-      'host' => host,
-      'port' => p("notifications.database.port"),
-      'database' => p("notifications.database.database"),
-      "adapter":"mysql",
-    )
 %>

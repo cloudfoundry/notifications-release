@@ -1,9 +1,7 @@
 ---
 <%
   database_url = nil
-  if_p("notifications.database.url") do |url|
-    database_url = url
-  end.else_if_link("database") do |db_link|
+  if_link("database") do |db_link|
     username = db_link.p("username")
     password = db_link.p("password")
     host = db_link.instances[0].address

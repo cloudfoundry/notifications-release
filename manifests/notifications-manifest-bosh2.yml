@@ -74,7 +74,6 @@ properties:
       admin_password: "((cf.admin_password))"
       admin_user: "((cf.admin_user))"
     database:
-      url: "((database.url))"
       host: "((database.host))"
       port: ((database.port))
       username: "((database.username))"
