@@ -1,0 +1,14 @@
+---
+- type: remove
+  path: /properties/notifications/database
+
+- type: replace
+  path: /instance_groups/name=deploy-notifications/jobs/name=deploy-notifications/consumes?/database
+  value:
+    instances:
+    - address: "((database.host))"
+    properties:
+      port: ((database.port))
+      username: "((database.username))"
+      password: "((database.password))"
+      name: "((database.database))"
