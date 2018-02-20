@@ -3,18 +3,20 @@
   database_url = nil
   if_p("notifications.database.url") do |url|
     database_url = url
+  end.else_if_link("database") do |db_link|
+    username = db_link.p("username")
+    password = db_link.p("password")
+    host = db_link.instances[0].address
+    port = db_link.p("port")
+    database = db_link.p("name")
+
+    database_url = "mysql://#{username}:#{password}@#{host}:#{port}/#{database}"
   end.else do
     username = p("notifications.database.username")
     password = p("notifications.database.password")
+    host = p("notifications.database.host")
     port = p("notifications.database.port")
     database = p("notifications.database.database")
-
-    host = nil
-    if_p("notifications.database.host") do |host_property|
-      host = host_property
-    end.else do
-      host = link("database").instances[0].address
-    end
 
     database_url = "mysql://#{username}:#{password}@#{host}:#{port}/#{database}"
   end
