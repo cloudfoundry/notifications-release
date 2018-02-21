@@ -12,14 +12,3 @@
       username: "((database.username))"
       password: "((database.password))"
       name: "((database.database))"
-
-- type: replace
-  path: /instance_groups/name=backup-restore-notifications/jobs/name=backup-restore-notifications/consumes?/database
-  value:
-    instances:
-    - address: "((database.host))"
-    properties:
-      port: ((database.port))
-      username: "((database.username))"
-      password: "((database.password))"
-      name: "((database.database))"
