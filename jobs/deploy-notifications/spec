@@ -12,7 +12,7 @@ packages:
 
 consumes:
 - name: database
-  type: internal-database
+  type: database
   optional: true
 
 properties:
