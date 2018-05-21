@@ -98,7 +98,7 @@ properties:
       auth_mechanism: "((smtp.auth_mechanism))"
       crammd5_secret: "((smtp.crammd5_secret))"
     space: "notifications-service"
-    syslog_url: ""
+    syslog_url: "((syslog_url))"
     tests:
       performance: false
     uaa:
