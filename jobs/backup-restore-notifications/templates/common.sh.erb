@@ -12,10 +12,10 @@ APP_NAME="notifications"
 APP_DOMAIN="<%= properties.notifications.app_domain %>"
 
 # Don't print out password
-set +e
+set +x
 ADMIN_USER="<%= properties.notifications.cf.admin_user %>"
 ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
-set -e
+set -x
 
 ORG="<%= properties.notifications.organization %>"
 SPACE="<%= properties.notifications.space %>"
@@ -28,9 +28,9 @@ function cf_auth_and_target() {
 	echo "Authenticate and target..."
 	cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
   # Don't print out password
-	set +e
+	set +x
 	cf auth $ADMIN_USER "$ADMIN_PASSWORD"
-	set -e
+	set -x
 	echo -e  "********************\n"
 
 	if ! cf target -o $ORG -s $SPACE ; then
