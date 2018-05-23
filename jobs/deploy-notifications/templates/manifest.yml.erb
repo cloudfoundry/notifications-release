@@ -47,3 +47,7 @@ env:
   UAA_CLIENT_SECRET: "<%= properties.notifications.uaa.client_secret %>"
   UAA_HOST: https://uaa.<%= properties.domain %>
   VERIFY_SSL: "<%= !properties.ssl.skip_cert_verify %>"
+<% if_p('notifications.database.ca_cert') do |cert| %>
+  DATABASE_CA_CERT_FILE: database.crt
+  DATABASE_COMMON_NAME: "<%= p('notifications.database.common_name', '') %>"
+<% end %>

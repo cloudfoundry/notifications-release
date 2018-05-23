@@ -4,6 +4,7 @@ name: deploy-notifications
 templates:
   deploy.sh.erb: bin/run
   manifest.yml.erb: manifest.yml
+  database.crt.erb: database.crt
 
 packages:
   - notifications
@@ -73,6 +74,10 @@ properties:
     description: 'Database name for the database connection'
   notifications.database.url:
     description: 'URL pointing to database. When present, overrides database adapter, username, password, host, port, and database properties.'
+  notifications.database.ca_cert:
+    description: 'CA certificate for authenticating the database connection'
+  notifications.database.common_name:
+    description: 'CA common name for authenticating the database connection'
   notifications.database.max_open_connections:
     description: 'Maximum number of open connections to the database'
   notifications.encryption_key:

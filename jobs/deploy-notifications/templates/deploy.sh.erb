@@ -6,18 +6,21 @@ export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 
 SCHEME=https
 DOMAIN=<%= properties.domain %>
+set +x
 ADMIN_USER=<%= properties.notifications.cf.admin_user %>
 ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
+UAA_ADMIN_CLIENT=<%= properties.notifications.uaa.admin_client_id %>
+UAA_ADMIN_SECRET=<%= properties.notifications.uaa.admin_client_secret %>
+set -x
 API_ENDPOINT=$SCHEME://api.$DOMAIN
 ORG=<%= properties.notifications.organization %>
 SPACE=<%= properties.notifications.space %>
 APP_NAME=notifications
 APP_DOMAIN=<%= properties.notifications.app_domain %>
 DEFAULT_TEMPLATE=<%= properties.notifications.default_template.lines("\n").map(&:strip).join.inspect %>
-UAA_ADMIN_CLIENT=<%= properties.notifications.uaa.admin_client_id %>
-UAA_ADMIN_SECRET=<%= properties.notifications.uaa.admin_client_secret %>
 SYSLOG_URL="<%= properties.notifications.syslog_url %>"
 MANIFEST=/var/vcap/jobs/deploy-notifications/manifest.yml
+DATABASE_CERT=/var/vcap/jobs/deploy-notifications/database.crt
 
 mkdir -p $CF_HOME
 
@@ -37,7 +40,10 @@ function validate_database_connection_count() {
 }
 
 function validate_smtp_config() {
+  set +x
   warning_message="The notifications service was not deployed because SMTP host or port is missing"
+  set -x
+
   if [[ -z "<%= properties.notifications.smtp.host %>" ]]; then
     echo $warning_message
     exit $ERROR_EXIT_CODE
@@ -51,7 +57,9 @@ function validate_smtp_config() {
 
 function authenticate_and_target() {
   cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
+  set +x
   cf auth $ADMIN_USER "$ADMIN_PASSWORD"
+  set -x
   cf create-org $ORG
   cf target -o $ORG
   cf create-space $SPACE
@@ -59,8 +67,8 @@ function authenticate_and_target() {
 }
 
 function create_manifest() {
-  cat $MANIFEST
   cp $MANIFEST /var/vcap/packages/notifications/manifest.yml
+  cp $DATABASE_CERT /var/vcap/packages/notifications/database.crt
 }
 
 function create_logging_service() {
@@ -79,7 +87,6 @@ function create_logging_service() {
 
     return
   fi
-
 
   if [[ $exit_code -ne 0 ]]; then
     cf create-user-provided-service $LOGGER_NAME -l $SYSLOG_URL
@@ -133,6 +140,7 @@ function handle_failed_blue_green_deploy() {
 
     # if venerable is up, and new app is down
     if [[ $notifications_state = "DOWN" && $venerable_state != "DOWN" ]]; then
+      cf logs $APP_NAME --recent
       cf delete $APP_NAME -f
       cf rename $APP_NAME-venerable $APP_NAME
     fi
