@@ -41,6 +41,8 @@ properties:
     description: 'Port for the database connection'
   notifications.database.database:
     description: 'Database name for the database connection'
+  notifications.database.ca_cert:
+    description: 'CA certificate for authenticating the database connection'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making HTTP and SMTP requests'
   release_level_backup:

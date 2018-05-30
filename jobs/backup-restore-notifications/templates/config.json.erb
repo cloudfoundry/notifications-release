@@ -8,12 +8,23 @@
       host = link("database").instances[0].address
     end
 
-    JSON.pretty_generate(
-      'username' => p("notifications.database.username"),
-      'password' => p("notifications.database.password"),
-      'host' => host,
-      'port' => p("notifications.database.port"),
-      'database' => p("notifications.database.database"),
-      "adapter":"mysql",
-    )
+    database_config = {
+      :username => p("notifications.database.username"),
+      :password => p("notifications.database.password"),
+      :host => host,
+      :port => p("notifications.database.port"),
+      :database => p("notifications.database.database"),
+      :adapter => "mysql",
+    }
+
+    if_p("notifications.database.ca_cert") do |cert|
+      database_config['tls'] = {
+        :skip_host_verify => p("ssl.skip_cert_verify"),
+        :cert => {
+          :ca => cert
+        }
+      }
+    end
+
+    JSON.pretty_generate(database_config)
 %>
