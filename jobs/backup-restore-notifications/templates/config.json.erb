@@ -19,7 +19,7 @@
 
     if_p("notifications.database.ca_cert") do |cert|
       database_config['tls'] = {
-        :skip_host_verify => p("ssl.skip_cert_verify"),
+        :skip_host_verify => true,
         :cert => {
           :ca => cert
         }
