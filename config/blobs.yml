@@ -1,7 +1,7 @@
 cf_cli/autopilot-plugin-0.0.8.tgz:
-  size: 12610560
-  object_id: 161f750d-9410-4b47-5fed-688690cf7658
-  sha: 128ae9536c2c858f1e983d4e424e8ce2e00436f6
+  size: 4034969
+  object_id: 3f006a6a-f4b4-4118-49dc-a1c6e0f15058
+  sha: 807ba10b6cd1dd3dba9061fcb28bca61c2805e01
 cf_cli/cf-cli_6.31.0_linux_x86-64.tgz:
   size: 6045122
   object_id: 317f2cfc-a48d-4d83-44ec-6f93508754b3
