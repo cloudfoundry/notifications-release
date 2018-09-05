@@ -3,6 +3,6 @@
 mkdir -p ${BOSH_INSTALL_TARGET}/bin
 mkdir -p ${BOSH_INSTALL_TARGET}/plugins
 tar zxvf cf_cli/cf-cli_6.31.0_linux_x86-64.tgz
-tar zxvf cf_cli/autopilot-plugin.tgz
+tar zxvf cf_cli/autopilot-plugin-*.tgz
 cp cf ${BOSH_INSTALL_TARGET}/bin/
 cp autopilot ${BOSH_INSTALL_TARGET}/plugins/
