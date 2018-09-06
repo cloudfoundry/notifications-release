@@ -69,6 +69,7 @@ properties:
   release_level_backup: true
   domain: "((domain))"
   notifications:
+    buildpack_url: "go_buildpack"
     app_domain: "((domain))"
     cf:
       admin_password: "((cf_admin_password))"
