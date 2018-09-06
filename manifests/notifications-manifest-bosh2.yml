@@ -74,6 +74,7 @@ properties:
     cf:
       admin_password: "((cf_admin_password))"
       admin_user: "((cf.admin_user))"
+      dial_timeout: 30
     database:
       url: "((database.url))"
       host: "((database.host))"
