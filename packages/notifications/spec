@@ -1,5 +1,8 @@
 ---
 name: notifications
 
+dependencies:
+  - go
+
 files:
   - notifications/**/*
