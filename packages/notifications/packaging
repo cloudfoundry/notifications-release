@@ -1,17 +1,3 @@
-#!/bin/bash
-echo "Packing up CF Notifications"
-set -ex
+#! bin/bash -ex
 
-ln -s . src
-
-export GOROOT=$(readlink -nf /var/vcap/packages/go)
-export GOPATH=$PWD
-export GOBIN="${BOSH_INSTALL_TARGET}/bin"
-export PATH=${PATH}:${GOROOT}/bin
-
-mkdir -p ${GOBIN}
-
-pushd notifications
-  go build -o notifications
-  cp notifications ${GOBIN}
-popd
+rsync -a notifications/ ${BOSH_INSTALL_TARGET}
