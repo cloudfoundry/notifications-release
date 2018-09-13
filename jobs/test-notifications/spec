@@ -6,7 +6,6 @@ templates:
 
 packages:
   - notifications
-  - notifications-cf-cli
   - go
   - acceptance
 
