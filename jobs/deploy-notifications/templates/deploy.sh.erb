@@ -127,7 +127,7 @@ function push_app() {
         exit "${exit_code}"
       fi
     else
-      cf install-plugin /var/vcap/packages/cf-cli-6-linux/plugins/autopilot -f
+      cf install-plugin /var/vcap/packages/notifications-autopilot/plugins/autopilot -f
 
       set +e
         cf zero-downtime-push "${APP_NAME}" -f manifest.yml -p "${PWD}" -s "${app_stack}"

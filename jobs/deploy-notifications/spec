@@ -9,6 +9,7 @@ templates:
 packages:
   - notifications
   - notifications-jq
+  - notifications-autopilot
 
 consumes:
 - name: database

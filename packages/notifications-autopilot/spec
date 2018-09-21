@@ -1,0 +1,4 @@
+---
+name: notifications-autopilot
+files:
+    - autopilot/*.tgz

@@ -1,0 +1,4 @@
+#! /bin/bash -e
+mkdir -p ${BOSH_INSTALL_TARGET}/plugins
+tar zxvf autopilot/autopilot-plugin-*.tgz
+cp autopilot ${BOSH_INSTALL_TARGET}/plugins/
