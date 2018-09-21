@@ -10,6 +10,8 @@ releases:
     version: latest
   - name: backup-and-restore-sdk
     version: latest
+  - name: cf-cli
+    version: latest
 
 instance_groups:
   - name: backup-restore-notifications
