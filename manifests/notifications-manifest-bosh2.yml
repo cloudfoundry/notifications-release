@@ -1,69 +1,77 @@
 name: notifications
 
 stemcells:
-- alias: default
-  os: ubuntu-trusty
-  version: latest
+  - alias: default
+    os: ubuntu-trusty
+    version: latest
 
 releases:
-- name: notifications
-  version: latest
-- name: backup-and-restore-sdk
-  version: latest
+  - name: notifications
+    version: latest
+  - name: backup-and-restore-sdk
+    version: latest
 
 instance_groups:
-- name: backup-restore-notifications
-  azs:
-    - z1
-  instances: 1
-  vm_type: minimal
-  stemcell: default
-  networks:
-  - name: default
-  jobs:
   - name: backup-restore-notifications
-    release: notifications
-  - name: database-backup-restorer
-    release: backup-and-restore-sdk
+    azs:
+      - z1
+    instances: 1
+    vm_type: minimal
+    stemcell: default
+    networks:
+      - name: default
+    jobs:
+      - name: backup-restore-notifications
+        release: notifications
+      - name: database-backup-restorer
+        release: backup-and-restore-sdk
+      - name: cf-cli-6-linux
+        release: cf-cli
 
-- name: deploy-notifications
-  azs:
-    - z1
-  instances: 1
-  vm_type: minimal
-  stemcell: default
-  lifecycle: errand
-  networks:
-  - name: default
-  jobs:
   - name: deploy-notifications
-    release: notifications
+    azs:
+      - z1
+    instances: 1
+    vm_type: minimal
+    stemcell: default
+    lifecycle: errand
+    networks:
+      - name: default
+    jobs:
+      - name: deploy-notifications
+        release: notifications
+      - name: cf-cli-6-linux
+        release: cf-cli
 
-- name: destroy-notifications
-  azs:
-    - z1
-  instances: 1
-  vm_type: minimal
-  stemcell: default
-  lifecycle: errand
-  networks:
-  - name: default
-  jobs:
   - name: destroy-notifications
-    release: notifications
+    azs:
+      - z1
+    instances: 1
+    vm_type: minimal
+    stemcell: default
+    lifecycle: errand
+    networks:
+      - name: default
+    jobs:
+      - name: destroy-notifications
+        release: notifications
+      - name: cf-cli-6-linux
+        release: cf-cli
 
-- name: test-notifications
-  azs:
-    - z1
-  instances: 1
-  vm_type: minimal
-  stemcell: default
-  lifecycle: errand
-  networks:
-  - name: default
-  jobs:
   - name: test-notifications
-    release: notifications
+    azs:
+      - z1
+    instances: 1
+    vm_type: minimal
+    stemcell: default
+    lifecycle: errand
+    networks:
+      - name: default
+    jobs:
+      - name: test-notifications
+        release: notifications
+      - name: cf-cli-6-linux
+        release: cf-cli
 
 properties:
   release_level_backup: true
