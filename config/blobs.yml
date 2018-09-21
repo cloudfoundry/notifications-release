@@ -1,6 +1,6 @@
-autopilot/autopilot-plugin-0.0.8.tgz:
+autopilot-plugin/autopilot-plugin-0.0.8.tgz:
   size: 4034969
-  object_id: ba516cb8-62d8-437f-7490-5dbe1d8dac5f
+  object_id: 39cc98a0-e95f-49fc-501a-1091cbf778fd
   sha: 807ba10b6cd1dd3dba9061fcb28bca61c2805e01
 go/go1.9.4.linux-amd64.tar.gz:
   size: 105600650
