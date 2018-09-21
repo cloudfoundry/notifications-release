@@ -10,9 +10,6 @@ templates:
   post-restore-unlock.sh.erb: bin/bbr/post-restore-unlock
   metadata.sh: bin/bbr/metadata
 
-packages:
-  - notifications-cf-cli
-
 consumes:
 - name: database
   type: database

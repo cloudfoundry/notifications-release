@@ -8,7 +8,6 @@ templates:
 
 packages:
   - notifications
-  - notifications-cf-cli
   - notifications-jq
 
 consumes:
