@@ -6,8 +6,6 @@ export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 
 SCHEME=https
 DOMAIN=<%= properties.domain %>
-ADMIN_USER=<%= properties.notifications.cf.admin_user %>
-ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
 API_ENDPOINT=$SCHEME://api.$DOMAIN
 ORG=<%= properties.notifications.organization %>
 SPACE=<%= properties.notifications.space %>
@@ -18,7 +16,7 @@ mkdir -p $CF_HOME
 
 function authenticate_and_target() {
   cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
-  cf auth $ADMIN_USER "$ADMIN_PASSWORD"
+  cf auth "<%= properties.notifications.uaa.client_id %>" "<%= properties.notifications.uaa.client_secret %>" --client-credentials
   cf create-org $ORG
   cf target -o $ORG
   cf create-space $SPACE

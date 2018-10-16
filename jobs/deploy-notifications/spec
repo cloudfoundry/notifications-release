@@ -19,10 +19,6 @@ consumes:
 properties:
   domain:
     description: 'Cloud Foundry System Domain'
-  notifications.cf.admin_user:
-    description: 'Username of the CF admin user'
-  notifications.cf.admin_password:
-    description: 'Password of the CF admin user'
   notifications.cf.dial_timeout:
     description: 'CF CLI connection dial timeout'
     default: 5

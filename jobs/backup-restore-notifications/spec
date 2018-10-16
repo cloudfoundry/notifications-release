@@ -18,10 +18,6 @@ consumes:
 properties:
   domain:
     description: 'Cloud Foundry System Domain'
-  notifications.cf.admin_user:
-    description: 'Username of the CF admin user'
-  notifications.cf.admin_password:
-    description: 'Password of the CF admin user'
   notifications.organization:
     description: 'Organization that hosts the app'
   notifications.space:
@@ -40,6 +36,10 @@ properties:
     description: 'Database name for the database connection'
   notifications.database.ca_cert:
     description: 'CA certificate for authenticating the database connection'
+  notifications.uaa.client_id:
+      description: 'Client id of the UAA'
+  notifications.uaa.client_secret:
+      description: 'Client secret of the UAA'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making HTTP and SMTP requests'
   release_level_backup:

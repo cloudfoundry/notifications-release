@@ -22,8 +22,8 @@ type TestSuiteContext struct {
 	NotificationsSpace          string
 	UAACAdminClientID           string
 	UAACAdminClientSecret       string
-	CFAdminUsername             string
-	CFAdminPassword             string
+	CFClientID                  string
+	CFClientPassword            string
 	TestUserGUID                string
 	TestUserName                string
 	TestUserPassword            string

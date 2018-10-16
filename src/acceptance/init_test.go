@@ -41,8 +41,8 @@ var _ = BeforeSuite(func() {
 
 		UAACAdminClientID:     LoadOrPanic("UAAC_ADMIN_CLIENT_ID"),
 		UAACAdminClientSecret: LoadOrPanic("UAAC_ADMIN_CLIENT_SECRET"),
-		CFAdminUsername:       LoadOrPanic("CF_ADMIN_USERNAME"),
-		CFAdminPassword:       LoadOrPanic("CF_ADMIN_PASSWORD"),
+		CFClientID:            LoadOrPanic("CF_CLIENT_ID"),
+		CFClientPassword:      LoadOrPanic("CF_CLIENT_PASSWORD"),
 		NotificationsDomain:   LoadOrPanic("NOTIFICATIONS_DOMAIN"),
 		UAADomain:             LoadOrPanic("UAA_DOMAIN"),
 		CCDomain:              LoadOrPanic("CC_DOMAIN"),
@@ -50,10 +50,10 @@ var _ = BeforeSuite(func() {
 		NotificationsSpace:    LoadOrPanic("NOTIFICATIONS_SPACE"),
 	}
 
-	// LOGIN AS A CF ADMIN
+	// LOGIN AS A CF CLIENT
 	Run("cf", "logout")
 	Run("cf", "api", context.CCDomain, "--skip-ssl-validation")
-	Run("cf", "auth", context.CFAdminUsername, context.CFAdminPassword)
+	Run("cf", "auth", context.CFClientID, context.CFClientPassword, "--client-credentials")
 	Run("cf", "target", "-o", context.NotificationsOrg, "-s", context.NotificationsSpace)
 
 	saveNotificationsEnvironmentVariables()
@@ -77,8 +77,8 @@ var _ = BeforeSuite(func() {
 })
 
 var _ = AfterSuite(func() {
-	// LOGIN AS CF ADMIN
-	AlwaysRun("cf", "auth", context.CFAdminUsername, context.CFAdminPassword)
+	// LOGIN AS CF CLIENT
+	AlwaysRun("cf", "auth", context.CFClientID, context.CFClientPassword,  "--client-credentials")
 	AlwaysRun("cf", "target", "-o", context.TestOrg, "-s", context.TestSpace)
 
 	// PUT NOTIFICATIONS BACK INTO NORMAL STATE

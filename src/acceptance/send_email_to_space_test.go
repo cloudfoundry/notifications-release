@@ -34,7 +34,7 @@ var _ = Describe("SendEmailToSpace", func() {
 
 		By("sending the notification to the space", func() {
 			// PUT A USER IN A SPACE
-			Run("cf", "auth", context.CFAdminUsername, context.CFAdminPassword)
+			Run("cf", "auth", context.CFClientID, context.CFClientPassword,  "--client-credentials")
 			Run("cf", "set-space-role", context.TestUserName, context.TestOrg, context.TestSpace, "SpaceDeveloper")
 			Run("cf", "auth", context.TestUserName, context.TestUserPassword)
 

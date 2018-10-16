@@ -7,8 +7,6 @@ export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 SCHEME=https
 DOMAIN=<%= properties.domain %>
 set +x
-ADMIN_USER=<%= properties.notifications.cf.admin_user %>
-ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
 UAA_ADMIN_CLIENT=<%= properties.notifications.uaa.admin_client_id %>
 UAA_ADMIN_SECRET=<%= properties.notifications.uaa.admin_client_secret %>
 set -x
@@ -58,7 +56,7 @@ function validate_smtp_config() {
 function authenticate_and_target() {
   cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
   set +x
-  cf auth $ADMIN_USER "$ADMIN_PASSWORD"
+  cf auth "<%= properties.notifications.uaa.client_id %>" "<%= properties.notifications.uaa.client_secret %>" --client-credentials
   set -x
   cf create-org $ORG
   cf target -o $ORG

@@ -11,12 +11,6 @@ API_ENDPOINT="$SCHEME://api.$DOMAIN"
 APP_NAME="notifications"
 APP_DOMAIN="<%= properties.notifications.app_domain %>"
 
-# Don't print out password
-set +x
-ADMIN_USER="<%= properties.notifications.cf.admin_user %>"
-ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
-set -x
-
 ORG="<%= properties.notifications.organization %>"
 SPACE="<%= properties.notifications.space %>"
 
@@ -29,7 +23,7 @@ function cf_auth_and_target() {
 	cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
   # Don't print out password
 	set +x
-	cf auth $ADMIN_USER "$ADMIN_PASSWORD"
+	cf auth "<%= properties.notifications.uaa.client_id %>" "<%= properties.notifications.uaa.client_secret %>" --client-credentials
 	set -x
 	echo -e  "********************\n"
 
