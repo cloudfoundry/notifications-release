@@ -1,7 +1,7 @@
 #!/bin/bash -exu
 
 export PATH="/var/vcap/packages/cf-cli-6-linux/bin:/var/vcap/packages/notifications-jq/bin:$PATH"
-export CF_HOME=`mktemp -d 2>/dev/null || mktemp -d -t 'notifications-cf-cli'`
+export CF_HOME="/var/vcap/data/deploy-notifications/cf-home"
 export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 
 SCHEME=https
@@ -65,8 +65,8 @@ function authenticate_and_target() {
 }
 
 function create_manifest() {
-  cp $MANIFEST /var/vcap/data/deploy-notifications/manifest.yml
-  cp $DATABASE_CERT /var/vcap/data/deploy-notifications/database.crt
+  cp $MANIFEST /var/vcap/data/deploy-notifications/tmp/notifications/manifest.yml
+  cp $DATABASE_CERT /var/vcap/data/deploy-notifications/tmp/notifications/database.crt
 }
 
 function create_logging_service() {
@@ -101,7 +101,7 @@ function push_app() {
   mkdir -p /var/vcap/data/tmp
   export TMPDIR=/var/vcap/data/tmp
 
-  pushd /var/vcap/data/deploy-notifications/notifications > /dev/null
+  pushd /var/vcap/data/deploy-notifications/tmp/notifications > /dev/null
     set +e
       cf app $APP_NAME --guid
       exit_code=$?
@@ -176,7 +176,7 @@ function scale_app_up() {
 function do_curl() {
   curl -v \
     <% if properties.ssl.skip_cert_verify %>-k<% end %> \
-    "$@" 2>> curl.verbose.log
+    "$@" 2>> /var/vcap/data/deploy-notifications/tmp/curl.verbose.log
 }
 
 function set_default_template() {
@@ -187,9 +187,9 @@ function set_default_template() {
 
   set +x
 
-  rm -rf curl.verbose.log
-  touch curl.verbose.log
-  touch curl.log
+  rm -rf /var/vcap/data/deploy-notifications/tmp/curl.verbose.log
+  touch /var/vcap/data/deploy-notifications/tmp/curl.verbose.log
+  touch /var/vcap/data/deploy-notifications/tmp/curl.log
 
   TEMP_CLIENT=template-setter-$RANDOM
   TEMP_PASS=temp-secret-$RANDOM
@@ -198,7 +198,7 @@ function set_default_template() {
 
   do_curl -H "Authorization: Bearer $admin_token" -X DELETE $SCHEME://uaa.$DOMAIN/oauth/clients/$TEMP_CLIENT
 
-  cat << EOF >tempfile
+  cat << EOF >/var/vcap/data/deploy-notifications/tmp/tempfile
 {
   "client_id" : "$TEMP_CLIENT",
   "client_secret" : "$TEMP_PASS",
@@ -209,24 +209,24 @@ function set_default_template() {
   "access_token_validity": 43200
 }
 EOF
-  status=$(do_curl -so ./curl.log -w '%{response_code}' -H 'Content-Type: application/json' -H "Authorization: Bearer $admin_token" -X POST $SCHEME://uaa.$DOMAIN/oauth/clients -d @tempfile)
+  status=$(do_curl -so /var/vcap/data/deploy-notifications/tmp/curl.log -w '%{response_code}' -H 'Content-Type: application/json' -H "Authorization: Bearer $admin_token" -X POST $SCHEME://uaa.$DOMAIN/oauth/clients -d @/var/vcap/data/deploy-notifications/tmp/tempfile)
   if [[ "$status" != "201" ]]; then
     echo "Could not create a temporary user for template setting: received $status"
-    echo "Verbose output exists at $PWD/curl.verbose.log"
-    cat curl.log
+    echo "Verbose output exists at /var/vcap/data/deploy-notifications/tmp/curl.verbose.log"
+    cat /var/vcap/data/deploy-notifications/tmp/curl.log
     exit 1
   fi
 
   temp_client_token=$(do_curl $SCHEME://$TEMP_CLIENT:$TEMP_PASS@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" | jq -r '.access_token')
 
-  status=$(do_curl -i -so ./curl.log -w '%{response_code}' -X PUT -H "Expect:" -H "Authorization: Bearer $temp_client_token" $SCHEME://$APP_NAME.$DOMAIN/default_template -d "$DEFAULT_TEMPLATE")
+  status=$(do_curl -i -so /var/vcap/data/deploy-notifications/tmp/curl.log -w '%{response_code}' -X PUT -H "Expect:" -H "Authorization: Bearer $temp_client_token" $SCHEME://$APP_NAME.$DOMAIN/default_template -d "$DEFAULT_TEMPLATE")
 
   do_curl -H "Authorization: Bearer $admin_token" -X DELETE $SCHEME://uaa.$DOMAIN/oauth/clients/$TEMP_CLIENT
 
   if [[ "$status" != "204" ]]; then
     echo "The default template could not be set: received $status"
-    echo "Verbose output exists at $PWD/curl.verbose.log"
-    cat curl.log
+    echo "Verbose output exists at /var/vcap/data/deploy-notifications/tmp/curl.verbose.log"
+    cat /var/vcap/data/deploy-notifications/tmp/curl.log
     exit 1
   fi
   set -x
@@ -243,13 +243,19 @@ function print_deployment_status() {
 
 function cleanup_cf_home() {
   if [[ -d "${CF_HOME}" ]]; then
-    rm -rf "${CF_HOME}"
+    rm -rf "${CF_HOME}"/*
   fi
+}
+
+function move_notifications_to_temp_dir() {
+  mkdir -p /var/vcap/data/deploy-notifications/tmp/notifications
+  cp -r /var/vcap/packages/notifications/* /var/vcap/data/deploy-notifications/tmp/notifications
+  rm -rf /var/vcap/data/deploy-notifications/tmp/notifications/v1/acceptance
 }
 
 cf -v
 
-cp -r /var/vcap/packages/notifications /var/vcap/data/deploy-notifications/
+move_notifications_to_temp_dir
 validate_database_connection_count
 validate_smtp_config
 authenticate_and_target
