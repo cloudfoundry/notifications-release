@@ -65,8 +65,8 @@ function authenticate_and_target() {
 }
 
 function create_manifest() {
-  cp $MANIFEST /var/vcap/packages/notifications/manifest.yml
-  cp $DATABASE_CERT /var/vcap/packages/notifications/database.crt
+  cp $MANIFEST /var/vcap/jobs/deploy-notifications/notifications/manifest.yml
+  cp $DATABASE_CERT /var/vcap/jobs/deploy-notifications/notifications/database.crt
 }
 
 function create_logging_service() {
@@ -101,7 +101,7 @@ function push_app() {
   mkdir -p /var/vcap/data/tmp
   export TMPDIR=/var/vcap/data/tmp
 
-  pushd /var/vcap/packages/notifications > /dev/null
+  pushd /var/vcap/jobs/deploy-notifications/notifications > /dev/null
     set +e
       cf app $APP_NAME --guid
       exit_code=$?
@@ -249,6 +249,7 @@ function cleanup_cf_home() {
 
 cf -v
 
+mv /var/vcap/packages/notifications /var/vcap/jobs/deploy-notifications/notifications
 validate_database_connection_count
 validate_smtp_config
 authenticate_and_target
