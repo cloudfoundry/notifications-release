@@ -12,6 +12,8 @@ releases:
     version: latest
   - name: cf-cli
     version: latest
+  - name: bpm
+    version: latest
 
 instance_groups:
   - name: backup-restore-notifications
@@ -29,6 +31,8 @@ instance_groups:
         release: backup-and-restore-sdk
       - name: cf-cli-6-linux
         release: cf-cli
+      - name: bpm
+        release: bpm
 
   - name: deploy-notifications
     azs:
@@ -44,6 +48,8 @@ instance_groups:
         release: notifications
       - name: cf-cli-6-linux
         release: cf-cli
+      - name: bpm
+        release: bpm
 
   - name: destroy-notifications
     azs:
@@ -59,6 +65,8 @@ instance_groups:
         release: notifications
       - name: cf-cli-6-linux
         release: cf-cli
+      - name: bpm
+        release: bpm
 
   - name: test-notifications
     azs:
@@ -74,6 +82,8 @@ instance_groups:
         release: notifications
       - name: cf-cli-6-linux
         release: cf-cli
+      - name: bpm
+        release: bpm
 
 properties:
   release_level_backup: true

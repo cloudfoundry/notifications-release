@@ -2,7 +2,10 @@
 name: deploy-notifications
 
 templates:
-  deploy.sh.erb: bin/run
+  bpm.yml.erb: config/bpm.yml
+  run.sh.erb: bin/run
+
+  deploy.sh.erb: bin/deploy.sh
   manifest.yml.erb: manifest.yml
   database.crt.erb: database.crt
 

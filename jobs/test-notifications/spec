@@ -2,7 +2,10 @@
 name: test-notifications
 
 templates:
-  test.sh.erb: bin/run
+  bpm.yml.erb: config/bpm.yml
+  run.sh.erb: bin/run
+
+  test.sh.erb: bin/test.sh
 
 packages:
   - notifications

@@ -1,0 +1,6 @@
+<%=
+process["executable"] = "/var/vcap/jobs/deploy-notifications/bin/deploy.sh"
+process["name"] = "deploy"
+bpm = {"processes" => [process] }
+YAML.dump(bpm)
+%>
