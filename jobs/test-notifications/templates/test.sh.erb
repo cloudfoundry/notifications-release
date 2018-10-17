@@ -9,8 +9,8 @@ export CF_HOME=$HOME/cf
 
 export SCHEME=https
 export DOMAIN=<%= properties.domain %>
-export CF_CLIENT_ID="<%= properties.notifications.uaa.client_id %>"
-export CF_CLIENT_PASSWORD="<%= properties.notifications.uaa.client_secret %>"
+export CF_ADMIN_USERNAME=<%= properties.notifications.cf.admin_user %>
+export CF_ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
 export API_ENDPOINT=$SCHEME://api.$DOMAIN
 export APP_NAME=notifications
 export APP_DOMAIN=<%= properties.notifications.app_domain %>
