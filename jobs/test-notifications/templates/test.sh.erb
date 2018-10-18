@@ -3,9 +3,10 @@ set -e -x
 
 export PATH=$PATH:/var/vcap/packages/cf-cli-6-linux/bin:/var/vcap/packages/go/bin
 export GOROOT=/var/vcap/packages/go
-export GOPATH="$(mktemp -d)/go"
-export HOME=`pwd`/home
-export CF_HOME=$HOME/cf
+export GOPATH="/var/vcap/data/test-notifications/tmp/go"
+export HOME=/var/vcap/data/test-notifications/tmp/home
+export CF_HOME=/var/vcap/data/test-notifications/tmp/cf-home
+export TMPDIR=/var/vcap/data/test-notifications/test-home
 
 export SCHEME=https
 export DOMAIN=<%= properties.domain %>
@@ -33,7 +34,7 @@ go version
 
 mkdir -p "${GOPATH}/src/github.com/cloudfoundry-incubator/notifications-release/src/"
 pushd "${GOPATH}/src/github.com/cloudfoundry-incubator/notifications-release/src/"
-	ln -s /var/vcap/packages/acceptance
+	cp -r /var/vcap/packages/acceptance .
 	pushd acceptance
 		if [[ "$RUN_PERFORMANCE_TESTS" = "true" ]]; then
 			go test -v -timeout 30m -tags=performance .

@@ -2,3 +2,7 @@
 processes:
 - executable: "/var/vcap/jobs/test-notifications/bin/test.sh"
   name: test-notifications
+  additional_volumes:
+  - path: "/var/vcap/data/test-notifications/test-home"
+    writable: true
+    allow_executions: true

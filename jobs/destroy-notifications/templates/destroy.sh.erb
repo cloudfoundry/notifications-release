@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 
 export PATH="/var/vcap/packages/cf-cli-6-linux/bin:$PATH"
-export CF_HOME=`pwd`/home/cf
+export CF_HOME=/var/vcap/data/destroy-notifications/tmp/cf-home
 export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 
 SCHEME=https
