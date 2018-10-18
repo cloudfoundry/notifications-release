@@ -98,8 +98,8 @@ function create_logging_service() {
 function push_app() {
   local exit_code
 
-  mkdir -p /var/vcap/data/tmp
-  export TMPDIR=/var/vcap/data/tmp
+  mkdir -p /var/vcap/data/deploy-notifications/tmp
+  export TMPDIR=/var/vcap/data/deploy-notifications/tmp
 
   pushd /var/vcap/data/deploy-notifications/tmp/notifications > /dev/null
     set +e

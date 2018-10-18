@@ -1,7 +1,4 @@
-<%=
-process = {}
-process["executable"] = "/var/vcap/jobs/test-notifications/bin/test.sh"
-process["name"] = "test-notifications"
-bpm = {"processes" => [process] }
-YAML.dump(bpm)
-%>
+---
+processes:
+- executable: "/var/vcap/jobs/test-notifications/bin/test.sh"
+  name: test-notifications
