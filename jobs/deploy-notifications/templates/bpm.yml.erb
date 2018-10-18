@@ -2,6 +2,9 @@
 process = {}
 process["executable"] = "/var/vcap/jobs/deploy-notifications/bin/deploy.sh"
 process["name"] = "deploy-notifications"
+process["additional_volumes"] = { path: "/var/vcap/data/deploy-notifications/cf-home",
+  writable: true,
+  allow_executions: true }
 bpm = {"processes" => [process] }
 YAML.dump(bpm)
 %>
