@@ -7,6 +7,7 @@ SCHEME="https"
 DOMAIN="<%= properties.domain %>"
 
 API_ENDPOINT="$SCHEME://api.$DOMAIN"
+UAA_ENDPOINT="$SCHEME://login.$DOMAIN/healthz"
 
 APP_NAME="notifications"
 APP_DOMAIN="<%= properties.notifications.app_domain %>"
@@ -18,7 +19,25 @@ BBR_SDK_PATH="/var/vcap/jobs/database-backup-restorer"
 
 CONFIG_JSON_PATH="${JOB_PATH}/config/backup-restore-notifications-db-config.json"
 
+function wait_for_api_available() {
+  local attempts=0
+  local max_attempts=90
+  echo -n "Waiting for $UAA_ENDPOINT to become available"
+  while [[ ${attempts} -lt ${max_attempts} ]]; do
+    local http_code=$(curl -k -w "%{http_code}" -o /dev/null -s ${UAA_ENDPOINT})
+    if [[ ${http_code} == "200" ]]; then
+      echo
+      return 0
+    fi
+    echo -n "."
+    sleep 2
+  done
+  echo
+  echo "Giving up."
+}
+
 function cf_auth_and_target() {
+	wait_for_api_available
 	echo "Authenticate and target..."
 	cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
   # Don't print out password
