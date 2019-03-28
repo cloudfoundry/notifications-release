@@ -7,11 +7,19 @@ source ${JOB_PATH}/bin/common
 
 cf_auth_and_target
 
-echo "Restoring route for $APP_NAME.$APP_DOMAIN"
+if ! ls /var/vcap/jobs/deploy-notifications/bin/run; then
+  echo "Restoring route for $APP_NAME.$APP_DOMAIN"
 
-cf map-route $APP_NAME --hostname $APP_NAME $APP_DOMAIN
+  cf map-route $APP_NAME --hostname $APP_NAME $APP_DOMAIN
 
-echo "DONE Restoring route for $APP_NAME.$APP_DOMAIN"
+  echo "DONE Restoring route for $APP_NAME.$APP_DOMAIN"
+else
+  echo "Repushing application $APP_NAME"
+
+  /var/vcap/jobs/deploy-notifications/bin/run
+
+  echo "DONE Repushing application $APP_NAME"
+fi
 
 <% else %>
 echo "script deactivated due to release_level_backup being set to FALSE\n"
