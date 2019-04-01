@@ -14,11 +14,9 @@ if ! ls /var/vcap/jobs/deploy-notifications/bin/run; then
 
   echo "DONE Restoring route for $APP_NAME.$APP_DOMAIN"
 else
-  echo "Repushing application $APP_NAME"
-
+  echo "\"deploy-notifications\" errand found: running"
   /var/vcap/jobs/deploy-notifications/bin/run
-
-  echo "DONE Repushing application $APP_NAME"
+  echo "\"deploy-notifications\" errand found: finished"
 fi
 
 <% else %>
