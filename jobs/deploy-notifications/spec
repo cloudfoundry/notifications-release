@@ -98,3 +98,6 @@ properties:
   notifications.app_go_package_name:
     default: "github.com/cloudfoundry-incubator/notifications"
     description: "Go package name used to enable native vendoring in the Go Buildpack"
+  notifications.app_go_version:
+    default: "go>=1.11.0"
+    description: "Targeted Go version used to run the application"
