@@ -92,7 +92,7 @@ properties:
     buildpack_url: "go_buildpack"
     app_domain: "((domain))"
     cf:
-      admin_password: "((cf_admin_password))"
+      admin_password: "((cf.admin_password))"
       admin_user: "((cf.admin_user))"
       dial_timeout: 30
     database:
@@ -125,7 +125,7 @@ properties:
       performance: false
     uaa:
       admin_client_id: "((uaa.admin_client_id))"
-      admin_client_secret: "((uaa_admin_client_secret))"
+      admin_client_secret: "((uaa.admin_client_secret))"
       client_id: notifications
       client_secret: "((uaa_clients_notifications_secret))"
   ssl:
