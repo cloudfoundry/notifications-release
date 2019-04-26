@@ -11,7 +11,7 @@ releases:
   - name: backup-and-restore-sdk
     version: latest
   - name: cf-cli
-    version: 1.11.0
+    version: latest
   - name: bpm
     version: latest
 
@@ -23,7 +23,7 @@ instance_groups:
     vm_type: minimal
     stemcell: default
     networks:
-      - name: default
+      - name: notifications
     jobs:
       - name: backup-restore-notifications
         release: notifications
@@ -42,7 +42,7 @@ instance_groups:
     stemcell: default
     lifecycle: errand
     networks:
-      - name: default
+      - name: notifications
     jobs:
       - name: deploy-notifications
         release: notifications
@@ -59,7 +59,7 @@ instance_groups:
     stemcell: default
     lifecycle: errand
     networks:
-      - name: default
+      - name: notifications
     jobs:
       - name: destroy-notifications
         release: notifications
@@ -76,7 +76,7 @@ instance_groups:
     stemcell: default
     lifecycle: errand
     networks:
-      - name: default
+      - name: notifications
     jobs:
       - name: test-notifications
         release: notifications
@@ -107,7 +107,7 @@ properties:
     enable_diego: true
     encryption_key: "((encryption_key))"
     error_on_misconfiguration: true
-    instance_count: "((instance_count))"
+    instance_count: 4
     network: notifications
     organization: "((organization))"
     sender: "((sender))"
@@ -119,7 +119,7 @@ properties:
       tls: ((smtp.tls))
       auth_mechanism: "((smtp.auth_mechanism))"
       crammd5_secret: "((smtp.crammd5_secret))"
-    space: "notifications-service"
+    space: "((space))"
     syslog_url: "((syslog_url))"
     tests:
       performance: false
