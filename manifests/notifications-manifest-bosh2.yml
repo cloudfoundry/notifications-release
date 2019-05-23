@@ -11,7 +11,7 @@ releases:
   - name: backup-and-restore-sdk
     version: latest
   - name: cf-cli
-    version: 1.11.0
+    version: latest
   - name: bpm
     version: latest
 
