@@ -2,7 +2,7 @@ name: notifications
 
 stemcells:
   - alias: default
-    os: ubuntu-trusty
+    os: ubuntu-xenial
     version: latest
 
 releases:
@@ -18,12 +18,13 @@ releases:
 instance_groups:
   - name: backup-restore-notifications
     azs:
-      - z1
+      - "((network_az))"
+    vm_extensions: [public_ip]
     instances: 1
-    vm_type: minimal
+    vm_type: micro
     stemcell: default
     networks:
-      - name: default
+      - name: ((network_name))
     jobs:
       - name: backup-restore-notifications
         release: notifications
@@ -36,13 +37,14 @@ instance_groups:
 
   - name: deploy-notifications
     azs:
-      - z1
+      - "((network_az))"
+    vm_extensions: [public_ip]
     instances: 1
-    vm_type: minimal
+    vm_type: micro
     stemcell: default
     lifecycle: errand
     networks:
-      - name: default
+      - name: ((network_name))
     jobs:
       - name: deploy-notifications
         release: notifications
@@ -53,13 +55,14 @@ instance_groups:
 
   - name: destroy-notifications
     azs:
-      - z1
+      - "((network_az))"
+    vm_extensions: [public_ip]
     instances: 1
-    vm_type: minimal
+    vm_type: micro
     stemcell: default
     lifecycle: errand
     networks:
-      - name: default
+      - name: ((network_name))
     jobs:
       - name: destroy-notifications
         release: notifications
@@ -70,13 +73,14 @@ instance_groups:
 
   - name: test-notifications
     azs:
-      - z1
+      - "((network_az))"
+    vm_extensions: [public_ip]
     instances: 1
-    vm_type: minimal
+    vm_type: micro
     stemcell: default
     lifecycle: errand
     networks:
-      - name: default
+      - name: ((network_name))
     jobs:
       - name: test-notifications
         release: notifications
