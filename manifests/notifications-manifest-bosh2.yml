@@ -29,7 +29,7 @@ instance_groups:
       - name: backup-restore-notifications
         release: notifications
         consumes:
-          database: {from: database, deployment: ((cf_deployment))}
+          database: {from: pxc-direct-mysql, deployment: ((cf_deployment))}
       - name: database-backup-restorer
         release: backup-and-restore-sdk
       - name: cf-cli-6-linux
@@ -51,7 +51,7 @@ instance_groups:
       - name: deploy-notifications
         release: notifications
         consumes:
-          database: {from: database, deployment: ((cf_deployment))}
+          database: {from: pxc-direct-mysql, deployment: ((cf_deployment))}
       - name: cf-cli-6-linux
         release: cf-cli
       - name: bpm
