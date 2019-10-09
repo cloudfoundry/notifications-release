@@ -28,6 +28,24 @@ instance_groups:
     jobs:
       - name: backup-restore-notifications
         release: notifications
+        properties:
+          release_level_backup: true
+          domain: "((domain))"
+          notifications:
+            app_domain: "((domain))"
+            database:
+              host: "((database.host))"
+              port: ((database.port))
+              username: "((database.username))"
+              password: "((database.password))"
+              database: "((database.database))"
+            organization: "((organization))"
+            space: "notifications-service"
+            uaa:
+              client_id: notifications
+              client_secret: "((uaa_clients_notifications_secret))"
+          ssl:
+            skip_cert_verify: ((ssl.skip_cert_verify))
       - name: database-backup-restorer
         release: backup-and-restore-sdk
       - name: cf-cli-6-linux
@@ -48,6 +66,46 @@ instance_groups:
     jobs:
       - name: deploy-notifications
         release: notifications
+        properties:
+          domain: "((domain))"
+          notifications:
+            buildpack_url: "go_buildpack"
+            app_domain: "((domain))"
+            cf:
+              dial_timeout: 30
+            database:
+              database: "((database.database))"
+              host: "((database.host))"
+              max_open_connections: 10
+              password: "((database.password))"
+              port: ((database.port))
+              url: "((database.url))"
+              username: "((database.username))"
+            default_template: "((default_template))"
+            enable_diego: true
+            encryption_key: "((encryption_key))"
+            error_on_misconfiguration: true
+            instance_count: "((instance_count))"
+            network: notifications
+            organization: "((organization))"
+            sender: "((sender))"
+            smtp:
+              host: "((smtp.host))"
+              port: ((smtp.port))
+              user: "((smtp.user))"
+              pass: "((smtp.pass))"
+              tls: ((smtp.tls))
+              auth_mechanism: "((smtp.auth_mechanism))"
+              crammd5_secret: "((smtp.crammd5_secret))"
+            space: "notifications-service"
+            syslog_url: "((syslog_url))"
+            uaa:
+              admin_client_id: "((uaa.admin_client_id))"
+              admin_client_secret: "((uaa_admin_client_secret))"
+              client_id: notifications
+              client_secret: "((uaa_clients_notifications_secret))"
+          ssl:
+            skip_cert_verify: ((ssl.skip_cert_verify))
       - name: cf-cli-6-linux
         release: cf-cli
       - name: bpm
@@ -66,6 +124,19 @@ instance_groups:
     jobs:
       - name: destroy-notifications
         release: notifications
+        properties:
+          domain: "((domain))"
+          notifications:
+            app_domain: "((domain))"
+            cf:
+              dial_timeout: 30
+            organization: "((organization))"
+            space: "notifications-service"
+            uaa:
+              client_id: notifications
+              client_secret: "((uaa_clients_notifications_secret))"
+          ssl:
+            skip_cert_verify: ((ssl.skip_cert_verify))
       - name: cf-cli-6-linux
         release: cf-cli
       - name: bpm
@@ -84,56 +155,24 @@ instance_groups:
     jobs:
       - name: test-notifications
         release: notifications
+        properties:
+          domain: "((domain))"
+          notifications:
+            app_domain: "((domain))"
+            cf:
+              admin_password: "((cf_admin_password))"
+              admin_user: "((cf.admin_user))"
+            organization: "((organization))"
+            space: "notifications-service"
+            tests:
+              performance: false
+            uaa:
+              admin_client_id: "((uaa.admin_client_id))"
+              admin_client_secret: "((uaa_admin_client_secret))"
       - name: cf-cli-6-linux
         release: cf-cli
       - name: bpm
         release: bpm
-
-properties:
-  release_level_backup: true
-  domain: "((domain))"
-  notifications:
-    buildpack_url: "go_buildpack"
-    app_domain: "((domain))"
-    cf:
-      admin_password: "((cf_admin_password))"
-      admin_user: "((cf.admin_user))"
-      dial_timeout: 30
-    database:
-      url: "((database.url))"
-      host: "((database.host))"
-      port: ((database.port))
-      username: "((database.username))"
-      password: "((database.password))"
-      database: "((database.database))"
-      max_open_connections: 10
-    default_template: "((default_template))"
-    enable_diego: true
-    encryption_key: "((encryption_key))"
-    error_on_misconfiguration: true
-    instance_count: "((instance_count))"
-    network: notifications
-    organization: "((organization))"
-    sender: "((sender))"
-    smtp:
-      host: "((smtp.host))"
-      port: ((smtp.port))
-      user: "((smtp.user))"
-      pass: "((smtp.pass))"
-      tls: ((smtp.tls))
-      auth_mechanism: "((smtp.auth_mechanism))"
-      crammd5_secret: "((smtp.crammd5_secret))"
-    space: "notifications-service"
-    syslog_url: "((syslog_url))"
-    tests:
-      performance: false
-    uaa:
-      admin_client_id: "((uaa.admin_client_id))"
-      admin_client_secret: "((uaa_admin_client_secret))"
-      client_id: notifications
-      client_secret: "((uaa_clients_notifications_secret))"
-  ssl:
-    skip_cert_verify: ((ssl.skip_cert_verify))
 
 update:
   canaries: 0
