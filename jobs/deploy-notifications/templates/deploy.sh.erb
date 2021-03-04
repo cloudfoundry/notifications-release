@@ -194,7 +194,7 @@ function set_default_template() {
   TEMP_CLIENT=template-setter-$RANDOM
   TEMP_PASS=temp-secret-$RANDOM
 
-  admin_token=$(do_curl $SCHEME://$UAA_ADMIN_CLIENT:$UAA_ADMIN_SECRET@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" | jq -r '.access_token')
+  admin_token=$(do_curl -u $UAA_ADMIN_CLIENT:$UAA_ADMIN_SECRET $SCHEME://uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" | jq -r '.access_token')
 
   do_curl -H "Authorization: Bearer $admin_token" -X DELETE $SCHEME://uaa.$DOMAIN/oauth/clients/$TEMP_CLIENT
 
@@ -217,7 +217,7 @@ EOF
     exit 1
   fi
 
-  temp_client_token=$(do_curl $SCHEME://$TEMP_CLIENT:$TEMP_PASS@uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" | jq -r '.access_token')
+  temp_client_token=$(do_curl -u $TEMP_CLIENT:$TEMP_PASS $SCHEME://uaa.$DOMAIN/oauth/token -d "grant_type=client_credentials" | jq -r '.access_token')
 
   status=$(do_curl -i -so /var/vcap/data/deploy-notifications/tmp/curl.log -w '%{response_code}' -X PUT -H "Expect:" -H "Authorization: Bearer $temp_client_token" $SCHEME://$APP_NAME.$DOMAIN/default_template -d "$DEFAULT_TEMPLATE")
 
