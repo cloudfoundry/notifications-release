@@ -1,0 +1,17 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: notifications
+  # This is an extra long description
+  description: A BOSH release for deploying the notifications service, via a tiny errand that deploys a CF App
+  links: []
+  tags:
+    - bosh-release
+spec:
+  type: library
+  lifecycle: production
+  owner: app-runtime-interfaces-wg-notifications
+  system: notifications
+  providesApis:
+    - bosh-release
