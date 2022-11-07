@@ -7,11 +7,12 @@ metadata:
   description: A BOSH release for deploying the notifications service, via a tiny errand that deploys a CF App
   links: []
   tags:
+    - cloud-foundry
     - bosh-release
 spec:
   type: library
   lifecycle: production
-  owner: app-runtime-interfaces-wg-notifications
+  owner: wg-app-runtime-interfaces-notifications-approvers
   system: notifications
   providesApis:
     - bosh-release
