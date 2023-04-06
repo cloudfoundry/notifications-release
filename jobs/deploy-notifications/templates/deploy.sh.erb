@@ -56,7 +56,9 @@ function validate_smtp_config() {
 function authenticate_and_target() {
   cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
   set +x
-  cf auth "<%= properties.notifications.uaa.client_id %>" "<%= properties.notifications.uaa.client_secret %>" --client-credentials
+	export CF_USERNAME="<%= properties.notifications.uaa.client_id %>"
+	export CF_PASSWORD="<%= properties.notifications.uaa.client_secret %>"
+	cf auth --client-credentials
   set -x
   cf create-org $ORG
   cf target -o $ORG
