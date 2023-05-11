@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-export PATH="/var/vcap/packages/cf-cli-6-linux/bin:$PATH"
+export PATH="/var/vcap/packages/cf-cli-8-linux/bin:$PATH"
 export CF_HOME=/var/vcap/data/destroy-notifications/tmp/cf-home
 export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 
@@ -16,12 +16,14 @@ mkdir -p $CF_HOME
 
 function authenticate_and_target() {
   cf api $API_ENDPOINT <% if properties.ssl.skip_cert_verify %>--skip-ssl-validation<% end %>
+  set +x
 	export CF_USERNAME="<%= properties.notifications.uaa.client_id %>"
 	export CF_PASSWORD="<%= properties.notifications.uaa.client_secret %>"
 	cf auth --client-credentials
-  cf create-org $ORG
+  set -x
+  cf create-org $ORG || true
   cf target -o $ORG
-  cf create-space $SPACE
+  cf create-space $SPACE || true
   cf target -s $SPACE
 }
 
