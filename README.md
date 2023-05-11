@@ -20,7 +20,7 @@ authorities: scim.read,cloud_controller.admin
 # Bosh-lite
 
 ## Tips
-- Use the latest [notifications final release](https://github.com/cloudfoundry-incubator/notifications-release/releases) available, it generally contains bug-fixes.
+- Use the latest [notifications final release](https://github.com/cloudfoundry/notifications-release/releases) available, it generally contains bug-fixes.
 - Do not cut a release yourself unless you are very familiar wth bosh.
 
 ## Steps
@@ -44,7 +44,6 @@ authorities: scim.read,cloud_controller.admin
       database:
         url: tcp://user:password@example.com:3306/dbname
   ```
-
 
 3. Generate manifest:
   ```bash

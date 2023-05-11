@@ -28,10 +28,32 @@ func parseLine(line string) (cmd command) {
 	cmd.fields = strings.Fields(line)
 
 	if len(cmd.fields) > 0 {
+
 		cmd.action = strings.ToUpper(cmd.fields[0])
+
 		if len(cmd.fields) > 1 {
+
+			// Account for some clients breaking the standard and having
+			// an extra whitespace after the ':' character. Example:
+			//
+			// MAIL FROM: <christian@technobabble.dk>
+			//
+			// Should be:
+			//
+			// MAIL FROM:<christian@technobabble.dk>
+			//
+			// Thus, we add a check if the second field ends with ':'
+			// and appends the rest of the third field.
+
+			if cmd.fields[1][len(cmd.fields[1])-1] == ':' && len(cmd.fields) > 2 {
+				cmd.fields[1] = cmd.fields[1] + cmd.fields[2]
+				cmd.fields = cmd.fields[0:2]
+			}
+
 			cmd.params = strings.Split(cmd.fields[1], ":")
+
 		}
+
 	}
 
 	return
@@ -47,6 +69,10 @@ func (session *session) handle(line string) {
 	// just return and let the error be handled on the next read.
 
 	switch cmd.action {
+
+	case "PROXY":
+		session.handlePROXY(cmd)
+		return
 
 	case "HELO":
 		session.handleHELO(cmd)
@@ -166,6 +192,10 @@ func (session *session) handleEHLO(cmd command) {
 }
 
 func (session *session) handleMAIL(cmd command) {
+	if len(cmd.params) != 2 || strings.ToUpper(cmd.params[0]) != "FROM" {
+		session.reply(502, "Invalid syntax.")
+		return
+	}
 
 	if session.peer.HeloName == "" {
 		session.reply(502, "Please introduce yourself first.")
@@ -208,6 +238,10 @@ func (session *session) handleMAIL(cmd command) {
 }
 
 func (session *session) handleRCPT(cmd command) {
+	if len(cmd.params) != 2 || strings.ToUpper(cmd.params[0]) != "TO" {
+		session.reply(502, "Invalid syntax.")
+		return
+	}
 
 	if session.envelope == nil {
 		session.reply(502, "Missing MAIL FROM command.")
@@ -258,6 +292,7 @@ func (session *session) handleSTARTTLS(cmd command) {
 	session.reply(220, "Go ahead")
 
 	if err := tlsConn.Handshake(); err != nil {
+		session.logError(err, "couldn't perform handshake")
 		session.reply(550, "Handshake error")
 		return
 	}
@@ -361,6 +396,10 @@ func (session *session) handleQUIT(cmd command) {
 }
 
 func (session *session) handleAUTH(cmd command) {
+	if len(cmd.fields) < 2 {
+		session.reply(502, "Invalid syntax.")
+		return
+	}
 
 	if session.server.Authenticator == nil {
 		session.reply(502, "AUTH not supported.")
@@ -417,13 +456,19 @@ func (session *session) handleAUTH(cmd command) {
 
 	case "LOGIN":
 
-		session.reply(334, "VXNlcm5hbWU6")
+		encodedUsername := ""
 
-		if !session.scanner.Scan() {
-			return
+		if len(cmd.fields) < 3 {
+			session.reply(334, "VXNlcm5hbWU6")
+			if !session.scanner.Scan() {
+				return
+			}
+			encodedUsername = session.scanner.Text()
+		} else {
+			encodedUsername = cmd.fields[2]
 		}
 
-		byteUsername, err := base64.StdEncoding.DecodeString(session.scanner.Text())
+		byteUsername, err := base64.StdEncoding.DecodeString(encodedUsername)
 
 		if err != nil {
 			session.reply(502, "Couldn't decode your credentials")
@@ -448,6 +493,7 @@ func (session *session) handleAUTH(cmd command) {
 
 	default:
 
+		session.logf("unknown authentication mechanism: %s", mechanism)
 		session.reply(502, "Unknown authentication mechanism")
 		return
 
@@ -467,6 +513,10 @@ func (session *session) handleAUTH(cmd command) {
 }
 
 func (session *session) handleXCLIENT(cmd command) {
+	if len(cmd.fields) < 2 {
+		session.reply(502, "Invalid syntax.")
+		return
+	}
 
 	if !session.server.EnableXCLIENT {
 		session.reply(550, "XCLIENT not enabled")
@@ -559,6 +609,50 @@ func (session *session) handleXCLIENT(cmd command) {
 
 	if newProto != "" {
 		session.peer.Protocol = newProto
+	}
+
+	session.welcome()
+
+}
+
+func (session *session) handlePROXY(cmd command) {
+
+	if !session.server.EnableProxyProtocol {
+		session.reply(550, "Proxy Protocol not enabled")
+		return
+	}
+
+	if len(cmd.fields) < 6 {
+		session.reply(502, "Couldn't decode the command.")
+		return
+	}
+
+	var (
+		newAddr    net.IP = nil
+		newTCPPort uint64 = 0
+		err        error
+	)
+
+	newAddr = net.ParseIP(cmd.fields[2])
+
+	newTCPPort, err = strconv.ParseUint(cmd.fields[4], 10, 16)
+	if err != nil {
+		session.reply(502, "Couldn't decode the command.")
+		return
+	}
+
+	tcpAddr, ok := session.peer.Addr.(*net.TCPAddr)
+	if !ok {
+		session.reply(502, "Unsupported network connection")
+		return
+	}
+
+	if newAddr != nil {
+		tcpAddr.IP = newAddr
+	}
+
+	if newTCPPort != 0 {
+		tcpAddr.Port = int(newTCPPort)
 	}
 
 	session.welcome()

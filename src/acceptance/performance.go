@@ -1,3 +1,4 @@
+//go:build performance
 // +build performance
 
 package acceptance
@@ -16,7 +17,6 @@ import (
 	"bitbucket.org/chrj/smtpd"
 	"github.com/pivotal-cf-experimental/warrant"
 
-	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 

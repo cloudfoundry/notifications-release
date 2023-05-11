@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/cloudfoundry-incubator/notifications/acceptance/support"
+	"github.com/cloudfoundry-incubator/notifications/v1/acceptance/support"
 	"github.com/pivotal-cf-experimental/warrant"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

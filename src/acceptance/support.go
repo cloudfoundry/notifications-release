@@ -11,7 +11,7 @@ import (
 	"bitbucket.org/chrj/smtpd"
 
 	"github.com/nu7hatch/gouuid"
-	"github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 )
 
 var trace = os.Getenv("TRACE") != ""
@@ -105,7 +105,7 @@ func ReturnOnlyBody(body string) []byte {
 func freePort() string {
 	listener, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
-		ginkgo.Fail(err.Error(), 1)
+		Fail(err.Error(), 1)
 	}
 	defer listener.Close()
 
