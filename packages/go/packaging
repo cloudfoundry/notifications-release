@@ -1,7 +1,0 @@
-#! bin/bash
-set -e -x
-
-pushd go/
-    tar xzvf go1.9.4.linux-amd64.tar.gz
-    mv go/* $BOSH_INSTALL_TARGET
-popd

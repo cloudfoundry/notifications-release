@@ -1,6 +1,6 @@
 #!/bin/bash -exu
 
-export PATH="/var/vcap/packages/cf-cli-6-linux/bin:/var/vcap/packages/notifications-jq/bin:$PATH"
+export PATH="/var/vcap/packages/cf-cli-8-linux/bin:/var/vcap/packages/notifications-jq/bin:$PATH"
 export CF_HOME="/var/vcap/data/deploy-notifications/cf-home"
 export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 
@@ -110,10 +110,10 @@ function push_app() {
     set -e
 
     local app_stack
-    app_stack="cflinuxfs2"
+    app_stack="cflinuxfs3"
 
-    if [[ -n "`cf stacks | grep cflinuxfs3`" ]]; then
-      app_stack="cflinuxfs3"
+    if [[ -n "`cf stacks | grep cflinuxfs4`" ]]; then
+      app_stack="cflinuxfs4"
     fi
 
     if [[ $exit_code -ne 0 ]]; then
@@ -127,37 +127,16 @@ function push_app() {
         exit "${exit_code}"
       fi
     else
-      cf install-plugin /var/vcap/packages/notifications-autopilot/plugins/autopilot -f
-
       set +e
-        cf zero-downtime-push "${APP_NAME}" -f manifest.yml -p "${PWD}" -s "${app_stack}"
+        cf push "${APP_NAME}" -f manifest.yml -p "${PWD}" -s "${app_stack}"
         exit_code=$?
       set -e
 
       if [[ $exit_code -ne 0 ]]; then
         cf logs "${APP_NAME}" --recent
-        handle_failed_blue_green_deploy
       fi
     fi
   popd > /dev/null
-}
-
-function handle_failed_blue_green_deploy() {
-    DEPLOYMENT_STATUS=1
-    local notifications_state=$(cf curl /v2/apps/$(cf app $APP_NAME --guid)/stats | jq -r '.["0"].state')
-    local venerable_state=$(cf curl /v2/apps/$(cf app $APP_NAME-venerable --guid)/stats | jq -r '.["0"].state')
-
-    # if venerable is up, and new app is down
-    if [[ $notifications_state = "DOWN" && $venerable_state != "DOWN" ]]; then
-      cf logs $APP_NAME --recent
-      cf delete $APP_NAME -f
-      cf rename $APP_NAME-venerable $APP_NAME
-    fi
-
-    # if venerable is up, and new app is up
-    if [[ $notifications_state != "DOWN" && $venerable_state != "DOWN" ]]; then
-      cf delete $APP_NAME-venerable -f
-    fi
 }
 
 function scale_app_down() {

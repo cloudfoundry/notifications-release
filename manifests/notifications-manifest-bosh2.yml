@@ -48,7 +48,7 @@ instance_groups:
             skip_cert_verify: ((ssl.skip_cert_verify))
       - name: database-backup-restorer
         release: backup-and-restore-sdk
-      - name: cf-cli-6-linux
+      - name: cf-cli-8-linux
         release: cf-cli
       - name: bpm
         release: bpm
@@ -106,7 +106,7 @@ instance_groups:
               client_secret: "((uaa_clients_notifications_secret))"
           ssl:
             skip_cert_verify: ((ssl.skip_cert_verify))
-      - name: cf-cli-6-linux
+      - name: cf-cli-8-linux
         release: cf-cli
       - name: bpm
         release: bpm
@@ -137,7 +137,7 @@ instance_groups:
               client_secret: "((uaa_clients_notifications_secret))"
           ssl:
             skip_cert_verify: ((ssl.skip_cert_verify))
-      - name: cf-cli-6-linux
+      - name: cf-cli-8-linux
         release: cf-cli
       - name: bpm
         release: bpm
@@ -169,7 +169,7 @@ instance_groups:
             uaa:
               admin_client_id: "((uaa.admin_client_id))"
               admin_client_secret: "((uaa_admin_client_secret))"
-      - name: cf-cli-6-linux
+      - name: cf-cli-8-linux
         release: cf-cli
       - name: bpm
         release: bpm
