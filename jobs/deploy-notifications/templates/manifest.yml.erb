@@ -24,7 +24,7 @@ applications:
     command: bin/notifications
     memory: 64M
     routes:
-    - route: notifications<%= properties.notifications.app_domain %>
+    - route: notifications.<%= properties.notifications.app_domain %>
     buildpacks: <%= properties.notifications.buildpack_url ? "[\"#{properties.notifications.buildpack_url}\"]" : "null" %>
     env:
       CC_HOST: https://api.<%= properties.domain %>

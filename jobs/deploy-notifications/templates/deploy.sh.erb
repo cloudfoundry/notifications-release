@@ -113,7 +113,7 @@ function push_app() {
 
     set +e
       cf push "${APP_NAME}" -f manifest.yml -p "${PWD}" -s "${app_stack}" |& \
-        sed 's/DATABASE_URL:.*/DATABASE_URL: <redacted>/;s/ENCRYPTION_KEY:.*/ENCRYPTION_KEY: <redacted>/;s/_SECRET:.*/_SECRET: <redacted>/;s/_PASS:.*/_PASS: <redacted>/;'
+        sed -u 's/DATABASE_URL:.*/DATABASE_URL: <redacted>/;s/ENCRYPTION_KEY:.*/ENCRYPTION_KEY: <redacted>/;s/_SECRET:.*/_SECRET: <redacted>/;s/_PASS:.*/_PASS: <redacted>/;'
       exit_code=$?
     set -e
 
