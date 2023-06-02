@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e -x
 
-export PATH=$PATH:/var/vcap/packages/cf-cli-8-linux/bin:/var/vcap/packages/go/bin
-export GOROOT=/var/vcap/packages/go
+source /var/vcap/packages/golang-1.20-linux/bosh/compile.env
+
+export PATH=$PATH:/var/vcap/packages/cf-cli-8-linux/bin
+export GOROOT=/var/vcap/packages/go-1.20-linux
 export GOPATH="/var/vcap/data/test-notifications/tmp/go"
 export HOME=/var/vcap/data/test-notifications/tmp/home
 export CF_HOME=/var/vcap/data/test-notifications/tmp/cf-home
