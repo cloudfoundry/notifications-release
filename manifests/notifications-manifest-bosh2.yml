@@ -60,7 +60,6 @@ instance_groups:
     instances: 1
     vm_type: micro
     stemcell: default
-    lifecycle: errand
     networks:
       - name: ((network_name))
     jobs:
@@ -118,7 +117,6 @@ instance_groups:
     instances: 1
     vm_type: micro
     stemcell: default
-    lifecycle: errand
     networks:
       - name: ((network_name))
     jobs:
@@ -149,7 +147,6 @@ instance_groups:
     instances: 1
     vm_type: micro
     stemcell: default
-    lifecycle: errand
     networks:
       - name: ((network_name))
     jobs:

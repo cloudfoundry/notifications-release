@@ -23,34 +23,33 @@ applications:
   - name: notifications
     command: bin/notifications
     memory: 64M
-    domain: "<%= properties.notifications.app_domain %>"
-    host: notifications
-    diego: <%= properties.notifications.enable_diego %>
-    <%= properties.notifications.buildpack_url ? "buildpack: " + properties.notifications.buildpack_url : "" %>
-env:
-  CC_HOST: https://api.<%= properties.domain %>
-  DATABASE_URL: "<%= database_url %>"
-  DATABASE_ENABLE_IDENTITY_VERIFICATION: "<%= properties.notifications.database.tls.enable_identity_verification %>"
-  DB_MAX_OPEN_CONNS: "<%= properties.notifications.database.max_open_connections / properties.notifications.instance_count %>"
-  DEFAULT_UAA_SCOPES: "cloud_controller.read,cloud_controller.write,openid,approvals.me,cloud_controller_service_permissions.read,scim.me,uaa.user,password.write,scim.userids,oauth.approvals"
-  DOMAIN: "<%= properties.domain %>"
-  ENCRYPTION_KEY: "<%= properties.notifications.encryption_key %>"
-  ROOT_PATH: "$HOME"
-  SENDER: "<%= properties.notifications.sender %>"
-  SMTP_AUTH_MECHANISM: "<%= properties.notifications.smtp.auth_mechanism %>"
-  SMTP_CRAMMD5_SECRET: "<%= properties.notifications.smtp.crammd5_secret %>"
-  SMTP_HOST: "<%= properties.notifications.smtp.host %>"
-  SMTP_PASS: "<%= properties.notifications.smtp.pass %>"
-  SMTP_PORT: "<%= properties.notifications.smtp.port %>"
-  SMTP_TLS: "<%= properties.notifications.smtp.tls %>"
-  SMTP_USER: "<%= properties.notifications.smtp.user %>"
-  UAA_CLIENT_ID: "<%= properties.notifications.uaa.client_id %>"
-  UAA_CLIENT_SECRET: "<%= properties.notifications.uaa.client_secret %>"
-  UAA_HOST: https://uaa.<%= properties.domain %>
-  VERIFY_SSL: "<%= !properties.ssl.skip_cert_verify %>"
-  GOPACKAGENAME: "<%= properties.notifications.app_go_package_name %>"
-  GOVERSION: "<%= properties.notifications.app_go_version %>"
-<% if_p('notifications.database.ca_cert') do |cert| %>
-  DATABASE_CA_CERT_FILE: database.crt
-  DATABASE_COMMON_NAME: "<%= p('notifications.database.common_name', '') %>"
-<% end %>
+    routes:
+    - route: notifications<%= properties.notifications.app_domain %>
+    buildpacks: <%= properties.notifications.buildpack_url ? "[\"#{properties.notifications.buildpack_url}\"]" : "null" %>
+    env:
+      CC_HOST: https://api.<%= properties.domain %>
+      DATABASE_URL: "<%= database_url %>"
+      DATABASE_ENABLE_IDENTITY_VERIFICATION: "<%= properties.notifications.database.tls.enable_identity_verification %>"
+      DB_MAX_OPEN_CONNS: "<%= properties.notifications.database.max_open_connections / properties.notifications.instance_count %>"
+      DEFAULT_UAA_SCOPES: "cloud_controller.read,cloud_controller.write,openid,approvals.me,cloud_controller_service_permissions.read,scim.me,uaa.user,password.write,scim.userids,oauth.approvals"
+      DOMAIN: "<%= properties.domain %>"
+      ENCRYPTION_KEY: "<%= properties.notifications.encryption_key %>"
+      ROOT_PATH: "$HOME"
+      SENDER: "<%= properties.notifications.sender %>"
+      SMTP_AUTH_MECHANISM: "<%= properties.notifications.smtp.auth_mechanism %>"
+      SMTP_CRAMMD5_SECRET: "<%= properties.notifications.smtp.crammd5_secret %>"
+      SMTP_HOST: "<%= properties.notifications.smtp.host %>"
+      SMTP_PASS: "<%= properties.notifications.smtp.pass %>"
+      SMTP_PORT: "<%= properties.notifications.smtp.port %>"
+      SMTP_TLS: "<%= properties.notifications.smtp.tls %>"
+      SMTP_USER: "<%= properties.notifications.smtp.user %>"
+      UAA_CLIENT_ID: "<%= properties.notifications.uaa.client_id %>"
+      UAA_CLIENT_SECRET: "<%= properties.notifications.uaa.client_secret %>"
+      UAA_HOST: https://uaa.<%= properties.domain %>
+      VERIFY_SSL: "<%= !properties.ssl.skip_cert_verify %>"
+      GOPACKAGENAME: "<%= properties.notifications.app_go_package_name %>"
+      GOVERSION: "<%= properties.notifications.app_go_version %>"
+    <% if_p('notifications.database.ca_cert') do |cert| %>
+      DATABASE_CA_CERT_FILE: database.crt
+      DATABASE_COMMON_NAME: "<%= p('notifications.database.common_name', '') %>"
+    <% end %>
