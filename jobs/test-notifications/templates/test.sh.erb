@@ -2,10 +2,9 @@
 set -e -x
 
 source /var/vcap/packages/golang-1.20-linux/bosh/compile.env
+echo PATH=$PATH
 
 export PATH=$PATH:/var/vcap/packages/cf-cli-8-linux/bin
-export GOROOT=/var/vcap/packages/go-1.20-linux
-export GOPATH="/var/vcap/data/test-notifications/tmp/go"
 export HOME=/var/vcap/data/test-notifications/tmp/home
 export CF_HOME=/var/vcap/data/test-notifications/tmp/cf-home
 export TMPDIR=/var/vcap/data/test-notifications/test-home
@@ -30,8 +29,14 @@ export RUN_PERFORMANCE_TESTS=<%= properties.notifications.tests.performance %>
 mkdir -p $GOPATH
 mkdir -p $HOME
 mkdir -p $CF_HOME
+echo GOROOT=$GOROOT
+echo GOPATH=$GOPATH
+echo GOCACHE=$GOCACHE
+echo PATH=$PATH
 
+echo CF-CLI version: $( cf -v )
 cf -v
+echo Golang version: $( go version )
 go version
 
 mkdir -p "${GOPATH}/src/github.com/cloudfoundry-incubator/notifications-release/src/"
