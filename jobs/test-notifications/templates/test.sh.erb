@@ -1,52 +1,44 @@
 #!/bin/bash
 set -e -x
 
-source /var/vcap/packages/golang-1.20-linux/bosh/compile.env
-echo PATH=$PATH
+pushd /var/vcap/packages/acceptance
+  source /var/vcap/packages/golang-1.20-linux/bosh/compile.env
+  unset GOPATH
 
-export PATH=$PATH:/var/vcap/packages/cf-cli-8-linux/bin
-export HOME=/var/vcap/data/test-notifications/tmp/home
-export CF_HOME=/var/vcap/data/test-notifications/tmp/cf-home
-export TMPDIR=/var/vcap/data/test-notifications/test-home
+  export PATH=$PATH:/var/vcap/packages/cf-cli-8-linux/bin
+  export HOME=/var/vcap/data/test-notifications/tmp/home
+  export CF_HOME=/var/vcap/data/test-notifications/tmp/cf-home
+  export TMPDIR=/var/vcap/data/test-notifications/test-home
 
-export SCHEME=https
-export DOMAIN=<%= properties.domain %>
-export CF_ADMIN_USERNAME=<%= properties.notifications.cf.admin_user %>
-export CF_ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
-export API_ENDPOINT=$SCHEME://api.$DOMAIN
-export APP_NAME=notifications
-export APP_DOMAIN=<%= properties.notifications.app_domain %>
-export UAAC_ADMIN_CLIENT_ID=<%= properties.notifications.uaa.admin_client_id %>
-export UAAC_ADMIN_CLIENT_SECRET=<%= properties.notifications.uaa.admin_client_secret %>
-export NOTIFICATIONS_DOMAIN=$SCHEME://notifications.$APP_DOMAIN
-export UAA_DOMAIN=$SCHEME://uaa.$DOMAIN
-export CC_DOMAIN=$SCHEME://api.$DOMAIN
-export NOTIFICATIONS_ORG=<%= properties.notifications.organization %>
-export NOTIFICATIONS_SPACE=<%= properties.notifications.space %>
-export SMTP_HOST=`ip route list scope link | awk '{print $7}'`
-export RUN_PERFORMANCE_TESTS=<%= properties.notifications.tests.performance %>
+  export SCHEME=https
+  export DOMAIN=<%= properties.domain %>
+  export CF_ADMIN_USERNAME=<%= properties.notifications.cf.admin_user %>
+  export CF_ADMIN_PASSWORD="<%= properties.notifications.cf.admin_password %>"
+  export API_ENDPOINT=$SCHEME://api.$DOMAIN
+  export APP_NAME=notifications
+  export APP_DOMAIN=<%= properties.notifications.app_domain %>
+  export UAAC_ADMIN_CLIENT_ID=<%= properties.notifications.uaa.admin_client_id %>
+  export UAAC_ADMIN_CLIENT_SECRET=<%= properties.notifications.uaa.admin_client_secret %>
+  export NOTIFICATIONS_DOMAIN=$SCHEME://notifications.$APP_DOMAIN
+  export UAA_DOMAIN=$SCHEME://uaa.$DOMAIN
+  export CC_DOMAIN=$SCHEME://api.$DOMAIN
+  export NOTIFICATIONS_ORG=<%= properties.notifications.organization %>
+  export NOTIFICATIONS_SPACE=<%= properties.notifications.space %>
+  export SMTP_HOST=`ip route list scope link | awk '{print $7}'`
+  export RUN_PERFORMANCE_TESTS=<%= properties.notifications.tests.performance %>
 
-mkdir -p $GOPATH
-mkdir -p $HOME
-mkdir -p $CF_HOME
-echo GOROOT=$GOROOT
-echo GOPATH=$GOPATH
-echo GOCACHE=$GOCACHE
-echo PATH=$PATH
+  mkdir -p $HOME
+  mkdir -p $CF_HOME
+  echo GOROOT=$GOROOT
+  echo GOCACHE=$GOCACHE
+  echo PATH=$PATH
 
-echo CF-CLI version: $( cf -v )
-cf -v
-echo Golang version: $( go version )
-go version
+  echo CF-CLI version: $( cf -v )
+  echo Golang version: $( go version )
 
-mkdir -p "${GOPATH}/src/github.com/cloudfoundry-incubator/notifications-release/src/"
-pushd "${GOPATH}/src/github.com/cloudfoundry-incubator/notifications-release/src/"
-	cp -r /var/vcap/packages/acceptance .
-	pushd acceptance
-		if [[ "$RUN_PERFORMANCE_TESTS" = "true" ]]; then
-			go test -v -timeout 30m -tags=performance .
-		else
-			go test -v .
-		fi
-	popd
+  if [[ "$RUN_PERFORMANCE_TESTS" = "true" ]]; then
+    go test -v -timeout 30m -tags=performance .
+  else
+    go test -v .
+  fi
 popd
