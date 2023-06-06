@@ -1,15 +1,15 @@
-#!/bin/bash
-set -e -x
+#!/bin/bash -ex
 
 pushd /var/vcap/packages/acceptance
-  source /var/vcap/packages/golang-1-linux/bosh/compile.env
+  source /var/vcap/packages/golang-1*-linux/bosh/compile.env
   unset GOPATH
   unset GOCACHE
+  echo TMPDIR=$TMPDIR
 
   export PATH=$PATH:/var/vcap/packages/cf-cli-8-linux/bin
-  export HOME=/var/vcap/data/test-notifications/tmp/home
-  export CF_HOME=/var/vcap/data/test-notifications/tmp/cf-home
-  export TMPDIR=/var/vcap/data/test-notifications/test-home
+  export TMPDIR=/tmp
+  export HOME=${TMPDIR}/home
+  export CF_HOME=${TMPDIR}/cf-home
 
   export SCHEME=https
   export DOMAIN=<%= properties.domain %>
@@ -28,13 +28,15 @@ pushd /var/vcap/packages/acceptance
   export SMTP_HOST=`ip route list scope link | awk '{print $7}'`
   export RUN_PERFORMANCE_TESTS=<%= properties.notifications.tests.performance %>
 
-  mkdir -p $HOME
-  mkdir -p $CF_HOME
-  echo GOROOT=$GOROOT
+  mkdir -p "${HOME}"
+  mkdir -p "${CF_HOME}"
+  export PATH=${PATH}:${HOME}/go/bin
   echo PATH=$PATH
 
   echo CF-CLI version: $( cf -v )
   echo Golang version: $( go version )
+  go install github.com/onsi/ginkgo/v2/ginkgo@latest
+  ginkgo version || true
 
   if [[ "$RUN_PERFORMANCE_TESTS" = "true" ]]; then
     go test -v -timeout 30m -tags=performance .

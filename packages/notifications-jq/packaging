@@ -1,5 +1,4 @@
-#! /bin/bash
-set -e
+#!/bin/bash -ex
 
 mkdir -p $BOSH_INSTALL_TARGET/bin
 tar zxvf jq/jq.tar.gz -C $BOSH_INSTALL_TARGET/bin
