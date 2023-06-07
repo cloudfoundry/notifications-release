@@ -16,6 +16,7 @@ import (
 	"bitbucket.org/chrj/smtpd"
 	"github.com/pivotal-cf-experimental/warrant"
 
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

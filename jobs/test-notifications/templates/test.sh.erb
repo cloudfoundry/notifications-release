@@ -5,7 +5,9 @@ pushd /var/vcap/packages/acceptance
   unset GOPATH
   unset GOCACHE
 
-  echo TMPDIR=$TMPDIR
+  echo whoami=$(whoami)
+  export TMPDIR=${TMPDIR:-/tmp}
+  echo TMPDIR=${TMPDIR}
   export PATH=$PATH:/var/vcap/packages/cf-cli-8-linux/bin
   export HOME=${TMPDIR}/home
   export CF_HOME=${TMPDIR}/cf-home
@@ -36,8 +38,6 @@ pushd /var/vcap/packages/acceptance
 
   echo CF-CLI version: $( cf -v )
   echo Golang version: $( go version )
-  go install github.com/onsi/ginkgo/v2/ginkgo@latest
-  ginkgo version || true
 
   if [[ "$RUN_PERFORMANCE_TESTS" = "true" ]]; then
     go test -v -timeout 30m -tags=performance
