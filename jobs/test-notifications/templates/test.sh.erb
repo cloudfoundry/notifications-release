@@ -4,12 +4,12 @@ pushd /var/vcap/packages/acceptance
   source /var/vcap/packages/golang-1*-linux/bosh/compile.env
   unset GOPATH
   unset GOCACHE
-  echo TMPDIR=$TMPDIR
 
+  echo TMPDIR=$TMPDIR
   export PATH=$PATH:/var/vcap/packages/cf-cli-8-linux/bin
-  export TMPDIR=/tmp
   export HOME=${TMPDIR}/home
   export CF_HOME=${TMPDIR}/cf-home
+  export GOTMPDIR=${TMPDIR}/go/
 
   export SCHEME=https
   export DOMAIN=<%= properties.domain %>
@@ -30,6 +30,7 @@ pushd /var/vcap/packages/acceptance
 
   mkdir -p "${HOME}"
   mkdir -p "${CF_HOME}"
+  mkdir -p "${GOTMPDIR}"
   export PATH=${PATH}:${HOME}/go/bin
   echo PATH=$PATH
 
@@ -39,8 +40,8 @@ pushd /var/vcap/packages/acceptance
   ginkgo version || true
 
   if [[ "$RUN_PERFORMANCE_TESTS" = "true" ]]; then
-    go test -v -timeout 30m -tags=performance .
+    go test -v -timeout 30m -tags=performance
   else
-    go test -v .
+    go test -v
   fi
 popd

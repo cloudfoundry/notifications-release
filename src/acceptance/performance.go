@@ -1,5 +1,4 @@
 //go:build performance
-// +build performance
 
 package acceptance
 
