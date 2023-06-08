@@ -5,7 +5,6 @@ pushd /var/vcap/packages/acceptance
   unset GOPATH
   unset GOCACHE
 
-  echo whoami=$(whoami)
   export TMPDIR=${TMPDIR:-/tmp}
   echo TMPDIR=${TMPDIR}
   export PATH=$PATH:/var/vcap/packages/cf-cli-8-linux/bin
@@ -39,9 +38,15 @@ pushd /var/vcap/packages/acceptance
   echo CF-CLI version: $( cf -v )
   echo Golang version: $( go version )
 
+  set +e
   if [[ "$RUN_PERFORMANCE_TESTS" = "true" ]]; then
-    go test -v -timeout 30m -tags=performance
+    go test -v -timeout 30m -tags=performance |& tee -a /tmp/notifications-acceptance.log
+    EXIT_CODE=$?
   else
-    go test -v
+    go test -v |& tee -a /tmp/notifications-acceptance.log
+    EXIT_CODE=$?
   fi
+  set -e
 popd
+
+exit $EXIT_CODE
