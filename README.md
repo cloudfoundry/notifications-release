@@ -1,5 +1,5 @@
 # Notifications Release
-This release deploys the [notification service](https://github.com/cloudfoundry-incubator/notifications) as an application onto the CloudFoundry platform.
+This release deploys the [notification service](https://github.com/cloudfoundry/notifications) as an application onto the CloudFoundry platform.
 A running CF is required to deploy.
 The application will be deployed into the `system` org, and the `notifications-service` space.
 The service registers itself at the address matching http://notifications.$CF_APP_DOMAIN.
@@ -20,7 +20,7 @@ authorities: scim.read,cloud_controller.admin
 # Bosh-lite
 
 ## Tips
-- Use the latest [notifications final release](https://github.com/cloudfoundry-incubator/notifications-release/releases) available, it generally contains bug-fixes.
+- Use the latest [notifications final release](https://github.com/cloudfoundry/notifications-release/releases) available, it generally contains bug-fixes.
 - Do not cut a release yourself unless you are very familiar wth bosh.
 
 ## Steps
@@ -44,7 +44,6 @@ authorities: scim.read,cloud_controller.admin
       database:
         url: tcp://user:password@example.com:3306/dbname
   ```
-
 
 3. Generate manifest:
   ```bash

@@ -1,6 +1,0 @@
-builds:
-  e77a1970333c18f412ee1fc9fd5b25feba6bad26f9c26f41eca30a239334b801:
-    version: e77a1970333c18f412ee1fc9fd5b25feba6bad26f9c26f41eca30a239334b801
-    blobstore_id: 1f063217-754b-49cb-6aef-3240ed14bfb3
-    sha1: sha256:716775d0fccb253bfe0dbcca807f8c157870863c0b668262c3d6b63a886ec942
-format-version: "2"

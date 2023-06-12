@@ -12,7 +12,6 @@ templates:
 packages:
   - notifications
   - notifications-jq
-  - notifications-autopilot
 
 consumes:
 - name: database
@@ -99,5 +98,5 @@ properties:
     default: "github.com/cloudfoundry-incubator/notifications"
     description: "Go package name used to enable native vendoring in the Go Buildpack"
   notifications.app_go_version:
-    default: "go>=1.11.0"
+    default: "go>=1.20.0"
     description: "Targeted Go version used to run the application"

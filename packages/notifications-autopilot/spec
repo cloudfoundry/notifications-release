@@ -1,4 +1,0 @@
----
-name: notifications-autopilot
-files:
-    - autopilot-plugin/*.tgz

@@ -9,7 +9,7 @@ templates:
 
 packages:
   - notifications
-  - go
+  - golang-1-linux
   - acceptance
 
 properties:
