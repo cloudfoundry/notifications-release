@@ -2,5 +2,5 @@
 blobstore:
   provider: s3
   options:
-    bucket_name: notifications-blobs
+    bucket_name: notifications-release-blobs
 final_name: notifications
