@@ -11,6 +11,8 @@ builds:
     version: "60"
   0fa0ed01-87d6-4f52-bf8c-f787e1e51b3c:
     version: "28"
+  14bc13d0-6b53-4bd8-5d82-df0a3d789dc1:
+    version: 65.0.0
   1a2276f0-97a0-430c-8fe5-0475a8c9c7c3:
     version: "3"
   1cf1119a-6d30-4c4c-90be-1a0ea2872920:
