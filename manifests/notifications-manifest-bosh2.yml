@@ -2,7 +2,7 @@ name: notifications
 
 stemcells:
   - alias: default
-    os: ubuntu-xenial
+    os: ubuntu-jammy
     version: latest
 
 releases:
