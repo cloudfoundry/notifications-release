@@ -21,7 +21,7 @@ instance_groups:
       - "((network_az))"
     vm_extensions: [public_ip]
     instances: 1
-    vm_type: micro
+    vm_type: e2-micro
     stemcell: default
     networks:
       - name: ((network_name))
@@ -58,7 +58,7 @@ instance_groups:
       - "((network_az))"
     vm_extensions: [public_ip]
     instances: 1
-    vm_type: micro
+    vm_type: e2-micro
     stemcell: default
     networks:
       - name: ((network_name))
@@ -115,7 +115,7 @@ instance_groups:
       - "((network_az))"
     vm_extensions: [public_ip]
     instances: 1
-    vm_type: micro
+    vm_type: e2-micro
     stemcell: default
     networks:
       - name: ((network_name))
@@ -145,7 +145,7 @@ instance_groups:
       - "((network_az))"
     vm_extensions: [public_ip]
     instances: 1
-    vm_type: micro
+    vm_type: e2-micro
     stemcell: default
     networks:
       - name: ((network_name))
