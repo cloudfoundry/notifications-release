@@ -127,6 +127,8 @@ builds:
     version: "57"
   efc5116d-650f-4013-48d6-33b92f3cf39e:
     version: "56"
+  f04db2c4-a05b-430c-52aa-fc2c77eb391d:
+    version: 68.0.0
   f400503f-d103-455c-837a-a1a4cad6721e:
     version: "39"
 format-version: "2"
