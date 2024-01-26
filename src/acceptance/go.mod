@@ -1,6 +1,6 @@
 module github.com/cloudfoundry-incubator/notifications/acceptance
 
-go 1.20
+go 1.21
 
 require (
 	bitbucket.org/chrj/smtpd v0.0.0-20170817182725-9ddcdbda0f7a
