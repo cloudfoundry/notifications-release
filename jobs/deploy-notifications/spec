@@ -78,6 +78,12 @@ properties:
     description: 'CA common name for authenticating the database connection'
   notifications.database.max_open_connections:
     description: 'Maximum number of open connections to the database'
+  notifications.max_retries:
+    description: 'Maximum number of retries.'
+    default: 5
+  notifications.max_queue_length:
+    description: 'Maximum number of jobs to have at a time'
+    default: 5000
   notifications.database.tls.enable_identity_verification:
     default: true
     description: "Whether to verify the identity of the database host when connecting with TLS. Set this to `false` to allow TLS connections to database providers that do not configure the database's TLS certificate to include its hostname or IP, such as Google Cloud SQL or Azure SQL Database."
