@@ -200,7 +200,7 @@ function cleanup_cf_home() {
 
 function move_notifications_to_temp_dir() {
   mkdir -p /var/vcap/data/deploy-notifications/tmp/notifications
-  cp -r /var/vcap/packages/notifications/* /var/vcap/data/deploy-notifications/tmp/notifications
+  rsync -a --delete /var/vcap/packages/notifications/ /var/vcap/data/deploy-notifications/tmp/notifications
   rm -rf /var/vcap/data/deploy-notifications/tmp/notifications/v1/acceptance
 }
 
