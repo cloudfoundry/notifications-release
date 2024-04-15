@@ -119,6 +119,8 @@ builds:
     version: "46"
   e0b93dc8-e743-48fc-5821-a41051615f20:
     version: "50"
+  e5a1938c-72bc-4142-794f-0e9c388f706c:
+    version: 70.0.0
   e7def03d-9893-442e-4864-efb8623a4661:
     version: 66.0.0
   e9969702-e1fb-41ab-a857-6f2360a6a0a8:
