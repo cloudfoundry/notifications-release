@@ -1,0 +1,29 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: notifications
+  # This is an extra long description
+  description: A backend service for sending (usually email) notifications to CF users, including templating and subscription management
+  links: []
+  tags:
+    - cloud-foundry
+    - go
+spec:
+  type: library
+  lifecycle: production
+  owner: wg-app-runtime-interfaces-notifications-approvers
+  system: notifications
+  providesApis:
+    - notifications
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: notifications
+  description: A service for sending email notifications to CF users
+  tags:
+    - cloud-foundry  
+spec:
+  owner: wg-app-runtime-interfaces-notifications-approvers
+  domain: app-runtime
