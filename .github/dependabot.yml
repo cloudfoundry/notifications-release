@@ -9,3 +9,8 @@ updates:
     directory: "/src/acceptance" # Location of package manifests
     schedule:
       interval: "weekly"
+
+  - package-ecosystem: "gomod" # See documentation for possible values
+    directory: "/src/notifications" # Location of package manifests
+    schedule:
+      interval: "weekly"

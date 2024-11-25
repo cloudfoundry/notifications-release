@@ -1,0 +1,35 @@
+#! /usr/bin/env bash
+set +e
+
+DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+ENVIRONMENT="${ENVIRONMENT:-test}"
+
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+NONE="\033[0m"
+
+# shellcheck source=./env/test
+source "$DIR/env/$ENVIRONMENT"
+EXIT_CODE=0
+
+function run() {
+  set +e
+  ginkgo --randomize-all=true --randomize-suites=true -succinct=true "$@"
+  EXIT_CODE=$?
+  set -e
+}
+
+if [[ $EXIT_CODE = 0 ]]; then
+	run --poll-progress-after=10s ./v1/acceptance
+fi
+
+if [[ $EXIT_CODE = 0 ]]; then
+    STATE="${GREEN}ACCEPTANCE SUITE PASS${NONE}"
+else
+    STATE="${RED}ACCEPTANCE SUITE FAIL${NONE}"
+fi
+
+echo
+echo -e $STATE
+
+exit $EXIT_CODE

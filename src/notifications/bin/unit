@@ -1,0 +1,36 @@
+#! /usr/bin/env bash
+set +e
+
+DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+ENVIRONMENT="${ENVIRONMENT:-test}"
+export ROOT_PATH="$DIR/.."
+
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+NONE="\033[0m"
+
+# shellcheck source=./env/test
+source "$DIR/env/$ENVIRONMENT"
+
+function run() {
+  ginkgo --randomize-all=true --randomize-suites=true -succinct=true "$@"
+  EXIT_CODE=$?
+  if [[ $EXIT_CODE != 0 ]]; then
+    fail
+  fi
+}
+
+function fail() {
+  echo
+  echo -e "${RED}UNIT SUITE FAIL${NONE}"
+  exit $EXIT_CODE
+}
+
+if [[ -z "$1" ]]; then
+  run -r --skip-package=acceptance,models,gobble,db,vendor -p ./
+else
+  run "$@"
+fi
+
+echo -e "${GREEN}UNIT SUITE PASS${NONE}"
+exit $EXIT_CODE
