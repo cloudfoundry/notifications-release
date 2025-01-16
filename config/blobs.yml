@@ -1,4 +1,4 @@
-jq/jq.tar.gz:
-  size: 1369116
-  object_id: 8a7e94ab-6369-40d8-7d35-5bc4d4e9dfa8
-  sha: sha256:e1b3e46c2ab40ffb531cf0e88961351281301e300ad61ed905f146f33e9a595b
+jq:
+  size: 2319424
+  object_id: 60d35a5c-7aed-46f7-66e8-65b311a8abc5
+  sha: sha256:5942c9b0934e510ee61eb3e30273f1b3fe2590df93933a93d7c58b81d19c8ff5
