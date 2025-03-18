@@ -10,7 +10,7 @@ require (
 	github.com/go-sql-driver/mysql v1.9.0
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/gorilla/mux v1.8.1
-	github.com/onsi/ginkgo/v2 v2.22.2
+	github.com/onsi/ginkgo/v2 v2.23.0
 	github.com/onsi/gomega v1.36.2
 	github.com/pivotal-cf-experimental/rainmaker v0.0.0-20160401052143-d533d01b7c52
 	github.com/pivotal-cf-experimental/warrant v0.0.0-20211122194707-17385443920f
@@ -44,7 +44,7 @@ require (
 	golang.org/x/net v0.35.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
-	golang.org/x/tools v0.28.0 // indirect
+	golang.org/x/tools v0.30.0 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v1 v1.0.0-20141111223934-dacd4576c5aa // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
