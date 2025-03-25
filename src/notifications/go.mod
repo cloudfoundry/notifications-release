@@ -1,7 +1,7 @@
 module github.com/cloudfoundry-incubator/notifications
 
 go 1.21
-toolchain go1.23.1
+toolchain go1.24.1
 
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.2
@@ -10,7 +10,7 @@ require (
 	github.com/go-sql-driver/mysql v1.9.0
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/gorilla/mux v1.8.1
-	github.com/onsi/ginkgo/v2 v2.23.0
+	github.com/onsi/ginkgo/v2 v2.23.3
 	github.com/onsi/gomega v1.36.2
 	github.com/pivotal-cf-experimental/rainmaker v0.0.0-20160401052143-d533d01b7c52
 	github.com/pivotal-cf-experimental/warrant v0.0.0-20211122194707-17385443920f
