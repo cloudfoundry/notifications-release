@@ -2,5 +2,5 @@
 blobstore:
   provider: gcs
   options:
-    bucket_name: notifications-release-blobs
+    bucket_name: cf-oss-notifications-release-blobs
 final_name: notifications
