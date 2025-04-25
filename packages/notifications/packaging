@@ -1,3 +1,11 @@
 #!/bin/bash -ex
 
+source /var/vcap/packages/golang-1-linux/bosh/compile.env
+
+pushd notifications/
+    rm -rf ${BOSH_INSTALL_TARGET}/*
+    go build -o ${BOSH_INSTALL_TARGET}/notifications .
+    rsync -a --delete templates/ ${BOSH_INSTALL_TARGET}/templates/
+popd
+
 rsync -a notifications/ ${BOSH_INSTALL_TARGET}

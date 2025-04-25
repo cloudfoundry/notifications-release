@@ -26,8 +26,6 @@ properties:
     default: 5
   notifications.app_domain:
     description: 'Domain used to host application'
-  notifications.buildpack_url:
-    description: 'Optional parameter that specifies the url of the buildpack to use.  Helpful if your environment does not have the latest Go buildpack.'
   notifications.enable_diego:
     description: 'Enable deployment to diego'
   notifications.organization:
@@ -100,9 +98,3 @@ properties:
   notifications.error_on_misconfiguration:
     description: 'Throw error on service misconfiguration during deployment'
     default: true
-  notifications.app_go_package_name:
-    default: "github.com/cloudfoundry-incubator/notifications"
-    description: "Go package name used to enable native vendoring in the Go Buildpack"
-  notifications.app_go_version:
-    default: "go>=1.20.0"
-    description: "Targeted Go version used to run the application"
