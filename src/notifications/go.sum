@@ -80,8 +80,8 @@ github.com/onsi/ginkgo/v2 v2.23.4/go.mod h1:Bt66ApGPBFzHyR+JO10Zbt0Gsp4uWxu5mIOT
 github.com/onsi/gomega v1.4.1/go.mod h1:C1qb7wdrVGGVU+Z6iS04AVkA3Q65CEZX59MT0QO5uiA=
 github.com/onsi/gomega v1.7.1/go.mod h1:XdKZgCCFLUoM/7CFJVPcG8C1xQ1AJ0vpAezJrB7JYyY=
 github.com/onsi/gomega v1.10.1/go.mod h1:iN09h71vgCQne3DLsj+A5owkum+a2tYe+TOCB1ybHNo=
-github.com/onsi/gomega v1.36.3 h1:hID7cr8t3Wp26+cYnfcjR6HpJ00fdogN6dqZ1t6IylU=
-github.com/onsi/gomega v1.36.3/go.mod h1:8D9+Txp43QWKhM24yyOBEdpkzN8FvJyAwecBgsU4KU0=
+github.com/onsi/gomega v1.37.0 h1:CdEG8g0S133B4OswTDC/5XPSzE1OeP29QOioj2PID2Y=
+github.com/onsi/gomega v1.37.0/go.mod h1:8D9+Txp43QWKhM24yyOBEdpkzN8FvJyAwecBgsU4KU0=
 github.com/pivotal-cf-experimental/rainmaker v0.0.0-20160401052143-d533d01b7c52 h1:YaPgxzuENXlCMHe/JVQICTIVtWdXbBodzNnQM/A8+rY=
 github.com/pivotal-cf-experimental/rainmaker v0.0.0-20160401052143-d533d01b7c52/go.mod h1:NkPUxSBmoagsX+nu++zlZZKxjFJ1E8VQnduId7VdfFY=
 github.com/pivotal-cf-experimental/warrant v0.0.0-20211122194707-17385443920f h1:SqlGaNYPJHlTYagr1ENX1FJ1zUmDua70Y+8lPrEDQxw=
