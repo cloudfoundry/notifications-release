@@ -25,7 +25,7 @@ applications:
     memory: 64M
     routes:
     - route: notifications.<%= properties.notifications.app_domain %>
-    buildpacks: binary_buildpack
+    buildpack: binary_buildpack
     env:
       CC_HOST: https://api.<%= properties.domain %>
       DATABASE_URL: "<%= database_url %>"
