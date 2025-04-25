@@ -21,11 +21,11 @@
 %>
 applications:
   - name: notifications
-    command: bin/notifications
+    command: ./notifications
     memory: 64M
     routes:
     - route: notifications.<%= properties.notifications.app_domain %>
-    buildpacks: <%= properties.notifications.buildpack_url ? "[\"#{properties.notifications.buildpack_url}\"]" : "null" %>
+    buildpacks: binary_buildpack
     env:
       CC_HOST: https://api.<%= properties.domain %>
       DATABASE_URL: "<%= database_url %>"
@@ -49,8 +49,6 @@ applications:
       UAA_CLIENT_SECRET: "<%= properties.notifications.uaa.client_secret %>"
       UAA_HOST: https://uaa.<%= properties.domain %>
       VERIFY_SSL: "<%= !properties.ssl.skip_cert_verify %>"
-      GOPACKAGENAME: "<%= properties.notifications.app_go_package_name %>"
-      GOVERSION: "<%= properties.notifications.app_go_version %>"
     <% if_p('notifications.database.ca_cert') do |cert| %>
       DATABASE_CA_CERT_FILE: database.crt
       DATABASE_COMMON_NAME: "<%= p('notifications.database.common_name', '') %>"
