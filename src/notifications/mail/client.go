@@ -234,8 +234,7 @@ func (c *Client) Data(msg Message) error {
 		return err
 	}
 
-	data := strings.Replace(string(msg.Data()), "%", "%%", -1)
-	_, err = fmt.Fprintf(wc, data)
+	_, err = fmt.Fprint(wc, msg.Data())
 	if err != nil {
 		return err
 	}
