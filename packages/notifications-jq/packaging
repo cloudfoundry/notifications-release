@@ -1,5 +1,5 @@
 #!/bin/bash -ex
 
 mkdir -p $BOSH_INSTALL_TARGET/bin
-cp jq ${BOSH_INSTALL_TARGET}/bin/jq
+cp jq-* ${BOSH_INSTALL_TARGET}/bin/jq
 chmod +x $BOSH_INSTALL_TARGET/bin/jq

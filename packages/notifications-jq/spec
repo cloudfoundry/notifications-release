@@ -2,4 +2,4 @@
 name: notifications-jq
 
 files:
-  - jq
+  - jq-*
