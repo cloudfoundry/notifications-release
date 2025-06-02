@@ -36,7 +36,7 @@ func (gc MessageGC) Collect() {
 	threshold := time.Now().Add(-1 * gc.lifetime)
 	_, err := gc.messages.DeleteBefore(gc.db.Connection(), threshold)
 	if err != nil {
-		gc.logger.Printf("MessageGC.Collect() failed: " + err.Error())
+		gc.logger.Print("MessageGC.Collect() failed: " + err.Error())
 	}
 }
 
