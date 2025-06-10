@@ -29,6 +29,7 @@ require (
 	code.cloudfoundry.org/lager v2.0.0+incompatible // indirect
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
+	github.com/cloudfoundry-community/go-uaa v0.3.5 // indirect
 	github.com/dgrijalva/jwt-go v3.2.1-0.20210802184156-9742bd7fca1c+incompatible // indirect
 	github.com/go-gorp/gorp/v3 v3.1.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
@@ -39,9 +40,11 @@ require (
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/ziutek/mymysql v1.5.4 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
 	golang.org/x/net v0.39.0 // indirect
+	golang.org/x/oauth2 v0.30.0 // indirect
 	golang.org/x/sys v0.32.0 // indirect
 	golang.org/x/text v0.24.0 // indirect
 	golang.org/x/tools v0.31.0 // indirect

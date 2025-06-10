@@ -12,6 +12,8 @@ github.com/andybalholm/cascadia v1.3.3 h1:AG2YHrzJIm4BZ19iwJ/DAua6Btl3IwJX+VI4kk
 github.com/andybalholm/cascadia v1.3.3/go.mod h1:xNd9bqTn98Ln4DwST8/nG+H0yuB8Hmgu1YHNnWw0GeA=
 github.com/chrj/smtpd v0.0.0-20140720195347-c6fe39d4dcdd h1:/f/SW/WhVIXuS3c2Eq9w2g0sfvzIAJ+g23YPuNSkKtg=
 github.com/chrj/smtpd v0.0.0-20140720195347-c6fe39d4dcdd/go.mod h1:CCN2w0A/V4Mt1XKsMBYtLCUSkPCfanfGjsZbnaJ+13g=
+github.com/cloudfoundry-community/go-uaa v0.3.5 h1:w1ssRROOkdSslibe3rczThD2XSFidtfFrGNZxQpig2g=
+github.com/cloudfoundry-community/go-uaa v0.3.5/go.mod h1:gH8gdgmUJQj/zZ3WZNWmzFLc7x15fQH9oAuoi4A+rxI=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -92,6 +94,8 @@ github.com/pivotal-golang/conceal v0.0.0-20141120010127-31656578115c h1:reyrySYb
 github.com/pivotal-golang/conceal v0.0.0-20141120010127-31656578115c/go.mod h1:Kw/kMv1fNuHwfszQT6ZI0ClXyVdezduXsKd/70TUSjc=
 github.com/pivotal-golang/lager v2.0.0+incompatible h1:RJfBQxoH+1xT8GfxIaMNq+FMcYqx50fKdq7MUkuKzv0=
 github.com/pivotal-golang/lager v2.0.0+incompatible/go.mod h1:EJZBAWMz/TvxVfLaBRwCv+gszrSByWbqQBRwfVbUhvM=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/poy/onpar v1.1.2 h1:QaNrNiZx0+Nar5dLgTVp5mXkyoVFIbepjyEoGSnhbAY=
@@ -148,6 +152,8 @@ golang.org/x/net v0.25.0/go.mod h1:JkAGAh7GEvH74S6FOH42FLoXpXbE/aqXSrIQjXgsiwM=
 golang.org/x/net v0.33.0/go.mod h1:HXLR5J+9DxmrqMwG9qjGCxZ+zKXxBru04zlTvWlWuN4=
 golang.org/x/net v0.39.0 h1:ZCu7HMWDxpXpaiKdhzIfaltL9Lp31x/3fCP11bc6/fY=
 golang.org/x/net v0.39.0/go.mod h1:X7NRbYVEA+ewNkCNyJ513WmMdQ3BineSwVtN2zD/d+E=
+golang.org/x/oauth2 v0.30.0 h1:dnDm7JmhM45NNpd8FDDeLhK6FwqbOf4MLCM9zb1BOHI=
+golang.org/x/oauth2 v0.30.0/go.mod h1:B++QgG3ZKulg6sRPGD/mqlHQs5rB3Ml9erfeDY7xKlU=
 golang.org/x/sync v0.0.0-20180314180146-1d60e4601c6f/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sync v0.0.0-20190423024810-112230192c58/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=

@@ -1,8 +1,8 @@
 package mocks
 
 import (
+	gouaa "github.com/cloudfoundry-community/go-uaa"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/pivotal-cf-experimental/warrant"
 )
 
 type TokenValidator struct {
@@ -27,13 +27,13 @@ type KeyFetcher struct {
 	GetSigningKeysCall struct {
 		Called  bool
 		Returns struct {
-			Keys  []warrant.SigningKey
+			Keys  []gouaa.JWK
 			Error error
 		}
 	}
 }
 
-func (f *KeyFetcher) GetSigningKeys() ([]warrant.SigningKey, error) {
+func (f *KeyFetcher) TokenKeys() ([]gouaa.JWK, error) {
 	f.GetSigningKeysCall.Called = true
 	return f.GetSigningKeysCall.Returns.Keys, f.GetSigningKeysCall.Returns.Error
 }

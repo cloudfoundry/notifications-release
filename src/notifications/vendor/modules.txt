@@ -18,6 +18,10 @@ github.com/andybalholm/cascadia
 # github.com/chrj/smtpd v0.0.0-20140720195347-c6fe39d4dcdd
 ## explicit
 github.com/chrj/smtpd
+# github.com/cloudfoundry-community/go-uaa v0.3.5
+## explicit; go 1.23.0
+github.com/cloudfoundry-community/go-uaa
+github.com/cloudfoundry-community/go-uaa/passwordcredentials
 # github.com/dgrijalva/jwt-go v3.2.1-0.20210802184156-9742bd7fca1c+incompatible
 ## explicit
 github.com/dgrijalva/jwt-go
@@ -113,6 +117,9 @@ github.com/pivotal-golang/conceal
 # github.com/pivotal-golang/lager v2.0.0+incompatible
 ## explicit
 github.com/pivotal-golang/lager
+# github.com/pkg/errors v0.9.1
+## explicit
+github.com/pkg/errors
 # github.com/rcrowley/go-metrics v0.0.0-20180125231941-8732c616f529
 ## explicit
 github.com/rcrowley/go-metrics
@@ -140,6 +147,11 @@ go.uber.org/automaxprocs/maxprocs
 golang.org/x/net/html
 golang.org/x/net/html/atom
 golang.org/x/net/html/charset
+# golang.org/x/oauth2 v0.30.0
+## explicit; go 1.23.0
+golang.org/x/oauth2
+golang.org/x/oauth2/clientcredentials
+golang.org/x/oauth2/internal
 # golang.org/x/sys v0.32.0
 ## explicit; go 1.23.0
 golang.org/x/sys/unix

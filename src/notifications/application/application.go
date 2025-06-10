@@ -7,13 +7,13 @@ import (
 	"path"
 	"time"
 
+	gouaa "github.com/cloudfoundry-community/go-uaa"
 	"github.com/cloudfoundry-incubator/notifications/gobble"
 	"github.com/cloudfoundry-incubator/notifications/mail"
 	"github.com/cloudfoundry-incubator/notifications/postal"
 	"github.com/cloudfoundry-incubator/notifications/uaa"
 	"github.com/cloudfoundry-incubator/notifications/v1/models"
 	"github.com/cloudfoundry-incubator/notifications/web"
-	"github.com/pivotal-cf-experimental/warrant"
 	"github.com/pivotal-golang/lager"
 )
 
@@ -59,12 +59,17 @@ func (a Application) Run() {
 
 	a.VerifySMTPConfiguration()
 
-	uaaClient := warrant.New(warrant.Config{
-		Host:          a.env.UAAHost,
-		SkipVerifySSL: !a.env.VerifySSL,
-	})
+	uaaClient, err := gouaa.New(
+		a.env.UAAHost,
+		gouaa.WithNoAuthentication(),
+		gouaa.WithSkipSSLValidation(!a.env.VerifySSL),
+	)
 
-	validator := uaa.NewTokenValidator(a.logger, &uaaClient.Tokens)
+	if err != nil {
+		a.logger.Fatal("uaa-failed-create", err)
+	}
+
+	validator := uaa.NewTokenValidator(a.logger, uaaClient)
 
 	if err := validator.LoadSigningKeys(); err != nil {
 		a.logger.Fatal("uaa-get-token-key-errored", err)
