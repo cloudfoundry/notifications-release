@@ -1,11 +1,12 @@
 package uaa
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 
+	gouaa "github.com/cloudfoundry-community/go-uaa"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/pivotal-cf-experimental/warrant"
 	uaaSSOGolang "github.com/pivotal-cf/uaa-sso-golang/uaa"
 )
 
@@ -26,12 +27,16 @@ func NewZonedUAAClient(clientID, clientSecret string, verifySSL bool, validator 
 }
 
 func (z ZonedUAAClient) GetTokenKey(uaaHost string) (string, error) {
-	uaaClient := warrant.New(warrant.Config{
-		Host:          uaaHost,
-		SkipVerifySSL: !z.verifySSL,
-	})
+	uaaClient, err := gouaa.New(
+		uaaHost,
+		gouaa.WithNoAuthentication(),
+		gouaa.WithSkipSSLValidation(!z.verifySSL),
+	)
+	if err != nil {
+		return "", err
+	}
 
-	signingKey, err := uaaClient.Tokens.GetSigningKey()
+	signingKey, err := uaaClient.TokenKey()
 	if err != nil {
 		return "", err
 	}
@@ -40,12 +45,19 @@ func (z ZonedUAAClient) GetTokenKey(uaaHost string) (string, error) {
 }
 
 func (z ZonedUAAClient) GetClientToken(host string) (string, error) {
-	uaaClient := warrant.New(warrant.Config{
-		Host:          host,
-		SkipVerifySSL: !z.verifySSL,
-	})
-
-	return uaaClient.Clients.GetToken(z.clientID, z.clientSecret)
+	uaaClient, err := gouaa.New(
+		host,
+		gouaa.WithClientCredentials(z.clientID, z.clientSecret, gouaa.JSONWebToken),
+		gouaa.WithSkipSSLValidation(!z.verifySSL),
+	)
+	if err != nil {
+		return "", err
+	}
+	token, err := uaaClient.Token(context.Background())
+	if err != nil {
+		return "", err
+	}
+	return token.AccessToken, nil
 }
 
 func (z ZonedUAAClient) UsersEmailsByIDs(token string, ids ...string) ([]User, error) {
@@ -115,14 +127,6 @@ func (z ZonedUAAClient) UsersGUIDsByScope(token string, scope string) ([]string,
 	uaaSSOGolangClient.VerifySSL = z.verifySSL
 
 	return uaaSSOGolangClient.UsersGUIDsByScope(scope)
-}
-
-func newUserFromWarrantUser(warrantUser warrant.User) User {
-	user := User{}
-	user.ID = warrantUser.ID
-	user.Emails = warrantUser.Emails
-
-	return user
 }
 
 func newUserFromSSOGolangUser(uaaUser uaaSSOGolang.User) User {
