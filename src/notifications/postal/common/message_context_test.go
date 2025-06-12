@@ -3,9 +3,9 @@ package common_test
 import (
 	"time"
 
-	"github.com/cloudfoundry-incubator/notifications/cf"
-	"github.com/cloudfoundry-incubator/notifications/postal/common"
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/cf"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal/common"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

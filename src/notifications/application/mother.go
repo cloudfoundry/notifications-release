@@ -13,10 +13,10 @@ import (
 
 	"errors"
 
-	"github.com/cloudfoundry-incubator/notifications/db"
-	"github.com/cloudfoundry-incubator/notifications/gobble"
-	"github.com/cloudfoundry-incubator/notifications/util"
-	v1models "github.com/cloudfoundry-incubator/notifications/v1/models"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/db"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/util"
+	v1models "github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
 	"github.com/go-sql-driver/mysql"
 )
 

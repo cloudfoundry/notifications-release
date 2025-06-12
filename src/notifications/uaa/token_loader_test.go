@@ -1,8 +1,8 @@
 package uaa_test
 
 import (
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
-	"github.com/cloudfoundry-incubator/notifications/uaa"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/uaa"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )

@@ -7,7 +7,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/cloudfoundry-incubator/notifications/mail"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/mail"
 	"github.com/pivotal-golang/conceal"
 )
 

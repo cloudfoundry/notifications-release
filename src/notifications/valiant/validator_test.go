@@ -3,7 +3,7 @@ package valiant_test
 import (
 	"strings"
 
-	"github.com/cloudfoundry-incubator/notifications/valiant"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/valiant"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

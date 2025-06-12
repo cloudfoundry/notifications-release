@@ -1,6 +1,6 @@
 package services
 
-import "github.com/cloudfoundry-incubator/notifications/cf"
+import "github.com/cloudfoundry/notifications-release/src/notifications/v81/cf"
 
 const ScopeEndorsement = "You received this message because you have the {{.Scope}} scope."
 

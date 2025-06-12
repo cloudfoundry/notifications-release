@@ -1,6 +1,6 @@
 package services
 
-import "github.com/cloudfoundry-incubator/notifications/uaa"
+import "github.com/cloudfoundry/notifications-release/src/notifications/v81/uaa"
 
 type AllUsers struct {
 	uaa uaaAllUsers

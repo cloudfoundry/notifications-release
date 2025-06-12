@@ -4,7 +4,7 @@ import (
 	"errors"
 	"os"
 
-	"github.com/cloudfoundry-incubator/notifications/application"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/application"
 	"github.com/ryanmoran/viron"
 
 	. "github.com/onsi/ginkgo/v2"

@@ -1,7 +1,7 @@
 package gobble_test
 
 import (
-	"github.com/cloudfoundry-incubator/notifications/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

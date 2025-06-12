@@ -3,7 +3,7 @@ package web
 import (
 	"net/http"
 
-	v1web "github.com/cloudfoundry-incubator/notifications/v1/web"
+	v1web "github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web"
 )
 
 func NewRouter(config Config) http.Handler {

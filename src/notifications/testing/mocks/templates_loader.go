@@ -1,6 +1,6 @@
 package mocks
 
-import "github.com/cloudfoundry-incubator/notifications/postal/common"
+import "github.com/cloudfoundry/notifications-release/src/notifications/v81/postal/common"
 
 type TemplatesLoader struct {
 	LoadTemplatesCall struct {

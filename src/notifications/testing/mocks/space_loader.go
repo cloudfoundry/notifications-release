@@ -1,6 +1,6 @@
 package mocks
 
-import "github.com/cloudfoundry-incubator/notifications/cf"
+import "github.com/cloudfoundry/notifications-release/src/notifications/v81/cf"
 
 type SpaceLoader struct {
 	LoadCall struct {

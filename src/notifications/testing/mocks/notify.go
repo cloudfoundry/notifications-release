@@ -3,7 +3,7 @@ package mocks
 import (
 	"net/http"
 
-	"github.com/cloudfoundry-incubator/notifications/v1/web/notify"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/notify"
 	"github.com/ryanmoran/stack"
 )
 

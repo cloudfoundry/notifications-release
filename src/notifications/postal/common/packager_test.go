@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cloudfoundry-incubator/notifications/mail"
-	"github.com/cloudfoundry-incubator/notifications/postal/common"
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/mail"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal/common"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

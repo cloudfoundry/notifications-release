@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/middleware"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/middleware"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/ryanmoran/stack"
 

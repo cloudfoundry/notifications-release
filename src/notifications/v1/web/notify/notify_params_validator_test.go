@@ -1,7 +1,7 @@
 package notify_test
 
 import (
-	"github.com/cloudfoundry-incubator/notifications/v1/web/notify"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/notify"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

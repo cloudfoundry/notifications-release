@@ -3,10 +3,10 @@ package postal
 import (
 	"time"
 
-	"github.com/cloudfoundry-incubator/notifications/db"
-	"github.com/cloudfoundry-incubator/notifications/gobble"
-	"github.com/cloudfoundry-incubator/notifications/postal/common"
-	"github.com/cloudfoundry-incubator/notifications/v1/services"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/db"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal/common"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/services"
 	"github.com/pivotal-golang/lager"
 	"github.com/rcrowley/go-metrics"
 )

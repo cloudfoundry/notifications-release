@@ -3,7 +3,7 @@ package services
 import (
 	"net/http"
 
-	"github.com/cloudfoundry-incubator/notifications/cf"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/cf"
 )
 
 type MissingKindOrClientError struct {

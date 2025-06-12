@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/cloudfoundry-incubator/notifications/application"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/application"
 )
 
 func main() {

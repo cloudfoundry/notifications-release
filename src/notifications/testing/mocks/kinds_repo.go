@@ -1,6 +1,6 @@
 package mocks
 
-import "github.com/cloudfoundry-incubator/notifications/v1/models"
+import "github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
 
 type KindsRepo struct {
 	FindCall struct {

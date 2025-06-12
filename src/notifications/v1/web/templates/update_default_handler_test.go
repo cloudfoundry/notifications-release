@@ -6,11 +6,11 @@ import (
 	"net/http/httptest"
 	"strings"
 
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
-	"github.com/cloudfoundry-incubator/notifications/v1/models"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/templates"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/webutil"
-	"github.com/cloudfoundry-incubator/notifications/valiant"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/templates"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/webutil"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/valiant"
 	"github.com/ryanmoran/stack"
 
 	. "github.com/onsi/ginkgo/v2"

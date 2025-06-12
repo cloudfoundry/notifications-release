@@ -5,9 +5,9 @@ import (
 
 	"gopkg.in/gorp.v1"
 
-	"github.com/cloudfoundry-incubator/notifications/cf"
-	"github.com/cloudfoundry-incubator/notifications/gobble"
-	"github.com/cloudfoundry-incubator/notifications/v1/models"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/cf"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
 )
 
 const StatusQueued = "queued"

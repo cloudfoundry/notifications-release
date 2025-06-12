@@ -9,11 +9,11 @@ import (
 	"net/http/httptest"
 	"strings"
 
-	"github.com/cloudfoundry-incubator/notifications/testing/helpers"
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
-	"github.com/cloudfoundry-incubator/notifications/v1/models"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/notifications"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/webutil"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/helpers"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/notifications"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/webutil"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/ryanmoran/stack"
 

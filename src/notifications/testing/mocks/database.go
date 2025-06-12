@@ -3,7 +3,7 @@ package mocks
 import (
 	"database/sql"
 
-	"github.com/cloudfoundry-incubator/notifications/db"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/db"
 	"gopkg.in/gorp.v1"
 )
 

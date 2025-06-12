@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/cloudfoundry-incubator/notifications/uaa"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/uaa"
 )
 
 type UAAUserNotFoundError struct {

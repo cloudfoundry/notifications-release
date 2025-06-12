@@ -6,8 +6,8 @@ import (
 
 	"fmt"
 
-	"github.com/cloudfoundry-incubator/notifications/gobble"
-	"github.com/cloudfoundry-incubator/notifications/uaa"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/uaa"
 	"github.com/pivotal-golang/lager"
 )
 

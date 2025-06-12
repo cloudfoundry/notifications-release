@@ -4,7 +4,7 @@ import (
 	"crypto/rand"
 	"time"
 
-	"github.com/cloudfoundry-incubator/notifications/util"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/util"
 	"gopkg.in/gorp.v1"
 )
 

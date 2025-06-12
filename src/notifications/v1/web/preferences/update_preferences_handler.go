@@ -4,10 +4,10 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/cloudfoundry-incubator/notifications/v1/models"
-	"github.com/cloudfoundry-incubator/notifications/v1/services"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/webutil"
-	"github.com/cloudfoundry-incubator/notifications/valiant"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/services"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/webutil"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/valiant"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/ryanmoran/stack"
 )

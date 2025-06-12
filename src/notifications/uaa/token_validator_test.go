@@ -6,9 +6,9 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/cloudfoundry-incubator/notifications/testing/helpers"
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
-	"github.com/cloudfoundry-incubator/notifications/uaa"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/helpers"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/uaa"
 
 	gouaa "github.com/cloudfoundry-community/go-uaa"
 	"github.com/golang-jwt/jwt/v5"
