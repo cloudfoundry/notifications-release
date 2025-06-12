@@ -10,8 +10,8 @@ import (
 	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
 	"github.com/cloudfoundry-incubator/notifications/uaa"
 
+	gouaa "github.com/cloudfoundry-community/go-uaa"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/pivotal-cf-experimental/warrant"
 	"github.com/pivotal-golang/lager"
 )
 
@@ -26,11 +26,11 @@ var _ = Describe("TokenValidator", func() {
 
 	BeforeEach(func() {
 		keyFetcher = &mocks.KeyFetcher{}
-		keyFetcher.GetSigningKeysCall.Returns.Keys = []warrant.SigningKey{
+		keyFetcher.GetSigningKeysCall.Returns.Keys = []gouaa.JWK{
 			{
-				KeyId:     "some-key",
-				Algorithm: "RS256",
-				Value:     helpers.UAAPublicKey,
+				Kid:   "some-key",
+				Alg:   "RS256",
+				Value: helpers.UAAPublicKey,
 			},
 		}
 		validator = uaa.NewTokenValidator(lager.NewLogger("test"), keyFetcher)

@@ -5,18 +5,18 @@ import (
 	"fmt"
 	"sync"
 
+	gouaa "github.com/cloudfoundry-community/go-uaa"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/pivotal-cf-experimental/warrant"
 	"github.com/pivotal-golang/lager"
 )
 
 type keysFetcher interface {
-	GetSigningKeys() ([]warrant.SigningKey, error)
+	TokenKeys() ([]gouaa.JWK, error)
 }
 
 type TokenValidator struct {
 	keysFetcher keysFetcher
-	keyMap      map[string]warrant.SigningKey
+	keyMap      map[string]gouaa.JWK
 	keyMutex    sync.RWMutex
 	logger      lager.Logger
 }
@@ -26,25 +26,25 @@ func NewTokenValidator(logger lager.Logger, keysFetcher keysFetcher) *TokenValid
 	return &TokenValidator{
 		logger:      logger,
 		keysFetcher: keysFetcher,
-		keyMap:      make(map[string]warrant.SigningKey),
+		keyMap:      make(map[string]gouaa.JWK),
 	}
 }
 
 func (v *TokenValidator) LoadSigningKeys() error {
 	v.logger.Info("loading.keys")
-	keys, err := v.keysFetcher.GetSigningKeys()
+	keys, err := v.keysFetcher.TokenKeys()
 
 	if err != nil {
 		v.logger.Error("loading.keys.failed", err)
 		return err
 	}
 
-	keyMap := make(map[string]warrant.SigningKey, len(keys))
+	keyMap := make(map[string]gouaa.JWK, len(keys))
 	keyNames := make([]string, 0, len(keys))
 
 	for _, key := range keys {
-		keyMap[key.KeyId] = key
-		keyNames = append(keyNames, key.KeyId)
+		keyMap[key.Kid] = key
+		keyNames = append(keyNames, key.Kid)
 	}
 
 	v.logger.Info("loaded.keys", lager.Data{
@@ -58,7 +58,7 @@ func (v *TokenValidator) LoadSigningKeys() error {
 	return nil
 }
 
-func (v *TokenValidator) findKey(id string) (warrant.SigningKey, bool) {
+func (v *TokenValidator) findKey(id string) (gouaa.JWK, bool) {
 	v.keyMutex.RLock()
 	defer v.keyMutex.RUnlock()
 
