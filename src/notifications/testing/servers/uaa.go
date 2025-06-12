@@ -130,6 +130,7 @@ var UAAPostOAuthToken = http.HandlerFunc(func(w http.ResponseWriter, req *http.R
 		panic(err)
 	}
 
+	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(response)
 })
