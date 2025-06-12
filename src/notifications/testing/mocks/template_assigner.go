@@ -1,6 +1,6 @@
 package mocks
 
-import "github.com/cloudfoundry-incubator/notifications/v1/collections"
+import "github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/collections"
 
 type TemplateAssigner struct {
 	AssignToClientCall struct {

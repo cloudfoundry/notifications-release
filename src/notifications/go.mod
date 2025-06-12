@@ -1,4 +1,4 @@
-module github.com/cloudfoundry-incubator/notifications
+module github.com/cloudfoundry/notifications-release/src/notifications/v81
 
 go 1.24.4
 

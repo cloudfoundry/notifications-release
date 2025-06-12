@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/cloudfoundry-incubator/notifications/v1/collections"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/webutil"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/collections"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/webutil"
 	"github.com/ryanmoran/stack"
 )
 

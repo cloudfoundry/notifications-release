@@ -3,13 +3,13 @@ package messages_test
 import (
 	"net/http"
 
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/messages"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/middleware"
-	"github.com/cloudfoundry-incubator/notifications/web"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/messages"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/middleware"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/web"
 	"github.com/ryanmoran/stack"
 
-	. "github.com/cloudfoundry-incubator/notifications/testing/helpers"
+	. "github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/helpers"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )

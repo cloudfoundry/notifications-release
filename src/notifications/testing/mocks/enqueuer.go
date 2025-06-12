@@ -3,8 +3,8 @@ package mocks
 import (
 	"time"
 
-	"github.com/cloudfoundry-incubator/notifications/cf"
-	"github.com/cloudfoundry-incubator/notifications/v1/services"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/cf"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/services"
 )
 
 type Enqueuer struct {

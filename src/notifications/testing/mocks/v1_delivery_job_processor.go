@@ -1,7 +1,7 @@
 package mocks
 
 import (
-	"github.com/cloudfoundry-incubator/notifications/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
 	"github.com/pivotal-golang/lager"
 )
 

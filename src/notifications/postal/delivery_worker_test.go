@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"time"
 
-	"github.com/cloudfoundry-incubator/notifications/gobble"
-	"github.com/cloudfoundry-incubator/notifications/postal"
-	"github.com/cloudfoundry-incubator/notifications/postal/common"
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal/common"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
 	"github.com/pivotal-golang/lager"
 
 	. "github.com/onsi/ginkgo/v2"

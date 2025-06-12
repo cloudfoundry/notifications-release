@@ -1,6 +1,6 @@
 package mocks
 
-import "github.com/cloudfoundry-incubator/notifications/gobble"
+import "github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
 
 type Queue struct {
 	EnqueueCall struct {

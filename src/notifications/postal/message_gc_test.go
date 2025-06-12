@@ -6,9 +6,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/cloudfoundry-incubator/notifications/db"
-	"github.com/cloudfoundry-incubator/notifications/postal"
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/db"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

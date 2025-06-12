@@ -8,12 +8,12 @@ import (
 	"time"
 
 	gouaa "github.com/cloudfoundry-community/go-uaa"
-	"github.com/cloudfoundry-incubator/notifications/gobble"
-	"github.com/cloudfoundry-incubator/notifications/mail"
-	"github.com/cloudfoundry-incubator/notifications/postal"
-	"github.com/cloudfoundry-incubator/notifications/uaa"
-	"github.com/cloudfoundry-incubator/notifications/v1/models"
-	"github.com/cloudfoundry-incubator/notifications/web"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/mail"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/uaa"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/web"
 	"github.com/pivotal-golang/lager"
 )
 

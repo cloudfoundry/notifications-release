@@ -3,12 +3,12 @@ package v1
 import (
 	"strings"
 
-	"github.com/cloudfoundry-incubator/notifications/db"
-	"github.com/cloudfoundry-incubator/notifications/gobble"
-	"github.com/cloudfoundry-incubator/notifications/mail"
-	"github.com/cloudfoundry-incubator/notifications/postal/common"
-	"github.com/cloudfoundry-incubator/notifications/uaa"
-	"github.com/cloudfoundry-incubator/notifications/v1/models"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/db"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/mail"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal/common"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/uaa"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
 	"github.com/pivotal-golang/lager"
 	"github.com/rcrowley/go-metrics"
 )

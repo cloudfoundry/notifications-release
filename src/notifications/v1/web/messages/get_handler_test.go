@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
-	"github.com/cloudfoundry-incubator/notifications/v1/services"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/messages"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/services"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/messages"
 	"github.com/ryanmoran/stack"
 
 	. "github.com/onsi/ginkgo/v2"

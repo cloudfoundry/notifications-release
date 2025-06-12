@@ -1,7 +1,7 @@
 package postal_test
 
 import (
-	"github.com/cloudfoundry-incubator/notifications/postal"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

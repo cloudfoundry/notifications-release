@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	"github.com/cloudfoundry-incubator/notifications/cf"
-	"github.com/cloudfoundry-incubator/notifications/v1/collections"
-	"github.com/cloudfoundry-incubator/notifications/v1/models"
-	"github.com/cloudfoundry-incubator/notifications/v1/services"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/webutil"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/cf"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/collections"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/services"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/webutil"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

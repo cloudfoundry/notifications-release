@@ -3,7 +3,7 @@ package services
 import (
 	"errors"
 
-	"github.com/cloudfoundry-incubator/notifications/v1/models"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
 )
 
 type Kind struct {

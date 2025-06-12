@@ -1,7 +1,7 @@
 package db_test
 
 import (
-	"github.com/cloudfoundry-incubator/notifications/db"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/db"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

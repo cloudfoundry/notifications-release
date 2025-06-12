@@ -1,8 +1,8 @@
 package mocks
 
 import (
-	"github.com/cloudfoundry-incubator/notifications/db"
-	"github.com/cloudfoundry-incubator/notifications/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/db"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
 )
 
 type PersistenceProvider struct {

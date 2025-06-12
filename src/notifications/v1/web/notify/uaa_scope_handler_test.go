@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"reflect"
 
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
-	"github.com/cloudfoundry-incubator/notifications/v1/web/notify"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/web/notify"
 	"github.com/ryanmoran/stack"
 
 	. "github.com/onsi/ginkgo/v2"

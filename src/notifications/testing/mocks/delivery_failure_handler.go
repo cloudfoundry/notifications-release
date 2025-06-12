@@ -1,7 +1,7 @@
 package mocks
 
 import (
-	"github.com/cloudfoundry-incubator/notifications/postal/common"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal/common"
 	"github.com/pivotal-golang/lager"
 )
 

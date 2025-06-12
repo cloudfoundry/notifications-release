@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/cloudfoundry-incubator/notifications/application"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/application"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

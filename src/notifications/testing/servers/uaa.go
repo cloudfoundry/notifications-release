@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cloudfoundry-incubator/notifications/application"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/application"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/gorilla/mux"
 )

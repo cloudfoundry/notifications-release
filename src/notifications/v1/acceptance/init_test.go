@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/cloudfoundry-incubator/notifications/testing/servers"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/servers"
 	"github.com/pivotal-cf/uaa-sso-golang/uaa"
 
 	. "github.com/onsi/ginkgo/v2"

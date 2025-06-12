@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	"github.com/cloudfoundry-incubator/notifications/web"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/web"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

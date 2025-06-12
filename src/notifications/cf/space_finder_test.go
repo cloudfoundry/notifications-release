@@ -3,8 +3,8 @@ package cf_test
 import (
 	"errors"
 
-	"github.com/cloudfoundry-incubator/notifications/cf"
-	"github.com/cloudfoundry-incubator/notifications/testing/mocks"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/cf"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/testing/mocks"
 	"github.com/pivotal-cf-experimental/rainmaker"
 
 	. "github.com/onsi/ginkgo/v2"

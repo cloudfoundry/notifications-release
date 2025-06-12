@@ -1,8 +1,8 @@
 package mocks
 
 import (
-	"github.com/cloudfoundry-incubator/notifications/mail"
-	"github.com/cloudfoundry-incubator/notifications/postal/common"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/mail"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/postal/common"
 )
 
 type Packager struct {

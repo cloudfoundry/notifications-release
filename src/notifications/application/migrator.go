@@ -3,9 +3,9 @@ package application
 import (
 	"database/sql"
 
-	"github.com/cloudfoundry-incubator/notifications/db"
-	"github.com/cloudfoundry-incubator/notifications/gobble"
-	"github.com/cloudfoundry-incubator/notifications/v1/models"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/db"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/gobble"
+	"github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/models"
 )
 
 type persistenceProvider interface {
