@@ -1,0 +1,56 @@
+name: notifications
+version: 81.0.2
+commit_hash: 2d05b9d
+uncommitted_changes: false
+jobs:
+- name: backup-restore-notifications
+  version: 58fd86dfd483aa55fcbb89bce1f3c41d0c225094e2e304797c14650ab56721a6
+  fingerprint: 58fd86dfd483aa55fcbb89bce1f3c41d0c225094e2e304797c14650ab56721a6
+  sha1: sha256:59d63dfd7ca510fa78675d89ab53480ca18ce6fa77e7ffced0151e135fa02d0e
+  packages: []
+- name: deploy-notifications
+  version: 83576efbc2e31c606f1e72907b22cf18e17bd6692cf17faeb23a0b41ee02e810
+  fingerprint: 83576efbc2e31c606f1e72907b22cf18e17bd6692cf17faeb23a0b41ee02e810
+  sha1: sha256:adbe868d6e19263de602ef48f50d82b15ded304a330a30dc0972e0fb459e659d
+  packages:
+  - notifications
+  - notifications-jq
+- name: destroy-notifications
+  version: 9da9a3ffa52463efd64072c1dff41755d7b6b54b870c31e1b67eefca9ff8564a
+  fingerprint: 9da9a3ffa52463efd64072c1dff41755d7b6b54b870c31e1b67eefca9ff8564a
+  sha1: sha256:283f8a75e9a903c7bc82300ecf15b3a98ec49dd4cd0358063f62af574c50d956
+  packages: []
+- name: test-notifications
+  version: 9a7f74ff3dcb98bafbe07ce07da45316292913f7d4844d65619a87e9c65438c4
+  fingerprint: 9a7f74ff3dcb98bafbe07ce07da45316292913f7d4844d65619a87e9c65438c4
+  sha1: sha256:6911b04a90b31df53d07d654d123da904045afdc94c35c14eb92f8434fc3fd00
+  packages:
+  - notifications
+  - golang-1-linux
+  - acceptance
+packages:
+- name: acceptance
+  version: 298766e359b9567f434f20eda0af5c0dc7d266bc4f7d7bc4bb57dee02bd012a5
+  fingerprint: 298766e359b9567f434f20eda0af5c0dc7d266bc4f7d7bc4bb57dee02bd012a5
+  sha1: sha256:80bada8c2649d1035423e7af457c7025768dc6a0d3776aaa4fc192908f56dbf1
+  dependencies: []
+- name: golang-1-linux
+  version: 4cb5a37cbce65d7f724843664959f99b3a43432a56099aeca3bb999dff9e4e99
+  fingerprint: 4cb5a37cbce65d7f724843664959f99b3a43432a56099aeca3bb999dff9e4e99
+  sha1: sha256:b027ab577be63d0eaa6eeac8d52e8b9400bab104aae9ecbae8a21afcc821a091
+  dependencies: []
+- name: notifications
+  version: 3adc30a31c37f61c640293c9720a78ef31928484da8836d822a510916a8e2bef
+  fingerprint: 3adc30a31c37f61c640293c9720a78ef31928484da8836d822a510916a8e2bef
+  sha1: sha256:19ed4855e3740efed63a2dbb438c0802a544f43bfbb2f23dd899feb9adb13534
+  dependencies:
+  - golang-1-linux
+- name: notifications-jq
+  version: 8a7db6cf85e4f6bc4fb758dc91c2c2fe31e4ae0c46b6b0974d5df78cd3782fbf
+  fingerprint: 8a7db6cf85e4f6bc4fb758dc91c2c2fe31e4ae0c46b6b0974d5df78cd3782fbf
+  sha1: sha256:62ac292e8fc9f2c2d78dcd645b97c103126ba748feb2ea89fb239cdd4ed121a1
+  dependencies: []
+license:
+  version: eef8d193ad801911af2a2a1926745c866578edc7836a16ab975b97a6e839bcd3
+  fingerprint: eef8d193ad801911af2a2a1926745c866578edc7836a16ab975b97a6e839bcd3
+  sha1: sha256:256bb5a8d37910806a2c4da8bec8abbc7400a410685b5c9e52a0140ad2a6e8db
