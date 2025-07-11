@@ -161,4 +161,6 @@ builds:
     version: 68.0.0
   f400503f-d103-455c-837a-a1a4cad6721e:
     version: "39"
+  fd9555c1-071f-4fc0-683c-3b7913d31996:
+    version: 81.0.3
 format-version: "2"
