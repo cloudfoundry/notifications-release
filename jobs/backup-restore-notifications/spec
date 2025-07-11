@@ -37,11 +37,25 @@ properties:
   notifications.database.ca_cert:
     description: 'CA certificate for authenticating the database connection'
   notifications.uaa.client_id:
-      description: 'Client id of the UAA'
+    description: 'Client id of the UAA'
   notifications.uaa.client_secret:
-      description: 'Client secret of the UAA'
+    description: 'Client secret of the UAA'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making HTTP and SMTP requests'
+  bbr.metadata:
+    description: "BBR Metadata"
+    default: |
+      ---
+      backup_should_be_locked_before:
+      - job_name: cloud_controller_ng
+        release: capi
+      - job_name: uaa
+        release: uaa
+      restore_should_be_locked_before:
+      - job_name: cloud_controller_ng
+        release: capi
+      - job_name: uaa
+        release: uaa"
   release_level_backup:
     default: false
     description: "Use newer bbr scripts which are split by release"
