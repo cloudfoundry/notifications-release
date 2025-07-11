@@ -42,7 +42,7 @@ properties:
     description: 'Client secret of the UAA'
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making HTTP and SMTP requests'
-  bbr.metadata:
+  notifications.bbr.metadata:
     description: "BBR Metadata"
     default: |
       ---

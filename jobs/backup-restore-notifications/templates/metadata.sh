@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-echo '<%= p("bbr.metadata") %>'
+echo '<%= p("notifications.bbr.metadata") %>'
