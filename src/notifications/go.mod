@@ -1,6 +1,6 @@
 module github.com/cloudfoundry/notifications-release/src/notifications/v81
 
-go 1.25.1
+go 1.25.2
 
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.2

@@ -1,6 +1,6 @@
 module github.com/cloudfoundry/notifications-release/src/acceptance/v81
 
-go 1.25.1
+go 1.25.2
 
 require (
 	bitbucket.org/chrj/smtpd v0.0.0-20170817182725-9ddcdbda0f7a
