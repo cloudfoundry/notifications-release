@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 
-PATH="/var/vcap/packages/cf-cli-8-linux/bin:$PATH"
+PATH="<%= properties.notifications.cli_path %>:$PATH"
 
 SCHEME="https"
 DOMAIN="<%= properties.domain %>"
