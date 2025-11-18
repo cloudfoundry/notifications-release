@@ -98,3 +98,6 @@ properties:
   notifications.error_on_misconfiguration:
     description: 'Throw error on service misconfiguration during deployment'
     default: true
+  notifications.cli_path:
+    description: 'path where the cli binary is stored'
+    default: /var/vcap/packages/cf-cli-8-linux/bin

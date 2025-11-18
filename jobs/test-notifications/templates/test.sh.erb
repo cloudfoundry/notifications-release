@@ -7,7 +7,7 @@ pushd /var/vcap/packages/acceptance
 
   export TMPDIR=${TMPDIR:-/tmp}
   echo TMPDIR=${TMPDIR}
-  export PATH=$PATH:/var/vcap/packages/cf-cli-8-linux/bin
+  export PATH=$PATH:<%= properties.notifications.cli_path %>
   export HOME=${TMPDIR}/home
   export CF_HOME=${TMPDIR}/cf-home
   export GOTMPDIR=${TMPDIR}/go/

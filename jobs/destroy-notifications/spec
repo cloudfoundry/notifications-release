@@ -23,5 +23,8 @@ properties:
     description: 'Organization where the app is deployed'
   notifications.space:
     description: 'Space where the app is deployed'
+  notifications.cli_path:
+    description: 'path where the cli binary is stored'
+    default: /var/vcap/packages/cf-cli-8-linux/bin
   ssl.skip_cert_verify:
     description: 'Whether to verify SSL certs when making HTTP and SMTP requests'

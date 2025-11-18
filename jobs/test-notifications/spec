@@ -31,3 +31,6 @@ properties:
     description: 'Space that contains the app'
   notifications.tests.performance:
     description: 'Toggle for running the performance tests'
+  notifications.cli_path:
+    description: 'path where the cli binary is stored'
+    default: /var/vcap/packages/cf-cli-8-linux/bin

@@ -1,6 +1,6 @@
 #!/bin/bash -exu
 
-export PATH="/var/vcap/packages/cf-cli-8-linux/bin:/var/vcap/packages/notifications-jq/bin:$PATH"
+export PATH="<%= properties.notifications.cli_path %>:/var/vcap/packages/notifications-jq/bin:$PATH"
 export CF_HOME="/var/vcap/data/deploy-notifications/cf-home"
 export CF_DIAL_TIMEOUT=<%= properties.notifications.cf.dial_timeout %>
 
