@@ -10,7 +10,7 @@ require (
 	github.com/go-sql-driver/mysql v1.9.3
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/gorilla/mux v1.8.1
-	github.com/onsi/ginkgo/v2 v2.27.4
+	github.com/onsi/ginkgo/v2 v2.27.5
 	github.com/onsi/gomega v1.39.0
 	github.com/pivotal-cf-experimental/rainmaker v0.0.0-20160401052143-d533d01b7c52
 	github.com/pivotal-cf/uaa-sso-golang v0.0.0-20141119184546-0b91e8ad4bb6
