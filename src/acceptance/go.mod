@@ -6,7 +6,7 @@ require (
 	bitbucket.org/chrj/smtpd v0.0.0-20170817182725-9ddcdbda0f7a
 	github.com/cloudfoundry/notifications-release/src/notifications/v81 v81.0.0
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
-	github.com/onsi/ginkgo/v2 v2.27.2
+	github.com/onsi/ginkgo/v2 v2.27.5
 	github.com/onsi/gomega v1.39.0
 	github.com/pivotal-cf-experimental/warrant v0.0.0-20211122194707-17385443920f
 )
