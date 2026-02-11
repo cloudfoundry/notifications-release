@@ -23,7 +23,7 @@ type SMTP struct {
 func NewSMTP() *SMTP {
 	return &SMTP{
 		server: &smtpd.Server{
-			Addr: "127.0.0.1:0",
+			Hostname: "127.0.0.1:0",
 		},
 		Deliveries: make([]smtpd.Envelope, 0),
 	}
