@@ -7,7 +7,7 @@ require (
 	github.com/cloudfoundry/notifications-release/src/notifications/v81 v81.0.0
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
 	github.com/onsi/ginkgo/v2 v2.28.1
-	github.com/onsi/gomega v1.39.0
+	github.com/onsi/gomega v1.39.1
 	github.com/pivotal-cf-experimental/warrant v0.0.0-20211122194707-17385443920f
 )
 
