@@ -5,7 +5,7 @@ go 1.26.2
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.2
 	github.com/PuerkitoBio/goquery v1.12.0
-	github.com/chrj/smtpd v0.3.1
+	github.com/chrj/smtpd v0.4.0
 	github.com/cloudfoundry-community/go-uaa v0.3.6
 	github.com/go-sql-driver/mysql v1.9.3
 	github.com/golang-jwt/jwt/v5 v5.3.1
