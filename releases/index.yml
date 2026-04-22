@@ -127,6 +127,8 @@ builds:
     version: "48"
   c158d3d9-a928-4d78-42ec-f5fbc7ca1c7f:
     version: 77.0.0
+  c27d0e2b-d1cc-44c0-57f9-9b7c07f94aa7:
+    version: 81.0.10
   c522b088-6680-41df-7b6d-fb952e4fb73b:
     version: 81.0.2
   c8963900-084f-4f66-5091-4c77e658bf61:
