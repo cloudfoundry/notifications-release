@@ -5,7 +5,7 @@ bitbucket.org/chrj/smtpd
 ## explicit; go 1.21
 github.com/Masterminds/semver/v3
 # github.com/cloudfoundry/notifications-release/src/notifications/v81 v81.0.0 => ../notifications
-## explicit; go 1.26.2
+## explicit; go 1.26.3
 github.com/cloudfoundry/notifications-release/src/notifications/v81/v1/acceptance/support
 # github.com/go-logr/logr v1.4.3
 ## explicit; go 1.18
@@ -56,7 +56,7 @@ github.com/onsi/ginkgo/v2/internal/reporters
 github.com/onsi/ginkgo/v2/internal/testingtproxy
 github.com/onsi/ginkgo/v2/reporters
 github.com/onsi/ginkgo/v2/types
-# github.com/onsi/gomega v1.40.0
+# github.com/onsi/gomega v1.41.0
 ## explicit; go 1.24.0
 github.com/onsi/gomega
 github.com/onsi/gomega/format
